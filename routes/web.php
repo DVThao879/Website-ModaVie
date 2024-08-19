@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('admin')->as('admin.')->group(function(){
+    Route::get('/', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+    // Route::resource('categories', CategoryController::class);
+    // Route::resource('products', ProductController::class);
+    // Route::resource('banners', BannerController::class);
+    // Route::resource('promotions', PromotionController::class);
+    // Route::resource('orders', OrderController::class);
+});
