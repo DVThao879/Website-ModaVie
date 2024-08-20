@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="{{asset('theme/admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
     @yield('style-libs')
 </head>
 
