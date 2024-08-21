@@ -54,14 +54,39 @@
                                     <div class="login-register-form">
                                         <form action="{{ route('register') }}" method="POST">
                                             @csrf
-                                            <input type="text" name="name" value="{{ old('name') }}" required
+                                            <div class="mb-4">
+                                                <input type="text" name="name" value="{{ old('name') }}" 
                                                 autofocus placeholder="Username">
-                                            <input name="email" placeholder="Email" type="email"
-                                                value="{{ old('email') }}" required>
-                                            <input type="password" name="password" placeholder="Password">
+                                                @error('name')
+                                                <p class="text-danger">
+                                                    {{$message}}
+                                                </p>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-4">
+                                                <input name="email" placeholder="Email" type="email"
+                                                value="{{ old('email') }}" >
+                                                @error('email')
+                                                <p class="text-danger">
+                                                    {{$message}}
+                                                </p>
+                                                @enderror
+                                            </div>
+                                           <div class="mb-4">
+                                            <input type="password" name="password" placeholder="Password" >
+
+                                           </div>
+                                           <div class="mb-4">
                                             <input type="password" name="password_confirmation"
-                                                placeholder="Re-enter password" required>
-                                            @if ($errors->any())
+                                            placeholder="Re-enter password" >
+                                            @error('password')
+                                            <p class="text-danger">
+                                                {{$message}}
+                                            </p>
+                                            @enderror
+                                           </div>
+                                            
+                                            {{-- @if ($errors->any())
                                                 <div class="alert alert-danger">
                                                     <ul>
                                                         @foreach ($errors->all() as $error)
@@ -69,7 +94,7 @@
                                                         @endforeach
                                                     </ul>
                                                 </div>
-                                            @endif
+                                            @endif --}}
                                             <div class="button-box">
                                                 <button type="submit">Register</button>
                                             </div>

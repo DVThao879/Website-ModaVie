@@ -36,15 +36,29 @@
                                     <div class="login-register-form">
                                         <form action="{{route('login')}}" method="POST">
                                             @csrf
-                                            <input type="email" name="email" placeholder="Email">
-                                            <input type="password" name="password" placeholder="Password">
+                                            <div class="mb-4">
+                                                <input type="email" name="email" placeholder="Email">
+                                                @error('email')
+                                                <p class="text-danger">
+                                                    {{$message}}
+                                                </p>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-4">
+                                                <input type="password" name="password" placeholder="Password">
+                                                @error('password')
+                                                <p class="text-danger">
+                                                    {{$message}}
+                                                </p>
+                                                @enderror
+                                            </div>
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
                                                     <input type="checkbox">
                                                     <label>Remember me</label>
                                                     <a href="#">Forgot Password?</a>
                                                 </div>
-                                                @if ($errors->any())
+                                                {{-- @if ($errors->any())
                                                 <div class="alert alert-danger">
                                                     <ul>
                                                         @foreach ($errors->all() as $error)
@@ -52,7 +66,7 @@
                                                         @endforeach
                                                     </ul>
                                                 </div>
-                                            @endif
+                                            @endif --}}
                                                 <button type="submit">Login</button>
                                             </div>
                                         </form>
