@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SizeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +26,7 @@ Route::prefix('admin')->as('admin.')->group(function(){
         return view('admin.dashboard');
     })->name('dashboard');
     Route::resource('categories', CategoryController::class);
-    // Route::resource('products', ProductController::class);
-    // Route::resource('banners', BannerController::class);
-    // Route::resource('promotions', PromotionController::class);
-    // Route::resource('orders', OrderController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('colors', ColorController::class);
+    Route::resource('sizes', SizeController::class);
 });
