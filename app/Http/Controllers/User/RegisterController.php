@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Mail\VerifyEmail;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 class RegisterController extends Controller
 {
@@ -35,6 +36,16 @@ class RegisterController extends Controller
 
         // tạo tài khoản
         $user = User::query()->create($data);
+        //     // Kiểm tra nếu đã gửi email xác thực và chưa hết hạn thì không gửi lại
+        // if ($user->email_verification_expires_at && $user->email_verification_expires_at->isFuture()) {
+        //     return redirect()->route('login')->withErrors([
+        //         'email' => 'Email xác thực đã được gửi, vui lòng kiểm tra hộp thư hoặc chờ liên kết hết hạn để gửi lại.',
+        //     ]);
+        // }
+            // Cập nhật thời gian hết hạn cho email xác thực (30 phút)
+    $user->update([
+        'email_verification_expires_at' => Carbon::now()->addMinutes(30)
+    ]);
         // Gửi email xác nhận
         $token = base64_encode($user->email);
         Mail::to($user->email)->send(new VerifyEmail($user->name, $token));
@@ -43,6 +54,6 @@ class RegisterController extends Controller
 //        Auth::login($user);
 //        // generate lại token
 //        $request->session()->regenerate();
-        return redirect()->route('login');
+        return redirect()->route('login')->with('status', 'Đăng ký thành công, vui lòng xác thực email.');
     }
 }

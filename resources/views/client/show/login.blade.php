@@ -34,6 +34,22 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
+                                        @if (session('status'))
+                                        <script>
+                                            window.onload = function() {
+                                                alert("{{ session('status') }}");
+                                            }
+                                        </script>
+                                            @endif
+                                            {{-- @if ($errors->any())
+                                            <div class="alert alert-secondary">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif --}}
                                         <form action="{{route('login')}}" method="POST">
                                             @csrf
                                             <div class="mb-4">
@@ -56,7 +72,9 @@
                                                 <div class="login-toggle-btn">
                                                     <input type="checkbox">
                                                     <label>Remember me</label>
-                                                    <a href="#">Forgot Password?</a>
+                                                    <a href="{{route('forgot')}}">Forgot Password?</a>
+                                                    <a href="{{route('register')}}">Register?</a>
+
                                                 </div>
                                                 {{-- @if ($errors->any())
                                                 <div class="alert alert-danger">

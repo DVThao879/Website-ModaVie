@@ -51,16 +51,26 @@ class LoginController extends Controller
         return redirect('/');
     }
 
-    public function verify($token) {
-        $user = User::query()->where('email', base64_decode($token))
-            ->where('email_verified_at', null)->first();
+    public function verify($token)
+    {
+        $user = User::query()
+            ->where('email', base64_decode($token))
+            ->where('email_verified_at', null)
+            ->where('email_verification_expires_at', '>', Carbon::now()) // Kiểm tra thời gian hết hạn
+            ->first();
+    
         if ($user) {
             $user->update(['email_verified_at' => Carbon::now()]);
-            // Login bằng tk user
             Auth::login($user);
-            // generate lại token
             \request()->session()->regenerate();
             return redirect()->intended('/');
         }
+    
+        // Nếu thời gian xác thực đã hết hạn, thông báo lỗi
+        return redirect('auth/login')->withErrors([
+            'email' => 'Liên kết xác thực đã hết hạn, vui lòng yêu cầu liên kết mới.',
+        ]);
     }
+    
+   
 }

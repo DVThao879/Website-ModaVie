@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\ForgotPasswordController;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\user\VerificationController;
@@ -35,3 +36,14 @@ Route::get('auth/register', [RegisterController::class, 'index'])
    ->name('register');
 Route::post('auth/register', [RegisterController::class, 'register'])
    ->name('register');
+   
+// Đổi mật khẩu
+   Route::get('password/reset/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+   Route::post('password/reset', [ForgotPasswordController::class, 'reset'])->name('password.update');
+   
+
+//Quên mật khẩu
+Route::get('auth/forgot',[ForgotPasswordController::class, 'forgotForm'])->name('forgot');
+Route::post('auth/forgot',[ForgotPasswordController::class, 'forgot'])->name('forgot.password');
+Route::get('verify-email/{token}', [ForgotPasswordController::class, 'verifyEmail'])->name('verify.email');
+
