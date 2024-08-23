@@ -10,8 +10,6 @@ Sửa danh mục
 @endsection
 
 @section('script-libs')
-<!-- ckeditor -->
-<script src="{{asset('theme/admin/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js')}}"></script>
 <!-- dropzone js -->
 <script src="{{asset('theme/admin/libs/dropzone/dropzone-min.js')}}"></script>
 

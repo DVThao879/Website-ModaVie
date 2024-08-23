@@ -13,4 +13,9 @@ class Color extends Model
         'name',
         'hex_code'
     ];
+
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
 }

@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="card shadow-sm">
-    <div class="card-header">
+    <div class="card-header bg-primary text-white">
         <h4 class="mb-0">Chi tiết size</h4>
     </div>
     <div class="card-body">
