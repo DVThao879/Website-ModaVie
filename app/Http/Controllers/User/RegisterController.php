@@ -54,6 +54,6 @@ class RegisterController extends Controller
 //        Auth::login($user);
 //        // generate lại token
 //        $request->session()->regenerate();
-        return redirect()->route('login')->with('status', 'Đăng ký thành công, vui lòng xác thực email.');
+        return redirect()->route('user.login')->with('status', 'Đăng ký thành công, vui lòng xác thực email.');
     }
 }

@@ -67,7 +67,7 @@ class LoginController extends Controller
         }
     
         // Nếu thời gian xác thực đã hết hạn, thông báo lỗi
-        return redirect('auth/login')->withErrors([
+        return redirect('user/auth/login')->withErrors([
             'email' => 'Liên kết xác thực đã hết hạn, vui lòng yêu cầu liên kết mới.',
         ]);
     }

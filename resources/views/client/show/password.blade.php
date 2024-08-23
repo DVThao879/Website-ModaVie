@@ -35,12 +35,12 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form method="POST" action="{{ route('password.update') }}"> 
+                                        <form method="POST" action="{{ route('user.password.update') }}"> 
                                             @csrf
                                             <input type="hidden" name="token" value="{{ $token }}">
                                                                     
                                             <div class="mb-4">
-                                                <input type="text" name="email" placeholder="Email" value="{{ $email }}" disabled>
+                                                <input type="hidden" name="email" placeholder="Email" value="{{ $email }}">
                                                
                                             </div>
                 

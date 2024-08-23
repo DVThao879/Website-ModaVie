@@ -37,21 +37,21 @@ class ForgotPasswordController extends Controller
         $token = base64_encode($user->email);
         Mail::to($user->email)->send(new VerifyEmailPassword($user->name, $token));
 
-        return redirect()->route('forgot')->with('status', 'Link xác thực đã được gửi, vui lòng kiểm tra email của bạn.');
+        return redirect()->route('user.forgot')->with('status', 'Link xác thực đã được gửi, vui lòng kiểm tra email của bạn.');
     }
     public function verifyEmail($token) {
         $email = base64_decode($token);
         $user = User::where('email', $email)->first();
     
         if (!$user) {
-            return redirect()->route('login')->withErrors(['email' => 'Email không hợp lệ.']);
+            return redirect()->route('user.login')->withErrors(['email' => 'Email không hợp lệ.']);
         }
     
         // Đánh dấu email đã được xác thực
         $user->email_verified_at = now();
         $user->save();
     
-        return redirect()->route('password.reset', ['token' => $token])->with('status', 'Email đã được xác thực. Bạn có thể đặt lại mật khẩu.');
+        return redirect()->route('user.password.reset', ['token' => $token])->with('status', 'Email đã được xác thực. Bạn có thể đặt lại mật khẩu.');
     }
 
 
@@ -69,30 +69,31 @@ class ForgotPasswordController extends Controller
     
 
     public function reset(Request $request)
-{
-    // Xác thực dữ liệu đầu vào
-    $request->validate([
-        // 'token' => 'required',
-        // 'email' => 'required|email',
-        'password' => 'required|confirmed|min:8',
-    ],[
-        'password.required'=>'Vui lòng không được bỏ trống',
-        'password.min'=>'Mật khẩu ít nhất 8 ký tự',
-        'password.confirmed'=>'Mật khẩu không trùng khớp'
-    ]);
-
-    // Tìm người dùng dựa trên email
-    $user = User::where('email', $request->email)->first();
-
-    // Kiểm tra người dùng có tồn tại không
-    if (!$user) {
-        return back()->withErrors(['email' => 'Email không hợp lệ.']);
+    {
+        $request->validate([
+           
+            'password' => 'required|confirmed|min:8',
+        ],[
+            
+            'password.required'=>'Vui lòng không được bỏ trống',
+            'password.min'=>'Mật khẩu ít nhất 8 ký tự',
+            'password.confirmed'=>'Mật khẩu không trùng khớp'
+        ]);
+    // dd($request->email);
+        // Tìm người dùng dựa trên email
+        $user = User::where('email', $request->email)->first();
+        
+        // Kiểm tra người dùng có tồn tại không
+        if (!$user) {
+            return back()->withErrors(['email' => 'Email không hợp lệ.']);
+        }
+    
+        // Cập nhật mật khẩu cho người dùng
+        $user->password = Hash::make($request->password);
+        $user->save();
+    
+        return redirect()->route('user.login')->with('status', 'Mật khẩu đã được đổi thành công!');
     }
-
-    // Cập nhật mật khẩu cho người dùng
-    $user->password = Hash::make($request->password);
-    $user->save();
-    return redirect()->route('login')->with('status', 'Mật khẩu đã được đổi thành công!');
-}
+    
 
 }

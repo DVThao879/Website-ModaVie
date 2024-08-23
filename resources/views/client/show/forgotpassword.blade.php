@@ -34,7 +34,7 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="{{ route('forgot') }}" method="POST">
+                                        <form action="{{ route('user.forgot') }}" method="POST">
                                             @csrf
                                             <div class="mb-4">
                                                 <input type="email" name="email" placeholder="Email">
@@ -68,9 +68,9 @@
                                                 <div class="login-toggle-btn">
                                                     {{-- <input type="checkbox"> --}}
                                                     {{-- <label>Login</label> --}}
-                                                    <a href="{{route('register')}}">Register?</a>
+                                                    <a href="{{route('user.register')}}">Register?</a>
 
-                                                    <a href="{{route('login')}}">Login, </a>
+                                                    <a href="{{route('user.login')}}">Login, </a>
 
                                                 </div>
                                                 {{-- @if ($errors->any())

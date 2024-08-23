@@ -52,7 +52,7 @@
                             <div id="lg2" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="{{ route('register') }}" method="POST">
+                                        <form action="{{ route('user.register') }}" method="POST">
                                             @csrf
                                             <div class="mb-4">
                                                 <input type="text" name="name" value="{{ old('name') }}" 

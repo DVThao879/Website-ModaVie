@@ -97,31 +97,45 @@
                             <a class="setting-active" href="#"><i class="la la-cog"></i></a>
                             <div class="setting-content">
                                 <ul>
+
                                     <li>
-                                        <h4>Currency</h4>
+                                        <a href="">
+                                            <h4>Tài Khoản</h4>
+                                        </a>
+                                    </li>
+
+                                    <li>
                                         <ul>
-                                            <li><a href="#">USD</a></li>
-                                            <li><a href="#">Euro</a></li>
-                                            <li><a href="#">Real</a></li>
-                                            <li><a href="#">BDT</a></li>
+                                            @if(Auth::check())
+                                                {{-- <h4>Tài khoản</h4> --}}
+                                                <li><a href="">Xin chào,
+                                                    {{ Auth::user()->name }}</a>
+                                                </li>
+                                                    <li><a href="{{ route('user.my_acount') }}">Xem thông tin</a></li>
+                                                    @if(Auth::user()->type === 1)
+                                                     <li><a href="">Quản trị viên</a></li>
+
+                                                    {{-- <li><a href="{{ route('admin.dashboard') }}">Quản trị viên</a></li> --}}
+                                                    @endif
+                                                    <li>
+                                                        <form action="{{ route('user.logout') }}" method="post">
+                                                            @csrf
+                                                            <button type="submit" style="border: none; background: none; cursor: pointer;">Thoát</button>
+                                                        </form>
+                                                        
+                                                    </li>
+                                                    
+                                            @else
+                                                <li><a href="{{ route('user.login')}}">Đăng nhập</a></li>
+                                                <li><a href="{{ route('user.register') }}">Đăng ký</a></li>
+                                            @endif
                                         </ul>
                                     </li>
-                                    <li>
-                                        <h4>Language</h4>
-                                        <ul>
-                                            <li><a href="#">English (US)</a></li>
-                                            <li><a href="#">English (UK)</a></li>
-                                            <li><a href="#">Spanish</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <h4>Account</h4>
-                                        <ul>
-                                            <li><a href="login-register.html">Login</a></li>
-                                            <li><a href="login-register.html">Creat Account</a></li>
-                                            <li><a href="my-account.html">My Account</a></li>
-                                        </ul>
-                                    </li>
+
+                                    
+
+                                   
+                                    
                                 </ul>
                             </div>
                         </div>

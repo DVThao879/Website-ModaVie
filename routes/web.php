@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\AcountController;
 use App\Http\Controllers\User\ForgotPasswordController;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\RegisterController;
@@ -21,14 +22,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('client.home');
 });
-
+Route::prefix('user')->as('user.')->group(function(){
 // khai báo route cho login và register
 Route::get('auth/login', [LoginController::class, 'index'])
    ->name('login');
 Route::post('auth/login', [LoginController::class, 'login'])
    ->name('login');
-Route::get('auth/logout', [LoginController::class, 'logout'])
+Route::post('auth/logout', [LoginController::class, 'logout'])
    ->name('logout');
+
 Route::get('auth/verify/{token}', [LoginController::class, 'verify'])
    ->name('verify');
 
@@ -47,3 +49,8 @@ Route::get('auth/forgot',[ForgotPasswordController::class, 'forgotForm'])->name(
 Route::post('auth/forgot',[ForgotPasswordController::class, 'forgot'])->name('forgot.password');
 Route::get('verify-email/{token}', [ForgotPasswordController::class, 'verifyEmail'])->name('verify.email');
 
+//Xem thông tin
+Route::get('/my_aucount',[AcountController::class,'myAucount'])->name('my_acount');
+//Cập nhật tài khoản
+Route::post('/my_aucount/update/{id}',[AcountController::class,'updateMyAcount'])->name('updateMyAcount');
+});
