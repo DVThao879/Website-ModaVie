@@ -32,7 +32,7 @@ class StoreProductRequest extends FormRequest
             'status' => 'required',
             'is_active' => 'required',
             'product_galleries' => 'required',
-            'product_galleries.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'product_galleries.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'variants.*.size_id' => 'required',
             'variants.*.color_id' => 'required',
             'variants.*.quantity' => 'required|integer|min:1',
@@ -74,7 +74,6 @@ class StoreProductRequest extends FormRequest
 
             'product_galleries.required' => 'Thư viện ảnh là bắt buộc',
 
-            'product_galleries.*.required' => 'Ảnh trong bộ sưu tập là bắt buộc',
             'product_galleries.*.image' => 'Mỗi ảnh trong bộ sưu tập phải là một hình ảnh',
             'product_galleries.*.mimes' => 'Mỗi ảnh trong bộ sưu tập chỉ được phép có định dạng jpeg, png, jpg, hoặc gif',
             'product_galleries.*.max' => 'Mỗi ảnh trong bộ sưu tập không được vượt quá 2048KB',

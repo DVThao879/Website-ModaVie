@@ -46,6 +46,7 @@ class ProductController extends Controller
     {
         $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
         $data['slug'] = Str::slug($data['name']);
+        $data['price_sale'] ??= 0;
         $uploadedFiles = [];
         if (!empty($request->hasFile('img_thumb'))) {
             $data['img_thumb'] = Storage::put('products', $request->file('img_thumb'));
@@ -131,6 +132,7 @@ class ProductController extends Controller
     {
         $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
         $data['slug'] = Str::slug($data['name']);
+        $data['price_sale'] ??= 0;
         $uploadedFiles = [];
 
         if ($request->hasFile('img_thumb')) {
