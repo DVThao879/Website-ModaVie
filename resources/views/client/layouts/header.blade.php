@@ -94,7 +94,16 @@
                             <a class="search-active" href="#"><i class="la la-search"></i></a>
                         </div>
                         <div class="same-style setting-wrap ml-15">
+                            @if(Auth::check())
+                            <a class="setting-active" href="#"><a class="setting-active" href="#">
+                                <img width="30" src="{{ Auth::check() ? Storage::url(Auth::user()->image ?? 'user/avata.jpg') : Storage::url('user/avata.jpg') }}" alt="" style="border-radius: 50%; border: 2px solid #ddd;">
+                            </a>
+                            </a>
+
+                            @else
                             <a class="setting-active" href="#"><i class="la la-cog"></i></a>
+
+                            @endif
                             <div class="setting-content">
                                 <ul>
 

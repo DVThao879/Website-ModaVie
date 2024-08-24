@@ -53,4 +53,7 @@ Route::get('verify-email/{token}', [ForgotPasswordController::class, 'verifyEmai
 Route::get('/my_aucount',[AcountController::class,'myAucount'])->name('my_acount');
 //Cập nhật tài khoản
 Route::post('/my_aucount/update/{id}',[AcountController::class,'updateMyAcount'])->name('updateMyAcount');
+//Cập nhật mật khẩu
+// Route::post('/my_aucount/password/update/{id}',[AcountController::class,'updatePassword'])->name('updatePassword');
+
 });

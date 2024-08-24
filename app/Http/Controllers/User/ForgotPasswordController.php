@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Mail\VerifyEmailPassword;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,10 @@ class ForgotPasswordController extends Controller
         if (!$user->hasVerifiedEmail()) {
             return back()->withErrors(['email' => 'Email chưa được xác thực. Vui lòng kiểm tra hộp thư của bạn.']);
         }
-
+       // Cập nhật thời gian hết hạn cho email xác thực (30 phút)
+       $user->update([
+        'email_verification_expires_at' => Carbon::now()->addMinutes(30)
+    ]);
         // Tạo token và gửi email xác thực
         $token = base64_encode($user->email);
         Mail::to($user->email)->send(new VerifyEmailPassword($user->name, $token));
@@ -46,7 +50,10 @@ class ForgotPasswordController extends Controller
         if (!$user) {
             return redirect()->route('user.login')->withErrors(['email' => 'Email không hợp lệ.']);
         }
-    
+     // Kiểm tra xem thời gian xác thực có còn hợp lệ hay không
+     if (Carbon::now()->greaterThan($user->email_verification_expires_at)) {
+        return redirect()->route('user.forgot')->withErrors(['email' => 'Link xác thực đã hết hạn. Vui lòng yêu cầu gửi lại link.']);
+    }
         // Đánh dấu email đã được xác thực
         $user->email_verified_at = now();
         $user->save();
