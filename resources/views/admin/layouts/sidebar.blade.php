@@ -95,11 +95,8 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Danh sách chức năng:</h6>
-                <a class="collapse-item" href="">Danh sách</a>
-                <a class="collapse-item" href="">Thêm</a>
-                {{-- {{ route('admin.banners.index') }}
-                {{ route('admin.banners.create') }} --}}
-
+                <a class="collapse-item" href="{{ route('admin.banners.index') }}">Danh sách</a>
+                <a class="collapse-item" href="{{ route('admin.banners.create') }}">Thêm</a>
                 {{-- <a class="collapse-item" href="#">Forgot Password</a>
                 <div class="collapse-divider"></div>
                 <h6 class="collapse-header">Other Pages:</h6>

@@ -6,39 +6,40 @@ Chi tiết sản phẩm
 
 @section('content')
 <div class="card shadow-sm">
-    <div class="card-header bg-primary text-white">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Chi tiết sản phẩm</h4>
+        <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-light btn-sm">Chỉnh sửa</a>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
                 <ul class="list-unstyled">
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-card-heading mr-2"></i>
+                        <i class="bi bi-card-heading mr-2 text-primary"></i>
                         <strong>ID:</strong> <span class="ml-2">{{$product->id}}</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-tag-fill mr-2"></i>
+                        <i class="bi bi-tag-fill mr-2 text-primary"></i>
                         <strong>Tên:</strong> <span class="ml-2">{{$product->name}}</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-link-45deg mr-2"></i>
+                        <i class="bi bi-link-45deg mr-2 text-primary"></i>
                         <strong>Slug:</strong> <span class="ml-2">{{$product->slug}}</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-upc-scan mr-2"></i>
+                        <i class="bi bi-upc-scan mr-2 text-primary"></i>
                         <strong>SKU:</strong> <span class="ml-2">{{$product->sku}}</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-folder mr-2"></i>
+                        <i class="bi bi-folder mr-2 text-primary"></i>
                         <strong>Danh mục:</strong> <span class="ml-2">{{$product->category->name}}</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-calendar3 mr-2"></i>
+                        <i class="bi bi-calendar3 mr-2 text-primary"></i>
                         <strong>Ngày tạo:</strong> <span class="ml-2">{{$product->created_at->format('d/m/Y H:i')}}</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-pencil-square mr-2"></i>
+                        <i class="bi bi-pencil-square mr-2 text-primary"></i>
                         <strong>Ngày sửa:</strong> <span class="ml-2">{{$product->updated_at->format('d/m/Y H:i')}}</span>
                     </li>
                 </ul>
@@ -46,21 +47,21 @@ Chi tiết sản phẩm
             <div class="col-md-6">
                 <ul class="list-unstyled">
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-cash mr-2"></i>
+                        <i class="bi bi-cash mr-2 text-primary"></i>
                         <strong>Giá:</strong> <span class="ml-2">{{number_format($product->price, 0, ",", ".")}} VNĐ</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-cash-stack mr-2"></i>
+                        <i class="bi bi-cash-stack mr-2 text-primary"></i>
                         <strong>Giá khuyến mại:</strong> <span class="ml-2">{{number_format($product->price_sale, 0, ",", ".")}} VNĐ</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-toggle-on mr-2"></i>
-                        <strong>Trạng thái HĐ:</strong> <span class="ml-2">{!! $product->is_active ? '<span class="badge badge-success">Hoạt động</span>' : '<span class="badge badge-danger">Không hoạt động</span>' !!}</span>
+                        <i class="bi bi-toggle-on mr-2 text-primary"></i>
+                        <strong>Trạng thái HĐ:</strong> <span class="ml-2">{!! $product->is_active ? '<span class="text-success">Hoạt động</span>' : '<span class="text-danger">Không hoạt động</span>' !!}</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-check-circle mr-2"></i>
+                        <i class="bi bi-check-circle mr-2 text-primary"></i>
                         <strong>Trạng thái SP:</strong> 
-                        <span class="ml-2 badge badge-success">
+                        <span class="ml-2 text-success">
                             @if($product->status == 0)
                                 Không chọn
                             @elseif($product->status == 1)
@@ -73,7 +74,7 @@ Chi tiết sản phẩm
                         </span>
                     </li>
                     <li class="mb-3 d-flex align-items-start">
-                        <i class="bi bi-file-text mr-2"></i>
+                        <i class="bi bi-file-text mr-2 text-primary"></i>
                         <div>
                             <strong>Mô tả:</strong>
                             <div class="mt-2">

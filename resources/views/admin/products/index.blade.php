@@ -64,7 +64,7 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>
-                                    <div style="width: 100px; height: 120px;">
+                                    <div style="width: 100px; height: 130px;">
                                         <img src="{{ Storage::url($item->img_thumb) }}" alt="Product Image" class="img-fluid" style=" width: 100%; height: 100%;">
                                     </div>
                                 </td>

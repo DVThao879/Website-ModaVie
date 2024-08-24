@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
+use App\Http\Controllers\Admin\BannerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +30,5 @@ Route::prefix('admin')->as('admin.')->group(function(){
     Route::resource('products', ProductController::class);
     Route::resource('colors', ColorController::class);
     Route::resource('sizes', SizeController::class);
+    Route::resource('banners', BannerController::class);
 });
