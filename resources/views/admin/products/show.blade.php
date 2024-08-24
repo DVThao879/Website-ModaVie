@@ -132,8 +132,8 @@ Chi tiết sản phẩm
                         </div>
                     </td>
                     <td>{{ $item->quantity }}</td>
-                    <td>{{number_format($product->price, 0, ",", ".")}} VNĐ</td>
-                    <td>{{number_format($product->price_sale, 0, ",", ".")}} VNĐ</td>
+                    <td>{{number_format($item->price, 0, ",", ".")}} VNĐ</td>
+                    <td>{{number_format($item->price_sale, 0, ",", ".")}} VNĐ</td>
                 </tr>
                 @endforeach
             </tbody>
