@@ -113,29 +113,32 @@
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
-                                                                <label for="first-name" class="required">Tên</label>
-                                                                <input type="text" id="first-name" name="name"
+                                                                <label for="" class="required">Tên</label>
+                                                                <input type="text"  name="name"
                                                                     value="{{ Auth::user()->name }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
-                                                                <label for="last-name" class="required">Email</label>
-                                                                <input type="text" id="last-name" name="email"
+                                                                <label for="" class="required">Email</label>
+                                                                <input type="text" name="email"
                                                                     value="{{ Auth::user()->email }}">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="single-input-item">
-                                                        <label for="display-name" class="required">Địa chỉ</label>
-                                                        <input type="text" id="display-name" name="address"
-                                                            value="{{ Auth::user()->address }}">
+                                                        <label for="" class="required">Địa chỉ</label>
+                                                        {{-- <input type="text" name="address"
+                                                            value="{{ Auth::user()->address }}"> --}}
+                                                            <input type="text" id="last-name" name="address"
+                                                                    value="{{ Auth::user()->address }}">
                                                     </div>
                                                     <div class="single-input-item">
-                                                        <label for="email" class="required">Điện thoại</label>
-                                                        <input type="text" id="email" name="phone"
+                                                        <label for="" class="required">Điện thoại</label>
+                                                        <input type="text" id="" name="phone"
                                                             value="{{ Auth::user()->phone }}">
                                                     </div>
+
                                                     <div class="single-input-item">
                                                         <label for="email" class="required">Ảnh</label>
                                                         <input type="file" id="email" name="image">
