@@ -1,11 +1,13 @@
 <?php
 
+
 use App\Http\Controllers\User\AcountController;
 use App\Http\Controllers\User\ForgotPasswordController;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\user\VerificationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('client.home');
 });
+
 Route::prefix('user')->as('user.')->group(function(){
 // khai báo route cho login và register
 Route::get('auth/login', [LoginController::class, 'index'])
@@ -56,4 +59,15 @@ Route::post('/my_aucount/update/{id}',[AcountController::class,'updateMyAcount']
 //Cập nhật mật khẩu
 // Route::post('/my_aucount/password/update/{id}',[AcountController::class,'updatePassword'])->name('updatePassword');
 
+});
+
+Route::prefix('admin')->as('admin.')->group(function(){
+    Route::get('/', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+    Route::resource('categories', CategoryController::class);
+    // Route::resource('products', ProductController::class);
+    // Route::resource('banners', BannerController::class);
+    // Route::resource('promotions', PromotionController::class);
+    // Route::resource('orders', OrderController::class);
 });
