@@ -53,13 +53,29 @@
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Danh sách chức năng:</h6>
-                <a class="collapse-item" href="">Danh sách</a>
-                <a class="collapse-item" href="">Thêm</a>
-                {{-- {{route('admin.products.index')}}
-                {{route('admin.products.create')}} --}}
+                <a class="collapse-item" href="{{route('admin.products.index')}}">Danh sách</a>
+                <a class="collapse-item" href="{{route('admin.products.create')}}">Thêm</a>
             </div>
         </div>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAttributes"
+           aria-expanded="true" aria-controls="collapseAttributes">
+            <i class="fas fa-fw fa-tags"></i>
+            <span>Quản lý thuộc tính</span>
+        </a>
+        <div id="collapseAttributes" class="collapse" aria-labelledby="headingAttributes"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Danh sách chức năng:</h6>
+                <a class="collapse-item" href="{{ route('admin.colors.index') }}">Danh sách màu sắc</a>
+                <a class="collapse-item" href="{{ route('admin.colors.create') }}">Thêm màu sắc</a>
+                <a class="collapse-item" href="{{ route('admin.sizes.index') }}">Danh sách kích thước</a>
+                <a class="collapse-item" href="{{ route('admin.sizes.create') }}">Thêm kích thước</a>
+            </div>
+        </div>
+    </li>    
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -79,11 +95,8 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Danh sách chức năng:</h6>
-                <a class="collapse-item" href="">Danh sách</a>
-                <a class="collapse-item" href="">Thêm</a>
-                {{-- {{ route('admin.banners.index') }}
-                {{ route('admin.banners.create') }} --}}
-
+                <a class="collapse-item" href="{{ route('admin.banners.index') }}">Danh sách</a>
+                <a class="collapse-item" href="{{ route('admin.banners.create') }}">Thêm</a>
                 {{-- <a class="collapse-item" href="#">Forgot Password</a>
                 <div class="collapse-divider"></div>
                 <h6 class="collapse-header">Other Pages:</h6>

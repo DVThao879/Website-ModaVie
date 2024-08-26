@@ -10,8 +10,6 @@ Thêm danh mục
 @endsection
 
 @section('script-libs')
-<!-- ckeditor -->
-<script src="{{asset('theme/admin/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js')}}"></script>
 <!-- dropzone js -->
 <script src="{{asset('theme/admin/libs/dropzone/dropzone-min.js')}}"></script>
 
@@ -19,7 +17,7 @@ Thêm danh mục
 @endsection
 
 @section('content')
-<form action="{{route('admin.categories.store')}}" method="post" enctype="multipart/form-data">
+<form action="{{route('admin.categories.store')}}" method="post">
     @csrf
     <div class="row">
         <div class="col-xl-12 col-lg-12">

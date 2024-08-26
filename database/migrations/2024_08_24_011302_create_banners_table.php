@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255)->unique();
+            $table->string('title');
+            $table->string('image');
+            $table->string('link')->nullable(); // Liên kết đến trang khác khi click vào banner
+            $table->string('description');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('banners');
     }
 };

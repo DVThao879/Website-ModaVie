@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-Sửa danh mục
+Sửa size
 @endsection
 
 @section('style-libs')
@@ -17,7 +17,7 @@ Sửa danh mục
 @endsection
 
 @section('content')
-<form action="{{route('admin.categories.update', $category)}}" method="post">
+<form action="{{route('admin.sizes.update', $size)}}" method="post">
     @csrf
     @method('PUT')
     <div class="row">
@@ -26,21 +26,17 @@ Sửa danh mục
                 <!-- Main product information -->
                 <a href="#collapseProductInfo" class="d-block card-header py-3" data-toggle="collapse"
                     role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                    <h6 class="m-0 font-weight-bold text-primary">Thông tin danh mục</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Thông tin size</h6>
                 </a>
                 <!-- Card Content - Collapse -->
                 <div class="collapse show" id="collapseProductInfo">
                     <div class="card-body">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Tên danh mục</label>
-                            <input type="text" class="form-control" id="name" placeholder="Nhập tên danh mục..." value="{{ old('name', $category->name) }}" name="name" required>
+                            <label for="name" class="form-label">Tên size</label>
+                            <input type="text" class="form-control" id="name" placeholder="Nhập tên size..." value="{{ old('name', $size->name) }}" name="name" required>
                             @error('name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="is_active" class="form-label">Trạng thái</label>
-                            <input class="form-check-input ml-2" value="1" type="checkbox" name="is_active" id="is_active" @checked($category->is_active)>
                         </div>
                     </div>
                 </div>
