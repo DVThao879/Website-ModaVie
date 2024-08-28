@@ -96,7 +96,7 @@
                         <div class="same-style setting-wrap ml-15">
                             @if(Auth::check())
                             <a class="setting-active" href="#"><a class="setting-active" href="#">
-                                <img width="30" src="{{ Auth::check() ? Storage::url(Auth::user()->image ?? 'user/avata.jpg') : Storage::url('user/avata.jpg') }}" alt="" style="border-radius: 50%; border: 2px solid #ddd;">
+                                <img width="30" src="{{ Auth::check() ? Storage::url(Auth::user()->image ?? 'users/avata.jpg') : Storage::url('users/avata.jpg') }}" alt="" style="border-radius: 50%; border: 2px solid #ddd;">
                             </a>
                             </a>
 
@@ -121,7 +121,7 @@
                                                     {{ Auth::user()->name }}</a>
                                                 </li>
                                                     <li><a href="{{ route('user.my_acount') }}">Xem thông tin</a></li>
-                                                    @if(Auth::user()->type === 1)
+                                                    @if(Auth::user()->role == 1)
                                                      <li><a href="">Quản trị viên</a></li>
 
                                                     {{-- <li><a href="{{ route('admin.dashboard') }}">Quản trị viên</a></li> --}}
