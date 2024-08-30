@@ -14,11 +14,10 @@ class Product extends Model
         'slug',
         'sku',
         'img_thumb',
-        'price',
-        'price_sale',
+        'price_min',
+        'price_max',
         'description',
         'category_id',
-        'status',
         'is_active',
     ];
 

@@ -46,7 +46,6 @@ class ProductController extends Controller
     {
         $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
         $data['slug'] = Str::slug($data['name']);
-        $data['price_sale'] ??= 0;
         $uploadedFiles = [];
         if (!empty($request->hasFile('img_thumb'))) {
             $data['img_thumb'] = Storage::put('products', $request->file('img_thumb'));
@@ -132,9 +131,7 @@ class ProductController extends Controller
     {
         $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
         $data['slug'] = Str::slug($data['name']);
-        $data['price_sale'] ??= 0;
         $uploadedFiles = [];
-
         if ($request->hasFile('img_thumb')) {
             if ($product->img_thumb && Storage::exists($product->img_thumb)) {
                 Storage::delete($product->img_thumb);
@@ -201,10 +198,11 @@ class ProductController extends Controller
                 foreach ($existingVariants as $variant) {
                     $variant->delete();
                 }
-            }else {
-                // Xóa tất cả các biến thể nếu không có dữ liệu gửi lên
-                ProductVariant::where('product_id', $product->id)->delete();
             }
+            // else {
+            //     // Xóa tất cả các biến thể nếu không có dữ liệu gửi lên
+            //     ProductVariant::where('product_id', $product->id)->delete();
+            // }
 
             DB::commit();
             return redirect()->route('admin.products.index')->with('message', 'Sửa thành công');
@@ -261,7 +259,7 @@ class ProductController extends Controller
             $product->delete();
             DB::commit();
             return redirect()->route('admin.products.index')->with('message', 'Xóa thành công');
-        } catch (\Exception $exception) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('message', 'Xóa thất bại');
         }

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Danh sách sản phẩm
+    Danh sách tài khoản
 @endsection
 
 @section('style-libs')
@@ -22,10 +22,6 @@
     @if(session('message'))
         <p class="alert alert-success">{{session('message')}}</p>
     @endif
-
-    <a href="{{route('admin.products.create')}}" class="mb-3">
-        <button class="btn btn-success">Tạo mới</button>
-    </a>
     <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-3">
         <div class="card-header py-3">
@@ -37,25 +33,21 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên</th>
-                        <th>Ảnh</th>
-                        <th>Giá</th>
-                        <th>Giá sale</th>
-                        <th>Danh mục</th>
+                        <th>Tên tài khoản</th>
+                        <th>Email</th>
+                        <th>Quyền</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
                     </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID</th>
-                            <th>Tên</th>
-                            <th>Ảnh</th>
-                            <th>Giá min</th>
-                            <th>Giá max</th>
-                            <th>Danh mục</th>
-                            <th>Trạng thái</th>
-                            <th>Hành động</th>
+                        <th>ID</th>
+                        <th>Tên tài khoản</th>
+                        <th>Email</th>
+                        <th>Quyền</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -63,19 +55,15 @@
                             <tr>
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
+                                <td>{{$item->email}}</td>
+                                <td>{{ $item->role == 0 ? 'Khách hàng' : ($item->role == 1 ? 'Nhân viên' : 'Admin') }}</td>
                                 <td>
-                                    <div style="width: 100px; height: 130px;">
-                                        <img src="{{ Storage::url($item->img_thumb) }}" alt="Product Image" class="img-fluid" style=" width: 100%; height: 100%;">
-                                    </div>
+                                   {!! $item->is_active ? '<span class="badge bg-success text-white">Hoạt động</span>' : '<span class="badge bg-danger text-white">Không hoạt động</span>' !!}
                                 </td>
-                                <td>{{number_format($item->price_min, 0, ",", ".")}} VNĐ</td>
-                                <td>{{number_format($item->price_max, 0, ",", ".")}} VNĐ</td>
-                                <td>{{$item->category->name}}</td>
-                                <td>{!! $item->is_active ? '<span class="badge bg-success text-white">Hoạt động</span>' : '<span class="badge bg-danger text-white">Không hoạt động</span>' !!}</td>
                                 <td class="d-flex">
-                                    <a href="{{ route('admin.products.show', $item) }}" class="btn btn-primary mr-2">Xem</a>
-                                    <a href="{{ route('admin.products.edit', $item) }}" class="btn btn-success mr-2">Sửa</a>
-                                    <form action="{{ route('admin.products.destroy', $item) }}" method="post">
+                                    <a class="btn btn-primary mr-2" href="{{route('admin.users.show', $item)}}">Xem</a>
+                                    <a class="btn btn-success mr-2" href="{{route('admin.users.edit', $item)}}">Sửa</a>
+                                    <form action="{{route('admin.users.destroy', $item)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">Xóa</button>
@@ -90,4 +78,3 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
-
