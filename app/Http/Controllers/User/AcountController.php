@@ -23,15 +23,13 @@ class AcountController extends Controller
         }
     
         if ($request->hasFile('image')) {
-            $url = Storage::put('user', $request->file('image'));
+            $url = Storage::put('users', $request->file('image'));
             Storage::delete($image); // Delete old image if exists
         } else {
             $url = $image;
         }
     
         // Update user details
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
         $user->address = $request->input('address');
         $user->phone = $request->input('phone');
         $user->image = $url;

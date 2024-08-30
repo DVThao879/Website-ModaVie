@@ -13,14 +13,14 @@
                     <div class="main-menu">
                         <nav>
                             <ul>
-                                <li class="angle-shape"><a href="index.html">Home </a>
-                                    <ul class="submenu">
+                                <li class="angle-shape"><a href="{{route('home')}}">Trang chủ </a>
+                                    {{-- <ul class="submenu">
                                         <li><a href="index.html">Home version 1 </a></li>
                                         <li><a href="index-2.html">Home version 2 </a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
-                                <li class="angle-shape"><a href="shop.html"> Shop </a>
-                                    <ul class="mega-menu">
+                                <li class="angle-shape"><a href="{{route('user.shop')}}">Cửa hàng </a>
+                                    {{-- <ul class="mega-menu">
                                         <li><a class="menu-title" href="#">Shop Layout</a>
                                             <ul>
                                                 <li><a href="shop.html">standard style</a></li>
@@ -53,30 +53,29 @@
                                                 <li><a href="product-details-affiliate.html">Affiliate style</a></li>
                                             </ul>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
-                                <li><a href="shop.html">Accessories </a></li>
-                                <li><a href="contact.html"> Contact </a></li>
-                                <li class="angle-shape"><a href="#">Pages </a>
+                                <li><a href="shop.html">Liên hệ </a></li>
+                                <li class="angle-shape"><a href="#">Trang </a>
                                     <ul class="submenu">
-                                        <li><a href="about-us.html">about us </a></li>
-                                        <li><a href="cart.html">cart page </a></li>
-                                        <li><a href="checkout.html">checkout </a></li>
+                                        <li><a href="about-us.html">Về chúng tôi </a></li>
+                                        <li><a href="cart.html">So sáng </a></li>
+                                        {{-- <li><a href="checkout.html">checkout </a></li>
                                         <li><a href="compare.html">compare </a></li>
                                         <li><a href="wishlist.html">wishlist </a></li>
                                         <li><a href="my-account.html">my account </a></li>
                                         <li><a href="contact.html">contact us </a></li>
                                         <li><a href="login-register.html">login/register </a></li>
-                                        <li><a href="404.html">404 page </a></li>
+                                        <li><a href="404.html">404 page </a></li> --}}
                                     </ul>
                                 </li>
                                 <li class="angle-shape"><a href="blog.html"> Blog </a>
-                                    <ul class="submenu">
+                                    {{-- <ul class="submenu">
                                         <li><a href="blog.html">standard style </a></li>
                                         <li><a href="blog-no-sidebar.html"> blog no sidebar </a></li>
                                         <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
                                         <li><a href="blog-details.html">blog details</a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                             </ul>
                         </nav>
@@ -96,7 +95,7 @@
                         <div class="same-style setting-wrap ml-15">
                             @if(Auth::check())
                             <a class="setting-active" href="#"><a class="setting-active" href="#">
-                                <img width="30" src="{{ Auth::check() ? Storage::url(Auth::user()->image ?? 'user/avata.jpg') : Storage::url('user/avata.jpg') }}" alt="" style="border-radius: 50%; border: 2px solid #ddd;">
+                                <img width="30" src="{{ Auth::check() ? Storage::url(Auth::user()->image ?? 'users/avata.jpg') : Storage::url('users/avata.jpg') }}" alt="" style="border-radius: 50%; border: 2px solid #ddd;">
                             </a>
                             </a>
 
@@ -121,7 +120,7 @@
                                                     {{ Auth::user()->name }}</a>
                                                 </li>
                                                     <li><a href="{{ route('user.my_acount') }}">Xem thông tin</a></li>
-                                                    @if(Auth::user()->type === 1)
+                                                    @if(Auth::user()->role == 1)
                                                      <li><a href="">Quản trị viên</a></li>
 
                                                     {{-- <li><a href="{{ route('admin.dashboard') }}">Quản trị viên</a></li> --}}

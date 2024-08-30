@@ -48,11 +48,11 @@ Chi tiết sản phẩm
                 <ul class="list-unstyled">
                     <li class="mb-3 d-flex align-items-center">
                         <i class="bi bi-cash mr-2 text-primary"></i>
-                        <strong>Giá:</strong> <span class="ml-2">{{number_format($product->price, 0, ",", ".")}} VNĐ</span>
+                        <strong>Giá min:</strong> <span class="ml-2">{{number_format($product->price_min, 0, ",", ".")}} VNĐ</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
                         <i class="bi bi-cash-stack mr-2 text-primary"></i>
-                        <strong>Giá khuyến mại:</strong> <span class="ml-2">{{number_format($product->price_sale, 0, ",", ".")}} VNĐ</span>
+                        <strong>Giá max:</strong> <span class="ml-2">{{number_format($product->price_max, 0, ",", ".")}} VNĐ</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
                         <i class="bi bi-toggle-on mr-2 text-primary"></i>

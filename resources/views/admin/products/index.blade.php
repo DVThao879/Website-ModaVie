@@ -51,8 +51,8 @@
                             <th>ID</th>
                             <th>Tên</th>
                             <th>Ảnh</th>
-                            <th>Giá</th>
-                            <th>Giá sale</th>
+                            <th>Giá min</th>
+                            <th>Giá max</th>
                             <th>Danh mục</th>
                             <th>Trạng thái</th>
                             <th>Hành động</th>
@@ -68,8 +68,8 @@
                                         <img src="{{ Storage::url($item->img_thumb) }}" alt="Product Image" class="img-fluid" style=" width: 100%; height: 100%;">
                                     </div>
                                 </td>
-                                <td>{{number_format($item->price, 0, ",", ".")}} VNĐ</td>
-                                <td>{{number_format($item->price_sale, 0, ",", ".")}} VNĐ</td>
+                                <td>{{number_format($item->price_min, 0, ",", ".")}} VNĐ</td>
+                                <td>{{number_format($item->price_max, 0, ",", ".")}} VNĐ</td>
                                 <td>{{$item->category->name}}</td>
                                 <td>{!! $item->is_active ? '<span class="badge bg-success text-white">Hoạt động</span>' : '<span class="badge bg-danger text-white">Không hoạt động</span>' !!}</td>
                                 <td class="d-flex">

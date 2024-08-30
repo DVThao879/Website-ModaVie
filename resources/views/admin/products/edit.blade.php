@@ -19,7 +19,7 @@ Sửa sản phẩm
 @if(session('message'))
 <p class="alert alert-danger">{{session('message')}}</p>
 @endif
-<form action="{{route('admin.products.update', $product)}}" method="POST" enctype="multipart/form-data">
+<form id="myForm" action="{{route('admin.products.update', $product)}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
@@ -42,16 +42,16 @@ Sửa sản phẩm
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="price" class="form-label">Giá</label>
-                            <input type="text" class="form-control" id="price" placeholder="Giá sản phẩm" name="price" value="{{ old('price', $product->price) }}" required>
-                            @error('price')
+                            <label for="price_min" class="form-label">Giá min</label>
+                            <input type="text" class="form-control" id="price_min" placeholder="Giá sản phẩm" name="price_min" value="{{ old('price_min', $product->price_min) }}" required>
+                            @error('price_min')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="price_sale" class="form-label">Giá sale</label>
-                            <input type="text" class="form-control" id="price_sale" placeholder="Giá giảm" name="price_sale" value="{{ old('price_sale', $product->price_sale) }}">
-                            @error('price_sale')
+                            <label for="price_max" class="form-label">Giá max</label>
+                            <input type="text" class="form-control" id="price_max" placeholder="Giá sản phẩm" name="price_max" value="{{ old('price_max', $product->price_max) }}" required>
+                            @error('price_max')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -124,18 +124,6 @@ Sửa sản phẩm
                                 <option value="0" {{ old('is_active', $product->is_active) == '0' ? 'selected' : '' }}>Không hoạt động</option>
                             </select>
                             @error('is_active')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="choices-publish-status-input" class="form-label">Trạng thái SP</label>
-                            <select class="form-control form-select-lg" id="choices-publish-status-input" aria-label="Default select example" name="status" required>
-                                <option value="">--Chọn trạng thái--</option>
-                                <option value="0" {{ old('status', $product->status) == '0' ? 'selected' : '' }}>Không chọn</option>
-                                <option value="1" {{ old('status', $product->status) == '1' ? 'selected' : '' }}>Sản phẩm khuyến mãi</option>
-                                <option value="2" {{ old('status', $product->status) == '2' ? 'selected' : '' }}>Sản phẩm hot</option>
-                            </select>
-                            @error('status')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -216,7 +204,7 @@ Sửa sản phẩm
                                     @enderror
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ $variant['price_sale'] }}">
+                                    <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ $variant['price_sale'] }}" required>
                                     @error("variants.{$index}.price_sale")
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -269,7 +257,7 @@ Sửa sản phẩm
                                     @enderror
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ old("variants.{$index}.price_sale", $variant->price_sale) }}">
+                                    <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ old("variants.{$index}.price_sale", $variant->price_sale) }}" required>
                                     @error("variants.{$index}.price_sale")
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -340,7 +328,7 @@ Sửa sản phẩm
                 <input type="number" name="variants[${variantIndex}][price]" class="form-control" required>
             </td>
             <td>
-                <input type="number" name="variants[${variantIndex}][price_sale]" class="form-control">
+                <input type="number" name="variants[${variantIndex}][price_sale]" class="form-control" required>
             </td>
             <td>
                 <button type="button" class="btn btn-danger remove-variant-btn" data-variant-id="${variantIndex}">Xóa</button>
@@ -353,6 +341,18 @@ Sửa sản phẩm
             // Gắn lại sự kiện cho nút "Xóa" sau khi thêm mới biến thể
             attachDeleteEventListeners();
         });
+
+        const form = document.getElementById('myForm');
+
+        form.addEventListener('submit', function(event) {
+            const container = document.getElementById('variants-container');
+            if (container.children.length === 0) {
+                alert('Vui lòng thêm biến thể sản phẩm trước khi lưu');
+                event.preventDefault();
+                return;
+            }
+        });
+
     });
 </script>
 @endsection

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\User\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('client.home');
-});
+})->name('home');
 
 Route::prefix('user')->as('user.')->group(function(){
 // khai báo route cho login và register
@@ -62,7 +63,11 @@ Route::get('/my_aucount',[AcountController::class,'myAucount'])->name('my_acount
 Route::post('/my_aucount/update/{id}',[AcountController::class,'updateMyAcount'])->name('updateMyAcount');
 //Cập nhật mật khẩu
 // Route::post('/my_aucount/password/update/{id}',[AcountController::class,'updatePassword'])->name('updatePassword');
-
+ Route::get('shop',[ShopController::class,'index'])->name('shop');
+ //chi tiet san pham
+ Route::get('product/detail/{slug}',[ShopController::class,'detail'])->name('product.detail');
+ //danh muc san pham
+ Route::get('shop/categories/{id}',[ShopController::class,'index'])->name('shop.categories');
 });
 
 Route::prefix('admin')->as('admin.')->group(function(){

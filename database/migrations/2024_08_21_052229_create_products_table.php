@@ -19,10 +19,9 @@ return new class extends Migration
             $table->string('sku')->unique();
             $table->string('img_thumb');
             $table->text('description');
-            $table->decimal('price', 10, 2)->default(0);
-            $table->decimal('price_sale', 10, 2)->default(0);
+            $table->decimal('price_min', 10, 2)->default(0); //giá min
+            $table->decimal('price_max', 10, 2)->default(0); // giá max
             $table->foreignIdFor(Category::class)->constrained()->onDelete('cascade');
-            $table->integer('status')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
