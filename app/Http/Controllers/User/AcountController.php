@@ -30,8 +30,6 @@ class AcountController extends Controller
         }
     
         // Update user details
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
         $user->address = $request->input('address');
         $user->phone = $request->input('phone');
         $user->image = $url;

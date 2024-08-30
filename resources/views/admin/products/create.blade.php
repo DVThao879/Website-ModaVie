@@ -280,7 +280,7 @@ Thêm sản phẩm
             // Gắn lại sự kiện cho nút "Xóa" sau khi thêm mới biến thể
             attachDeleteEventListeners();
         });
-
+        
         const form = document.getElementById('myForm');
 
         form.addEventListener('submit', function(event) {

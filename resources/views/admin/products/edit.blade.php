@@ -50,7 +50,7 @@ Sửa sản phẩm
                         </div>
                         <div class="mb-3">
                             <label for="price_max" class="form-label">Giá max</label>
-                            <input type="text" class="form-control" id="price_max" placeholder="Giá giảm" name="price_max" value="{{ old('price_max', $product->price_max) }}" required>
+                            <input type="text" class="form-control" id="price_max" placeholder="Giá sản phẩm" name="price_max" value="{{ old('price_max', $product->price_max) }}" required>
                             @error('price_max')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror

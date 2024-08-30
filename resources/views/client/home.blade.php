@@ -744,7 +744,7 @@
         </div>
     </div>
 </div>
-<div class="banner-area pb-70">
+{{-- <div class="banner-area pb-70">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6">
@@ -771,8 +771,8 @@
             </div>
         </div>
     </div>
-</div>
-<div class="product-area pb-100">
+</div> --}}
+{{-- <div class="product-area pb-100">
     <div class="container">
         <div class="section-title text-center mb-45">
             <h2>Top Trending</h2>
@@ -900,10 +900,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <div class="deal-area-2">
     <div class="container">
-        <div class="deal-area bg-img pt-100 pb-100" style="background-image:url(assets/images/bg/bg-1.jpg);">
+        <div class="deal-area bg-img pt-100 pb-100" style="background-image:url({{asset('theme/client/assets/images/bg/bg-1.jpg')}});">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="deal-content text-center">
@@ -921,7 +921,7 @@
         </div>
     </div>
 </div>
-<div class="product-category-list-area pt-100 pb-70">
+{{-- <div class="product-category-list-area pt-100 pb-70">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -1050,10 +1050,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <div class="video-area">
     <div class="container">
-        <div class="bg-img pt-150 pb-150 video-bg-img" style="background-image:url(assets/images/bg/bg-2.jpg);">
+        <div class="bg-img pt-150 pb-150 video-bg-img" style="background-image:url({{asset('theme/client/assets/images/bg/bg-2.jpg')}});">
             <div class="video-content text-center">
                 <h2>Summer 2019</h2>
                 <div class="video-icon">
@@ -1066,14 +1066,14 @@
 <div class="blog-area pt-100 pb-70">
     <div class="container">
         <div class="section-title text-center mb-45">
-            <h2>Latest Blog</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            <h2>Blog</h2>
+            {{-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> --}}
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-6">
                 <div class="blog-wrap mb-30">
                     <div class="blog-img mb-15">
-                        <a href="blog-details.html"><img alt="" src="assets/images/blog/blog-1.jpg"></a>
+                        <a href="blog-details.html"><img alt="" src="{{asset('theme/client/assets/images/blog/blog-1.jpg')}}"></a>
                     </div>
                     <div class="blog-content text-center">
                         <div class="blog-category">
@@ -1090,7 +1090,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="blog-wrap mb-30">
                     <div class="blog-img mb-15">
-                        <a href="blog-details.html"><img alt="" src="assets/images/blog/blog-2.jpg"></a>
+                        <a href="blog-details.html"><img alt="" src="{{asset('theme/client/assets/images/blog/blog-2.jpg')}}"></a>
                     </div>
                     <div class="blog-content text-center">
                         <div class="blog-category">
@@ -1107,7 +1107,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="blog-wrap mb-30">
                     <div class="blog-img mb-15">
-                        <a href="blog-details.html"><img alt="" src="assets/images/blog/blog-3.jpg"></a>
+                        <a href="blog-details.html"><img alt="" src="{{asset('theme/client/assets/images/blog/blog-3.jpg')}}"></a>
                     </div>
                     <div class="blog-content text-center">
                         <div class="blog-category">

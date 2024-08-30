@@ -116,14 +116,14 @@
                                                                 <div class="single-input-item">
                                                                     <label for="" class="required">Tên</label>
                                                                     <input type="text" name="name"
-                                                                        value="{{ Auth::user()->name }}">
+                                                                        value="{{ Auth::user()->name }}" disabled>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
                                                                     <label for="" class="required">Email</label>
                                                                     <input type="text" name="email"
-                                                                        value="{{ Auth::user()->email }}">
+                                                                        value="{{ Auth::user()->email }}" disabled>
                                                                 </div>
                                                             </div>
                                                         </div>
