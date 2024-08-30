@@ -59,19 +59,8 @@ Chi tiết sản phẩm
                         <strong>Trạng thái HĐ:</strong> <span class="ml-2">{!! $product->is_active ? '<span class="text-success">Hoạt động</span>' : '<span class="text-danger">Không hoạt động</span>' !!}</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-check-circle mr-2 text-primary"></i>
-                        <strong>Trạng thái SP:</strong> 
-                        <span class="ml-2 text-success">
-                            @if($product->status == 0)
-                                Không chọn
-                            @elseif($product->status == 1)
-                                Sản phẩm khuyến mãi
-                            @elseif($product->status == 2)
-                                Sản phẩm hot
-                            @else
-                                Không rõ
-                            @endif
-                        </span>
+                        <i class="bi bi-eye-fill mr-2 text-primary"></i>
+                        <strong>Lượt xem:</strong> <span class="ml-2">{{$product->view}}</span>
                     </li>
                     <li class="mb-3 d-flex align-items-start">
                         <i class="bi bi-file-text mr-2 text-primary"></i>
