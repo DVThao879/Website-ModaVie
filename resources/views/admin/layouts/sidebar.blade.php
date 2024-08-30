@@ -75,7 +75,24 @@
                 <a class="collapse-item" href="{{ route('admin.sizes.create') }}">Thêm kích thước</a>
             </div>
         </div>
-    </li>    
+    </li>
+    
+    @if (Auth::user()->role == 2)
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAccounts"
+           aria-expanded="true" aria-controls="collapseAccounts">
+            <i class="fas fa-fw fa-user-cog"></i>
+            <span>Quản lí tài khoản</span>
+        </a>
+        <div id="collapseAccounts" class="collapse" aria-labelledby="headingAccounts"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Danh sách chức năng:</h6>
+                <a class="collapse-item" href="{{ route('admin.users.index') }}">Danh sách</a>
+            </div>
+        </div>
+    </li>   
+    @endif 
 
     <!-- Divider -->
     <hr class="sidebar-divider">

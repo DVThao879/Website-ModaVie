@@ -28,18 +28,17 @@ class UpdateProductRequest extends FormRequest
             'name' => 'required|string|max:255|unique:products,name,'.$id,
             'sku' => 'required|unique:products,sku,'.$id,
             'img_thumb' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'price' => 'required|numeric|min:0',
-            'price_sale' => 'nullable|numeric|min:0',
+            'price_min' => 'required|numeric|min:0',
+            'price_max' => 'required|numeric|min:0',
             'description' => 'required',
             'category_id' => 'required',
-            'status' => 'required',
             'is_active' => 'required',
             'product_galleries.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'variants.*.size_id' => 'required',
             'variants.*.color_id' => 'required',
             'variants.*.quantity' => 'required|integer|min:1',
             'variants.*.price' => 'required|numeric|min:0',
-            'variants.*.price_sale' => 'nullable|numeric|min:0',
+            'variants.*.price_sale' => 'required|numeric|min:0',
         ];
     }
 
@@ -58,18 +57,17 @@ class UpdateProductRequest extends FormRequest
             'img_thumb.mimes' => 'Chỉ được phép có định dạng jpeg, png, jpg, hoặc gif',
             'img_thumb.max' => 'Không được vượt quá 2048KB',
 
-            'price.required' => 'Giá sản phẩm là bắt buộc',
-            'price.numeric' => 'Giá sản phẩm phải là một số',
-            'price.min' => 'Giá sản phẩm không được nhỏ hơn 0',
+            'price_min.required' => 'Giá min là bắt buộc',
+            'price_min.numeric' => 'Giá min phải là một số',
+            'price_min.min' => 'Giá min không được nhỏ hơn 0',
 
-            'price_sale.numeric' => 'Giá khuyến mãi phải là một số',
-            'price_sale.min' => 'Giá khuyến mãi không được nhỏ hơn 0',
+            'price_max.required' => 'Giá max là bắt buộc',
+            'price_max.numeric' => 'Giá max phải là một số',
+            'price_max.min' => 'Giá max không được nhỏ hơn 0',
 
             'description.required' => 'Mô tả sản phẩm là bắt buộc',
 
             'category_id.required' => 'Vui lòng chọn danh mục',
-
-            'status.required' => 'Vui lòng chọn trạng thái',
 
             'is_active.required' => 'Vui lòng chọn trạng thái',
             
@@ -89,6 +87,7 @@ class UpdateProductRequest extends FormRequest
             'variants.*.price.numeric' => 'Giá phải là một số',
             'variants.*.price.min' => 'Giá không được nhỏ hơn 0',
 
+            'variants.*.price_sale.required' => 'Giá KM là bắt buộc',
             'variants.*.price_sale.numeric' => 'Giá KM phải là một số',
             'variants.*.price_sale.min' => 'Giá KM không được nhỏ hơn 0',
         ];

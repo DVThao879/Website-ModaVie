@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('img_thumb');
             $table->text('description');
             $table->decimal('price_min', 10, 2)->default(0); //giá min
-            $table->decimal('price_max', 10, 2)->default(0); // giá max
+            $table->decimal('price_max', 10, 2)->default(0); //giá max
             $table->foreignIdFor(Category::class)->constrained()->onDelete('cascade');
             $table->boolean('is_active')->default(true);
             $table->timestamps();

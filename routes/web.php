@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\User\AcountController;
 use App\Http\Controllers\User\ForgotPasswordController;
 use App\Http\Controllers\User\LoginController;
@@ -79,4 +79,5 @@ Route::prefix('admin')->as('admin.')->group(function(){
     Route::resource('colors', ColorController::class);
     Route::resource('sizes', SizeController::class);
     Route::resource('banners', BannerController::class);
+    Route::resource('users', AccountController::class);
 });

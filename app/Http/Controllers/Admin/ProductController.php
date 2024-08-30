@@ -45,7 +45,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
-        $data['slug'] = Str::slug($data['name']);  
+        $data['slug'] = Str::slug($data['name']);
         $uploadedFiles = [];
         if (!empty($request->hasFile('img_thumb'))) {
             $data['img_thumb'] = Storage::put('products', $request->file('img_thumb'));
@@ -132,7 +132,6 @@ class ProductController extends Controller
         $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
         $data['slug'] = Str::slug($data['name']);
         $uploadedFiles = [];
-
         if ($request->hasFile('img_thumb')) {
             if ($product->img_thumb && Storage::exists($product->img_thumb)) {
                 Storage::delete($product->img_thumb);
@@ -260,7 +259,7 @@ class ProductController extends Controller
             $product->delete();
             DB::commit();
             return redirect()->route('admin.products.index')->with('message', 'Xóa thành công');
-        } catch (\Exception $exception) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('message', 'Xóa thất bại');
         }
