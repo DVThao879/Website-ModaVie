@@ -216,7 +216,7 @@ Thêm sản phẩm
     </div>
     <!--                        Button -->
     <div class="text-center mb-3">
-        <button class="btn btn-success w-sm">Thêm</button>
+        <button class="btn btn-success w-sm">Thêm mới</button>
     </div>
 </form>
 @endsection

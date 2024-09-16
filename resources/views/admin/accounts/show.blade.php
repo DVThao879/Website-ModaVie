@@ -8,7 +8,9 @@
 <div class="card shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Chi tiết banner</h4>
+        @if(Auth::user()->role != 2)
         <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-light btn-sm">Chỉnh sửa</a>
+        @endif
     </div>
     <div class="card-body">
         <div class="row">

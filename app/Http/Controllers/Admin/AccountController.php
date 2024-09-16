@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
@@ -17,7 +18,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $data = User::all();
+        $data = User::orderBy('role', 'desc')->get();
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
@@ -26,7 +27,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->route('admin.users.index')->with('error', 'Chức năng này không khả dụng');
     }
 
     /**
@@ -34,7 +35,7 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('admin.users.index')->with('error', 'Chức năng này không khả dụng');
     }
 
     /**
@@ -50,6 +51,9 @@ class AccountController extends Controller
      */
     public function edit(User $user)
     {
+        if (Auth::user()->role == 2) {
+            return redirect()->route('admin.users.index')->with('error', 'Không thể sửa tài khoản này');
+        }
         return view(self::PATH_VIEW . __FUNCTION__, compact('user'));
     }
 
@@ -58,11 +62,14 @@ class AccountController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        if (Auth::user()->role == 2) {
+            return redirect()->route('admin.users.index')->with('error', 'Không thể cập nhật tài khoản này');
+        } 
         $data = $request->all();
         $data['is_active'] ??= 0;
         $user->update($data);
 
-        return redirect()->route('admin.users.index')->with('message', 'Sửa thành công');
+        return redirect()->route('admin.users.index')->with('success', 'Sửa thành công');
     }
 
     /**
@@ -70,10 +77,14 @@ class AccountController extends Controller
      */
     public function destroy(User $user)
     {
+        if (Auth::user()->role == 2) {
+            return redirect()->route('admin.users.index')->with('error', 'Không thể xóa tài khoản này');
+        }
+
         if(!empty($user->image) && Storage::exists($user->image)){
             Storage::delete($user->image);
         }
         $user->delete();
-        return back()->with('message', 'Xóa thành công');
+        return back()->with('success', 'Xóa thành công');
     }
 }

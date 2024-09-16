@@ -19,9 +19,6 @@
 @endsection
 
 @section('content')
-    @if(session('message'))
-        <p class="alert alert-success">{{session('message')}}</p>
-    @endif
     <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-3">
         <div class="card-header py-3">
@@ -61,13 +58,15 @@
                                    {!! $item->is_active ? '<span class="badge bg-success text-white">Hoạt động</span>' : '<span class="badge bg-danger text-white">Không hoạt động</span>' !!}
                                 </td>
                                 <td class="d-flex">
-                                    <a class="btn btn-primary mr-2" href="{{route('admin.users.show', $item)}}">Xem</a>
-                                    <a class="btn btn-success mr-2" href="{{route('admin.users.edit', $item)}}">Sửa</a>
+                                    <a class="btn btn-primary mr-2" href="{{route('admin.users.show', $item)}}" title="Xem chi tiết"><i class="fa fa-eye"></i></a>
+                                    @if(Auth::user()->role != 2)
+                                    <a class="btn btn-warning mr-2" href="{{route('admin.users.edit', $item)}}" title="Sửa"><i class="fa fa-edit"></i></a>
                                     <form action="{{route('admin.users.destroy', $item)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">Xóa</button>
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" title="Xóa"><i class="fa fa-trash"></i></button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

@@ -69,12 +69,12 @@
                                 <td>{{$item->category->name}}</td>
                                 <td>{!! $item->is_active ? '<span class="badge bg-success text-white">Hoạt động</span>' : '<span class="badge bg-danger text-white">Không hoạt động</span>' !!}</td>
                                 <td class="d-flex">
-                                    <a href="{{ route('admin.products.show', $item) }}" class="btn btn-primary mr-2">Xem</a>
-                                    <a href="{{ route('admin.products.edit', $item) }}" class="btn btn-success mr-2">Sửa</a>
+                                    <a href="{{ route('admin.products.show', $item) }}" class="btn btn-primary mr-2" title="Xem chi tiết"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ route('admin.products.edit', $item) }}" class="btn btn-warning mr-2" title="Sửa"><i class="fa fa-edit"></i></a>
                                     <form action="{{ route('admin.products.destroy', $item) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">Xóa</button>
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" title="Xóa"><i class="fa fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>

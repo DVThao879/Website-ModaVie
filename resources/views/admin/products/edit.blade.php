@@ -277,7 +277,7 @@ Sửa sản phẩm
     </div>
     <!--                        Button -->
     <div class="text-center mb-3">
-        <button class="btn btn-success w-sm">Sửa</button>
+        <button class="btn btn-success w-sm">Cập nhật</button>
     </div>
 </form>
 @endsection

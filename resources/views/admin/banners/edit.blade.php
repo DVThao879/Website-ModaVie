@@ -74,7 +74,7 @@ Sửa banner
             </div>
             <!--                        Button -->
             <div class="d-flex justify-content-center mb-3">
-                <button class="btn btn-success w-sm" type="submit">Sửa</button>
+                <button class="btn btn-success w-sm" type="submit">Cập nhật</button>
             </div>
         </div>
     </div>

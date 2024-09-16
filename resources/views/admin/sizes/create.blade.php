@@ -45,7 +45,7 @@ Thêm size
             </div>
             <!--                        Button -->
             <div class="d-flex justify-content-center mb-3">
-                <button class="btn btn-success w-sm" type="submit">Thêm</button>
+                <button class="btn btn-success w-sm" type="submit">Thêm mới</button>
             </div>
         </div>
     </div>
