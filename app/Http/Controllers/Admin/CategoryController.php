@@ -36,7 +36,7 @@ class CategoryController extends Controller
         $data = $request->all();
         $data['is_active'] ??= 0;
         Category::create($data);
-        return redirect()->route('admin.categories.index')->with('message', 'Thêm mới thành công');
+        return redirect()->route('admin.categories.index')->with('success', 'Thêm mới thành công');
     }
 
     /**
@@ -63,7 +63,7 @@ class CategoryController extends Controller
         $data = $request->all();
         $data['is_active'] ??= 0;
         $category->update($data);
-        return redirect()->route('admin.categories.index')->with('message', 'Sửa thành công');
+        return redirect()->route('admin.categories.index')->with('success', 'Sửa thành công');
     }
 
     /**
@@ -72,6 +72,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return back()->with('message', 'Xóa thành công');
+        return back()->with('success', 'Xóa thành công');
     }
 }

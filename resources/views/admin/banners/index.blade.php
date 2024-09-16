@@ -19,10 +19,6 @@ Danh sách banner
 @endsection
 
 @section('content')
-@if(session('message'))
-<p class="alert alert-success">{{session('message')}}</p>
-@endif
-
 <a href="{{route('admin.banners.create')}}" class="mb-3">
     <button class="btn btn-success">Tạo mới</button>
 </a>

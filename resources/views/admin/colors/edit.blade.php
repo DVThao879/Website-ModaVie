@@ -17,6 +17,9 @@ Sửa màu sắc
 @endsection
 
 @section('content')
+<a href="{{route('admin.colors.index')}}" class="btn btn-success mb-3">
+    <i class="fa fa-arrow-left"></i> Quay lại
+</a>
 <form action="{{route('admin.colors.update', $color)}}" method="post">
     @csrf
     @method('PUT')

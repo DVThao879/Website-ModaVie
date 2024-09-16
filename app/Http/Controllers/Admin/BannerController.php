@@ -44,7 +44,7 @@ class BannerController extends Controller
         }
         Banner::create($data);
 
-        return redirect()->route('admin.banners.index')->with('message', 'Thêm mới thành công');
+        return redirect()->route('admin.banners.index')->with('success', 'Thêm mới thành công');
     }
 
     /**
@@ -80,7 +80,7 @@ class BannerController extends Controller
         }
         $banner->update($data);
 
-        return redirect()->route('admin.banners.index')->with('message', 'Sửa thành công');
+        return redirect()->route('admin.banners.index')->with('success', 'Sửa thành công');
     }
 
     /**
@@ -92,6 +92,6 @@ class BannerController extends Controller
             Storage::delete($banner->image);
         }
         $banner->delete();
-        return back()->with('message', 'Xóa thành công');
+        return back()->with('success', 'Xóa thành công');
     }
 }

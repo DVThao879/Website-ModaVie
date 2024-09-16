@@ -34,7 +34,7 @@ class ColorController extends Controller
     public function store(StoreColorRequest $request)
     {
         Color::create($request->all());
-        return redirect()->route('admin.colors.index')->with('message', 'Thêm mới thành công');
+        return redirect()->route('admin.colors.index')->with('success', 'Thêm mới thành công');
     }
 
     /**
@@ -59,7 +59,7 @@ class ColorController extends Controller
     public function update(UpdateColorRequest $request, Color $color)
     {
         $color->update($request->all());
-        return redirect()->route('admin.colors.index')->with('message', 'Sửa thành công');
+        return redirect()->route('admin.colors.index')->with('success', 'Sửa thành công');
     }
 
     /**
@@ -68,6 +68,6 @@ class ColorController extends Controller
     public function destroy(Color $color)
     {
         $color->delete();
-        return back()->with('message', 'Xóa thành công');
+        return back()->with('success', 'Xóa thành công');
     }
 }

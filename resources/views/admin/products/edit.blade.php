@@ -16,9 +16,9 @@ Sửa sản phẩm
 <script src="{{asset('theme/admin/js/create-product.init.js')}}"></script>
 @endsection
 @section('content')
-@if(session('message'))
-<p class="alert alert-danger">{{session('message')}}</p>
-@endif
+<a href="{{route('admin.products.index')}}" class="btn btn-success mb-3">
+    <i class="fa fa-arrow-left"></i> Quay lại
+</a>
 <form id="myForm" action="{{route('admin.products.update', $product)}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')

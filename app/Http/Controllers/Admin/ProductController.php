@@ -87,7 +87,7 @@ class ProductController extends Controller
                 }
             }
             DB::commit();
-            return redirect()->route('admin.products.index')->with('message', 'Thêm mới thành công');
+            return redirect()->route('admin.products.index')->with('success', 'Thêm mới thành công');
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -99,7 +99,7 @@ class ProductController extends Controller
                 Storage::delete($file);
             }
 
-            return redirect()->back()->with('message', 'Có lỗi xảy ra. Thêm mới thất bại');
+            return redirect()->back()->with('error', 'Có lỗi xảy ra. Thêm mới thất bại');
         }
     }
 
@@ -205,7 +205,7 @@ class ProductController extends Controller
             // }
 
             DB::commit();
-            return redirect()->route('admin.products.index')->with('message', 'Sửa thành công');
+            return redirect()->route('admin.products.index')->with('success', 'Sửa thành công');
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -217,7 +217,7 @@ class ProductController extends Controller
                 Storage::delete($file);
             }
 
-            return redirect()->back()->with('message', 'Có lỗi xảy ra. Sửa thất bại');
+            return redirect()->back()->with('error', 'Có lỗi xảy ra. Sửa thất bại');
         }
     }
 
@@ -258,10 +258,10 @@ class ProductController extends Controller
 
             $product->delete();
             DB::commit();
-            return redirect()->route('admin.products.index')->with('message', 'Xóa thành công');
+            return redirect()->route('admin.products.index')->with('success', 'Xóa thành công');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('message', 'Xóa thất bại');
+            return back()->with('error', 'Xóa thất bại');
         }
     }
 }

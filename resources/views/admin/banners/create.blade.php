@@ -17,6 +17,9 @@ Thêm banner
 @endsection
 
 @section('content')
+<a href="{{route('admin.banners.index')}}" class="btn btn-success mb-3">
+    <i class="fa fa-arrow-left"></i> Quay lại
+</a>
 <form action="{{route('admin.banners.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="row">

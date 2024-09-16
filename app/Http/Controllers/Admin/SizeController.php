@@ -34,7 +34,7 @@ class SizeController extends Controller
     public function store(StoreSizeRequest $request)
     {
         Size::create($request->all());
-        return redirect()->route('admin.sizes.index')->with('message', 'Thêm mới thành công');
+        return redirect()->route('admin.sizes.index')->with('success', 'Thêm mới thành công');
     }
 
     /**
@@ -59,7 +59,7 @@ class SizeController extends Controller
     public function update(UpdateSizeRequest $request, Size $size)
     {
         $size->update($request->all());
-        return redirect()->route('admin.sizes.index')->with('message', 'Sửa thành công');
+        return redirect()->route('admin.sizes.index')->with('success', 'Sửa thành công');
     }
 
     /**
@@ -68,6 +68,6 @@ class SizeController extends Controller
     public function destroy(Size $size)
     {
         $size->delete();
-        return back()->with('message', 'Xóa thành công');
+        return back()->with('success', 'Xóa thành công');
     }
 }

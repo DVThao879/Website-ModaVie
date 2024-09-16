@@ -17,6 +17,9 @@ Thêm size
 @endsection
 
 @section('content')
+<a href="{{route('admin.sizes.index')}}" class="btn btn-success mb-3">
+    <i class="fa fa-arrow-left"></i> Quay lại
+</a>
 <form action="{{route('admin.sizes.store')}}" method="post">
     @csrf
     <div class="row">
