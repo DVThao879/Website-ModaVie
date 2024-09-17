@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::all();
+        $data = Category::orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
     }
 

@@ -32,7 +32,7 @@ Danh sách banner
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tiêu đề</th>
                         <th>Ảnh</th>
                         <th>Đường dẫn</th>
@@ -42,7 +42,7 @@ Danh sách banner
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tiêu đề</th>
                         <th>Ảnh</th>
                         <th>Đường dẫn</th>
@@ -51,9 +51,9 @@ Danh sách banner
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach($data as $item)
+                    @foreach($data as $key => $item)
                     <tr>
-                        <td>{{$item->id}}</td>
+                        <td>{{$key+1}}</td>
                         <td>{{$item->title}}</td>
                         <td>
                             <div style="width: 100px; height: 50px;">

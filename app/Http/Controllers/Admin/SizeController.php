@@ -16,7 +16,7 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $data = Size::all();
+        $data = Size::orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
     }
 

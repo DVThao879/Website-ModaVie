@@ -29,7 +29,7 @@ Danh sách tài khoản
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tên tài khoản</th>
                         <th>Email</th>
                         <th>Quyền</th>
@@ -39,7 +39,7 @@ Danh sách tài khoản
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tên tài khoản</th>
                         <th>Email</th>
                         <th>Quyền</th>
@@ -48,9 +48,9 @@ Danh sách tài khoản
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach($data as $item)
+                    @foreach($data as $key => $item)
                     <tr>
-                        <td>{{$item->id}}</td>
+                        <td>{{$key+1}}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
                         <td>{{ $item->role == 0 ? 'Khách hàng' : ($item->role == 1 ? 'Nhân viên' : 'Admin') }}</td>

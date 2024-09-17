@@ -18,7 +18,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $data = Banner::all();
+        $data = Banner::orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 

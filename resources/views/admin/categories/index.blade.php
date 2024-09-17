@@ -32,7 +32,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tên</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
@@ -40,16 +40,16 @@
                     </thead>
                     <tfoot>
                         <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tên</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($data as $item)
+                        @foreach($data as $key => $item)
                             <tr>
-                                <td>{{$item->id}}</td>
+                                <td>{{$key+1}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>
                                    {!! $item->is_active ? '<span class="badge bg-success text-white">Hoạt động</span>' : '<span class="badge bg-danger text-white">Không hoạt động</span>' !!}

@@ -32,22 +32,22 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tên size</th>
                         <th>Hành động</th>
                     </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tên</th>
                         <th>Hành động</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($data as $item)
+                        @foreach($data as $key => $item)
                             <tr>
-                                <td>{{$item->id}}</td>
+                                <td>{{$key+1}}</td>
                                 <td>{{$item->name}}</td>
                                 <td class="d-flex">
                                     <a class="btn btn-primary mr-2" href="{{route('admin.sizes.show', $item)}}" title="Xem chi tiết"><i class="fa fa-eye"></i></a>

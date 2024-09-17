@@ -32,7 +32,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tên màu</th>
                         <th>Mã màu</th>
                         <th>Hành động</th>
@@ -40,16 +40,16 @@
                     </thead>
                     <tfoot>
                         <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tên màu</th>
                         <th>Mã màu</th>
                         <th>Hành động</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($data as $item)
+                        @foreach($data as $key => $item)
                             <tr>
-                                <td>{{$item->id}}</td>
+                                <td>{{$key+1}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{ $item->hex_code }}</td>
                                 <td class="d-flex">

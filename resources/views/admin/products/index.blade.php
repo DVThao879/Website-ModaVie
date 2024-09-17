@@ -32,7 +32,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tên</th>
                         <th>Ảnh</th>
                         <th>Giá</th>
@@ -44,7 +44,7 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID</th>
+                            <th>STT</th>
                             <th>Tên</th>
                             <th>Ảnh</th>
                             <th>Giá min</th>
@@ -55,9 +55,9 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($data as $item)
+                        @foreach($data as $key => $item)
                             <tr>
-                                <td>{{$item->id}}</td>
+                                <td>{{$key+1}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>
                                     <div style="width: 100px; height: 130px;">

@@ -16,7 +16,7 @@ class ColorController extends Controller
      */
     public function index()
     {
-        $data = Color::all();
+        $data = Color::orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
     }
 
