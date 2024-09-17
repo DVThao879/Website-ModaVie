@@ -17,6 +17,9 @@ Sửa tài khoản
 @endsection
 
 @section('content')
+<a href="{{route('admin.users.index')}}" class="btn btn-primary mb-3">
+    <i class="fa fa-arrow-left"></i> Quay lại
+</a>
 <form action="{{route('admin.users.update', $user)}}" method="post" enctype="multipart/form-data">
     @csrf
     @method('PUT')

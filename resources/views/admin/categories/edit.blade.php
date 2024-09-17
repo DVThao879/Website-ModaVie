@@ -17,7 +17,7 @@ Sửa danh mục
 @endsection
 
 @section('content')
-<a href="{{route('admin.categories.index')}}" class="btn btn-success mb-3">
+<a href="{{route('admin.categories.index')}}" class="btn btn-primary mb-3">
     <i class="fa fa-arrow-left"></i> Quay lại
 </a>
 <form action="{{route('admin.categories.update', $category)}}" method="post">

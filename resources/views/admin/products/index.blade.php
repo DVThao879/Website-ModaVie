@@ -20,7 +20,7 @@
 
 @section('content')
     <a href="{{route('admin.products.create')}}" class="mb-3">
-        <button class="btn btn-success">Tạo mới</button>
+        <button class="btn btn-primary">Tạo mới</button>
     </a>
     <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-3">
@@ -71,13 +71,42 @@
                                 <td class="d-flex">
                                     <a href="{{ route('admin.products.show', $item) }}" class="btn btn-primary mr-2" title="Xem chi tiết"><i class="fa fa-eye"></i></a>
                                     <a href="{{ route('admin.products.edit', $item) }}" class="btn btn-warning mr-2" title="Sửa"><i class="fa fa-edit"></i></a>
-                                    <form action="{{ route('admin.products.destroy', $item) }}" method="post">
+                                    {{-- <form action="{{ route('admin.products.destroy', $item) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" title="Xóa"><i class="fa fa-trash"></i></button>
-                                    </form>
+                                    </form> --}}
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $item->id }}" title="Xóa">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </td>
                             </tr>
+
+                            <!-- Modal Xóa -->
+                            <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title font-weight-bold text-dark" id="deleteModalLabel{{ $item->id }}">XÁC NHẬN XÓA</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bạn có muốn xóa sản phẩm "{{ $item->name }}" không?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
+                                            <form action="{{ route('admin.products.destroy', $item) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         @endforeach
                     </tbody>
                 </table>

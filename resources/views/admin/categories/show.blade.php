@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+<a href="{{route('admin.categories.index')}}" class="btn btn-primary mb-3">
+    <i class="fa fa-arrow-left"></i> Quay lại
+</a>
 <div class="card shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Chi tiết danh mục</h4>
