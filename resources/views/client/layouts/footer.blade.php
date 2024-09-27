@@ -5,8 +5,10 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="footer-widget mb-40">
                         <div class="footer-logo">
-                            <a href="#"><img alt="" src="assets/images/logo/logo.png"></a>
-                            <p>Lorem ipsum dolor sit, consectetur elit, sed do adipisicing eiusmod</p>
+                            <a href="#" class="fw-bold fs-3 text-info">
+                                {{-- <img alt="" src="{{asset('theme/client/assets/images/logo/logo.png')}}"> --}}MODAVIE
+                            </a>
+                            {{-- <p>Lorem ipsum dolor sit, consectetur elit, sed do adipisicing eiusmod</p> --}}
                         </div>
                         <div class="footer-contact">
                             <div class="single-footer-contact">
@@ -14,7 +16,7 @@
                                     <i class="la la-phone"></i>
                                 </div>
                                 <div class="footer-contact-content">
-                                    <p>+012 345 678 102</p>
+                                    <p>+11 222 333</p>
                                 </div>
                             </div>
                             <div class="single-footer-contact">
@@ -22,7 +24,7 @@
                                     <i class="la la-globe"></i>
                                 </div>
                                 <div class="footer-contact-content">
-                                    <p><a href="#">urname@email.com</a></p>
+                                    <p><a href="#">modavie@gmail.com</a></p>
                                 </div>
                             </div>
                             <div class="single-footer-contact">
@@ -30,7 +32,7 @@
                                     <i class="la la-map-marker"></i>
                                 </div>
                                 <div class="footer-contact-content">
-                                    <p>Address goes here, Road 123.</p>
+                                    <p>Nam Từ Liêm - Hà Nội</p>
                                 </div>
                             </div>
                         </div>
@@ -39,14 +41,14 @@
                 <div class="col-lg-2 col-md-3 col-sm-3 col-12">
                     <div class="footer-widget mb-40 pl-20">
                         <div class="footer-title">
-                            <h3>Account</h3>
+                            <h3>Tài khoản</h3>
                         </div>
                         <div class="footer-list">
                             <ul>
-                                <li><a href="login-register.html">Login</a></li>
-                                <li><a href="login-register.html">Register</a></li>
-                                <li><a href="contact.html">Help</a></li>
-                                <li><a href="contact-us.html">Support</a></li>
+                                <li><a href="login-register.html">Đăng nhập</a></li>
+                                <li><a href="login-register.html">Đăng ký</a></li>
+                                <li><a href="contact.html">Hỗ trợ</a></li>
+                                <li><a href="contact-us.html"></a></li>
                             </ul>
                         </div>
                     </div>
@@ -54,14 +56,14 @@
                 <div class="col-lg-2 col-md-3 col-sm-3 col-12">
                     <div class="footer-widget mb-40">
                         <div class="footer-title">
-                            <h3>Useful Link</h3>
+                            <h3>Thông tin</h3>
                         </div>
                         <div class="footer-list">
                             <ul>
-                                <li><a href="#">FAQs</a></li>
-                                <li><a href="#">Returns</a></li>
-                                <li><a href="about-us.html">About us</a></li>
-                                <li><a href="#">Store location</a></li>
+                                <li><a href="#">Giới thiệu</a></li>
+                                <li><a href="#">Về chúng tôi</a></li>
+                                <li><a href="about-us.html">So sánh</a></li>
+                                {{-- <li><a href="#">Store location</a></li> --}}
                             </ul>
                         </div>
                     </div>
@@ -69,14 +71,14 @@
                 <div class="col-lg-2 col-md-4 col-sm-4 col-12">
                     <div class="footer-widget mb-40">
                         <div class="footer-title">
-                            <h3>Categories</h3>
+                            <h3>Chính sách</h3>
                         </div>
                         <div class="footer-list">
                             <ul>
-                                <li><a href="shop.html">Men</a></li>
-                                <li><a href="shop.html">Women</a></li>
-                                <li><a href="shop.html">Jeins</a></li>
-                                <li><a href="shop.html">Shoes</a></li>
+                                <li><a href="shop.html">Trang chủ</a></li>
+                                <li><a href="shop.html">Sản phẩm</a></li>
+                                <li><a href="shop.html">Liên hệ</a></li>
+                                <li><a href="shop.html">Cửa hàng</a></li>
                             </ul>
                         </div>
                     </div>
@@ -84,19 +86,19 @@
                 <div class="col-lg-3 col-md-8 col-sm-8 col-12">
                     <div class="footer-widget mb-40">
                         <div class="footer-title">
-                            <h3>Email for newsletter</h3>
+                            <h3>Đăng ký nhận tin</h3>
                         </div>
                         <div class="subscribe-style">
-                            <p>Lorem ipsum dolor sit, consectetur elit, sed do adipisicing eiusmod</p>
+                            <p>Đăng ký nhận bản tin của chúng tôi để nhận các sản phẩm mới,mã khuyến mại nhanh nhất</p>
                             <div id="mc_embed_signup" class="subscribe-form subscribe-form-2 mt-20">
                                 <form id="mc-embedded-subscribe-form" class="validate subscribe-form-style" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
                                     <div id="mc_embed_signup_scroll" class="mc-form">
-                                        <input class="email" type="email" required="" placeholder="Enter your email" name="EMAIL" value="">
+                                        <input class="email" type="email" required="" placeholder="Email của bạn" name="EMAIL" value="">
                                         <div class="mc-news" aria-hidden="true">
                                             <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef">
                                         </div>
                                         <div class="clear clear-2">
-                                            <input id="mc-embedded-subscribe" class="button" type="submit" name="subscribe" value="Subscribe">
+                                            <input id="mc-embedded-subscribe" class="button" type="submit" name="subscribe" value="Đăng ký">
                                         </div>
                                     </div>
                                 </form>

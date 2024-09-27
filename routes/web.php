@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,11 +27,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('client.home');
-})->name('home');
+
 
 Route::prefix('user')->as('user.')->group(function(){
+   Route::get('/', [ShopController::class,'home'])->name('home');
 // khai báo route cho login và register
 Route::get('auth/login', [LoginController::class, 'index'])
    ->name('login');
@@ -63,12 +63,26 @@ Route::get('/my_aucount',[AcountController::class,'myAucount'])->name('my_acount
 Route::post('/my_aucount/update/{id}',[AcountController::class,'updateMyAcount'])->name('updateMyAcount');
 //Cập nhật mật khẩu
 // Route::post('/my_aucount/password/update/{id}',[AcountController::class,'updatePassword'])->name('updatePassword');
+//cua hang
  Route::get('shop',[ShopController::class,'index'])->name('shop');
  //chi tiet san pham
  Route::get('product/detail/{slug}',[ShopController::class,'detail'])->name('product.detail');
+ Route::get('/product-variant-price', [ShopController::class, 'getProductVariantPrice'])->name('product.variant.price');
+ Route::get('/product/variant/colors', [ShopController::class, 'getColorsBySize'])->name('product.variant.colors');
+//tim kiem san pham
+Route::get('/search', [ShopController::class, 'search'])->name('product.search');
+
  //danh muc san pham
  Route::get('shop/categories/{id}',[ShopController::class,'index'])->name('shop.categories');
+
+ //gio hang
+ Route::post('cart/add', action: [CartController::class, 'addToCart'])->name('cart.add');
+ Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
+ Route::post('cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+Route::post('cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
 });
+Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
 Route::prefix('admin')->as('admin.')->group(function(){
     Route::get('/', function () {

@@ -30,7 +30,7 @@
                                     <option value="">In stock</option>
                                 </select>
                             </div>
-                            <p>Showing 1–12 of 20 result</p>
+                            {{-- <p>Showing 1–12 of 20 result</p> --}}
                         </div>
                         <div class="shop-tab nav">
                             <a class="active" href="#shop-1" data-bs-toggle="tab">
@@ -54,14 +54,14 @@
                                                    
                                         
                                                    
-                                                    <div class="product-action">
+                                                    {{-- <div class="product-action">
                                                         <a data-bs-toggle="modal" data-bs-target="#exampleModal"
                                                             title="Quick View" href="#"><i class="la la-plus"></i></a>
                                                         <a title="Add To Cart" href="#"><i
                                                                 class="la la-shopping-cart"></i></a>
                                                         <a title="Wishlist" href="wishlist.html"><i
                                                                 class="la la-heart-o"></i></a>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <div class="product-content product-content-padding text-center">
                                                     <div class="text-center" >
@@ -81,7 +81,7 @@
                                                             @endforeach
                                                         @endif
                                                     </div>
-                                                    <h4><a href="product-details.html">{{ $sp->name }}</a></h4>
+                                                    <h4><a href="{{route('user.product.detail',$sp->slug)}}">{{ $sp->name }}</a></h4>
                                                     <div class="product-rating">
                                                         <i class="la la-star"></i>
                                                         <i class="la la-star"></i>
@@ -91,13 +91,13 @@
                                                     </div>
                                                     <div class="">
                                                         <span
-                                                            style="font-size: 16px">{{ number_format($sp->price_sale, 0, ',', '.') }} -
+                                                            style="font-size: 16px">{{ number_format($sp->price_min, 0, ',', '.') }} -
                                                             </span>
-                                                            @if($sp->price>$sp->price_sale)
+                                                            
                                                         <span style="font-size: 16px"
-                                                            class="">{{ number_format($sp->price, 0, ',', '.') }}
+                                                            class="">{{ number_format($sp->price_max, 0, ',', '.') }}
                                                             VNĐ</span>
-                                                            @endif
+                                                            
                                                     </div>
                                                 </div>
                                             </div>
@@ -304,27 +304,49 @@
                         </div> --}}
                         
                         </div>
-                        <div class="pro-pagination-style text-center mt-20">
+                        <div class="">
+                            {{ $products->links('pagination::bootstrap-5') }}
+                          </div>
+                        
+                        {{-- <div class="pro-pagination-style text-center mt-20">
                             <ul>
                                 <li><a class="prev" href="#"><i class="la la-angle-left"></i></a></li>
                                 <li><a class="active" href="#">1</a></li>
                                 <li><a href="#">2</a></li>
                                 <li><a class="next" href="#"><i class="la la-angle-right"></i></a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="sidebar-style mr-30">
                         <div class="sidebar-widget">
-                            <h4 class="pro-sidebar-title">Search </h4>
+                            <h4 class="pro-sidebar-title">Tìm kiếm</h4>
                             <div class="pro-sidebar-search mb-50 mt-25">
-                                <form class="pro-sidebar-search-form" action="#">
-                                    <input type="text" placeholder="Search here...">
-                                    <button>
+                                <form class="pro-sidebar-search-form" action="{{ route('user.product.search') }}" method="GET">
+                                    <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." value="{{ request('keyword') }}">
+                                    <button type="submit">
                                         <i class="la la-search"></i>
                                     </button>
                                 </form>
+                            </div>
+                            
+                        </div>
+                        <div class="sidebar-widget mt-50">
+                            <h4 class="pro-sidebar-title">Danh mục</h4>
+                            <div class="sidebar-widget-tag mt-25">
+                                <ul>
+                                    <li><a href="">Tất cả <span>({{ $totalproducts }})</span></a></li>
+                                    @foreach ($categories as $dm)
+                                        {{-- <li><a href="#">Clothing</a></li>
+                                <li><a href="#">Accessories</a></li>
+                                <li><a href="#">For Men</a></li>
+                                <li><a href="#">Women</a></li>
+                                <li><a href="#">Fashion</a></li> --}}
+                                        <li><a href="{{route('user.shop.categories',$dm->id)}}">{{ $dm->name }}
+                                                <span>({{ $dm->products_count }})</span></a></li>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
                         <div class="sidebar-widget">
@@ -432,23 +454,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="sidebar-widget mt-50">
-                            <h4 class="pro-sidebar-title">Tag </h4>
-                            <div class="sidebar-widget-tag mt-25">
-                                <ul>
-                                    <li><a href="">Tất cả <span>({{ $totalproducts }})</span></a></li>
-                                    @foreach ($categories as $dm)
-                                        {{-- <li><a href="#">Clothing</a></li>
-                                <li><a href="#">Accessories</a></li>
-                                <li><a href="#">For Men</a></li>
-                                <li><a href="#">Women</a></li>
-                                <li><a href="#">Fashion</a></li> --}}
-                                        <li><a href="{{route('user.shop.categories',$dm->id)}}">{{ $dm->name }}
-                                                <span>({{ $dm->products_count }})</span></a></li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

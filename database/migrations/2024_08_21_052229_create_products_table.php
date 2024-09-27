@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('price_min', 10, 2)->default(0); //giá min
             $table->decimal('price_max', 10, 2)->default(0); //giá max
             $table->foreignIdFor(Category::class)->constrained()->onDelete('cascade');
+            $table->integer('view')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

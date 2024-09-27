@@ -34,8 +34,14 @@ class LoginController extends Controller
                     'email' => 'Email chưa được xác minh,vui lòng kiểm tra hộp thư',
                 ])->onlyInput('email');
             }
+            if(Auth::user()->is_active==0){
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Tài khoản của bạn đã bị khóa, vui lòng liên hệ với quản trị viên.',
+                ]);
+            }
                 $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->route('user.home')->with('success','Đăng nhập thành công');
         }
     
         return back()->withErrors([
@@ -48,7 +54,7 @@ class LoginController extends Controller
         // xử lý logout
         Auth::logout();
         \request()->session()->invalidate();
-        return redirect('/');
+        return redirect()->route('user.home')->with('success','Đăng xuất thành công');
     }
 
     public function verify($token)

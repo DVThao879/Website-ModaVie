@@ -34,8 +34,11 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $data = $request->all();
+
         $data['is_active'] ??= 0;
+
         Category::create($data);
+        
         return redirect()->route('admin.categories.index')->with('message', 'Thêm mới thành công');
     }
 

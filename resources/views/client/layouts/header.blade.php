@@ -4,8 +4,8 @@
             <div class="row align-items-center">
                 <div class="col-xl-2 col-lg-2">
                     <div class="logo">
-                        <a href="index.html">
-                            <img src="assets/images/logo/logo.png" alt="logo">
+                        <a href="index.html" class="fw-bold fs-3 text-info">
+                            {{-- <img src="assets/images/logo/logo.png" alt="logo"> --}}MODAVIE
                         </a>
                     </div>
                 </div>
@@ -13,7 +13,7 @@
                     <div class="main-menu">
                         <nav>
                             <ul>
-                                <li class="angle-shape"><a href="{{route('home')}}">Trang chủ </a>
+                                <li class="angle-shape"><a href="{{route('user.home')}}">Trang chủ </a>
                                     {{-- <ul class="submenu">
                                         <li><a href="index.html">Home version 1 </a></li>
                                         <li><a href="index-2.html">Home version 2 </a></li>
@@ -86,12 +86,50 @@
                         <div class="same-style cart-wrap">
                             <a href="#" class="cart-active">
                                 <i class="la la-shopping-cart"></i>
-                                <span class="count-style">02</span>
+                                <span class="count-style">
+                                    @if(session('cart'))
+                                        {{-- Đếm số loại sản phẩm trong giỏ hàng --}}
+                                        {{ count(session('cart')) }}
+                                    @else
+                                        0
+                                    @endif
+                                </span>
+                                
+                                
                             </a>
                         </div>
+                        
                         <div class="same-style header-search ml-15">
-                            <a class="search-active" href="#"><i class="la la-search"></i></a>
+                            <a class="search-active" href="javascript:void(0);"><i class="la la-search"></i></a>
                         </div>
+                        
+                        <!-- Form tìm kiếm ẩn -->
+                        <div class="header-search-form" style="display: none; position: absolute; top: 100%; right: 0; width: 300px; background-color: #fff; padding: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); z-index: 9999;"> 
+                            <form action="{{ route('user.product.search') }}" method="GET">
+                                <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." style="width: 85%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                <button type="submit" style="padding: 8px 10px; border: none; background-color: #333; color: white; cursor: pointer;">
+                                    <i class="la la-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                           $(document).ready(function() {
+    // Khi nhấn vào biểu tượng kính lúp, form tìm kiếm sẽ hiển thị
+    $('.search-active').on('click', function(e) {
+        e.preventDefault();
+        $('.header-search-form').toggle(); // Ẩn/hiện form tìm kiếm
+    });
+
+    // Khi nhấn vào bất kỳ đâu bên ngoài form, ẩn form tìm kiếm
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('.header-search-form, .search-active').length) {
+            $('.header-search-form').hide(); // Ẩn form khi nhấn ngoài
+        }
+    });
+});
+
+                        </script>
                         <div class="same-style setting-wrap ml-15">
                             @if(Auth::check())
                             <a class="setting-active" href="#"><a class="setting-active" href="#">

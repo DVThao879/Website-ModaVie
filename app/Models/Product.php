@@ -18,6 +18,7 @@ class Product extends Model
         'price_max',
         'description',
         'category_id',
+        'view',
         'is_active',
     ];
 

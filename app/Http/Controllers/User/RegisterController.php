@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Mail;
 class RegisterController extends Controller
 {
     public function index() {
-        // hiển thị view đăng ký
-//        dd('trang đăng ký');
+
         return view('client.show.register');
     }
 
@@ -44,7 +43,7 @@ class RegisterController extends Controller
         // }
             // Cập nhật thời gian hết hạn cho email xác thực (30 phút)
     $user->update([
-        'email_verification_expires_at' => Carbon::now()->addMinutes(30)
+        'email_verification_expires_at' => Carbon::now()->addMinutes(value: 30)
     ]);
         // Gửi email xác nhận
         $token = base64_encode($user->email);
