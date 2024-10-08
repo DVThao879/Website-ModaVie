@@ -19,7 +19,7 @@ class AccountController extends Controller
     public function index()
     {
         $this->authorize('viewAny', User::class);
-        $data = User::whereIn('role', [1, 2])->orderBy('role', 'desc')->orderBy('id', 'desc')->get();
+        $data = User::whereIn('role', ['1', '2'])->orderBy('role', 'desc')->orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
@@ -84,7 +84,7 @@ class AccountController extends Controller
     public function listUser()
     {
         $this->authorize('viewAny', User::class);
-        $data = User::where('role', 0)->orderBy('id', 'desc')->get();
+        $data = User::where('role', '0')->orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW . 'list_user', compact('data'));
     }
 }
