@@ -111,37 +111,46 @@ Chi tiết sản phẩm
     </div>
     <div class="card-footer">
         <h4 class="mb-3">Biến thể của sản phẩm</h4>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Tên SP</th>
-                    <th>Kích thước</th>
-                    <th>Màu sắc</th>
-                    <th>Số lượng</th>
-                    <th>Giá</th>
-                    <th>Giá KM</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($product->variants as $key => $item)
-                <tr>
-                    <td>{{ $key+1 }}</td>
-                    <td>{{ $product->name }}</td>
-                    <td>{{ $item->size->name }}</td>
-                    <td>
-                        <div class="d-flex">
-                            <div class="rounded-circle mr-2" style="width: 20px; height: 20px; background-color: {{ $item->color->hex_code }};"></div>
-                            <span>{{ $item->color->hex_code }}</span>
-                        </div>
-                    </td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>{{number_format($item->price, 0, ",", ".")}} VNĐ</td>
-                    <td>{{number_format($item->price_sale, 0, ",", ".")}} VNĐ</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    
+        @if($product->variants->isEmpty())
+            <!-- Thông báo khi sản phẩm không có biến thể -->
+            <div class="alert alert-warning">
+                Sản phẩm này hiện không có biến thể nào
+            </div>
+        @else
+            <!-- Bảng hiển thị biến thể -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên SP</th>
+                        <th>Kích thước</th>
+                        <th>Màu sắc</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Giá KM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($product->variants as $key => $item)
+                    <tr>
+                        <td>{{ $key+1 }}</td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $item->size->name }}</td>
+                        <td>
+                            <div class="d-flex">
+                                <div class="rounded-circle mr-2" style="width: 20px; height: 20px; background-color: {{ $item->color->hex_code }};"></div>
+                                <span>{{ $item->color->hex_code }}</span>
+                            </div>
+                        </td>
+                        <td>{{ $item->quantity }}</td>
+                        <td>{{number_format($item->price, 0, ",", ".")}} VNĐ</td>
+                        <td>{{number_format($item->price_sale, 0, ",", ".")}} VNĐ</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     </div>
 </div>
 @endsection

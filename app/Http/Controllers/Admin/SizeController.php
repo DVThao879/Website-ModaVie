@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Size;
 use App\Http\Requests\StoreSizeRequest;
 use App\Http\Requests\UpdateSizeRequest;
+use App\Models\Product;
+use App\Models\ProductVariant;
 
 class SizeController extends Controller
 {
@@ -18,7 +20,7 @@ class SizeController extends Controller
     {
         $this->authorize('viewAny', Size::class);
         $data = Size::orderBy('id', 'desc')->get();
-        return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
     /**
@@ -27,7 +29,7 @@ class SizeController extends Controller
     public function create()
     {
         $this->authorize('create', Size::class);
-        return view(self::PATH_VIEW.__FUNCTION__);
+        return view(self::PATH_VIEW . __FUNCTION__);
     }
 
     /**
@@ -45,7 +47,7 @@ class SizeController extends Controller
     public function show(Size $size)
     {
         $this->authorize('view', $size);
-        return view(self::PATH_VIEW.__FUNCTION__, compact('size'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('size'));
     }
 
     /**
@@ -54,7 +56,7 @@ class SizeController extends Controller
     public function edit(Size $size)
     {
         $this->authorize('update', $size);
-        return view(self::PATH_VIEW.__FUNCTION__, compact('size'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('size'));
     }
 
     /**
@@ -72,7 +74,28 @@ class SizeController extends Controller
     public function destroy(Size $size)
     {
         $this->authorize('delete', $size);
+
+        // Lấy tất cả các biến thể liên quan đến size này
+        $variants = ProductVariant::where('size_id', $size->id)->get();
+
+        // Xóa size
         $size->delete();
-        return back()->with('success', 'Xóa thành công');
+
+        // Kiểm tra và cập nhật lại trạng thái sản phẩm nếu cần
+        foreach ($variants as $variant) {
+            $productId = $variant->product_id;
+
+            // Đếm số lượng biến thể còn lại của sản phẩm sau khi xóa
+            $count = ProductVariant::where('product_id', $productId)->count();
+
+            // Nếu không còn biến thể, cập nhật is_active về 0
+            if ($count == 0) {
+                $product = Product::find($productId);
+                $product->is_active = 0;
+                $product->save();
+            }
+        }
+
+        return back()->with('success', 'Xóa size thành công');
     }
 }

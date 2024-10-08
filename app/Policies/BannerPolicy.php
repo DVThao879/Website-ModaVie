@@ -45,7 +45,7 @@ class BannerPolicy
      */
     public function delete(User $user, Banner $banner): bool
     {
-        return $user->role === 2;
+        return $user->role == 2;
     }
 
     /**

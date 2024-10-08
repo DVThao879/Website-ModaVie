@@ -84,7 +84,12 @@
                                     <input type="checkbox" class="checkBoxItem" data-id="{{ $item->id }}">
                                 </td>
                                 <td>{{$key+1}}</td>
-                                <td>{{$item->name}}</td>
+                                <td>
+                                    {{$item->name}}
+                                    @if($item->variants->isEmpty())
+                                        <p style="color: red;">(Không có biến thể)</p>
+                                    @endif
+                                </td>
                                 <td>
                                     <div style="width: 100px; height: 130px;">
                                         <img src="{{ Storage::url($item->img_thumb) }}" alt="Product Image" class="img-fluid" style=" width: 100%; height: 100%;">
@@ -101,7 +106,7 @@
                                 <td class="text-center">
                                     <input type="checkbox" class="js-switch active" data-model="{{ $item->is_active }}"
                                         {{ $item->is_active == 1 ? 'checked' : '' }} data-switchery="true"
-                                        data-modelId="{{ $item->id }}" data-title="{{ $item->name }}" @if(Auth::user()->role != 2) disabled @endif/>
+                                        data-modelId="{{ $item->id }}" data-title="{{ $item->name }}" @if($item->variants->isEmpty() || Auth::user()->role != 2) disabled @endif/>
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.products.show', $item) }}" class="btn btn-primary mr-2" title="Xem chi tiết"><i class="fa fa-eye"></i></a>

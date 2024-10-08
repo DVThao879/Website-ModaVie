@@ -29,7 +29,7 @@ class SizePolicy
      */
     public function create(User $user): bool
     {
-        return $user->role === 2;
+        return $user->role == 2;
     }
 
     /**
@@ -37,7 +37,7 @@ class SizePolicy
      */
     public function update(User $user, Size $size): bool
     {
-        return $user->role === 2;
+        return $user->role == 2;
     }
 
     /**
@@ -45,7 +45,7 @@ class SizePolicy
      */
     public function delete(User $user, Size $size): bool
     {
-        return $user->role === 2;
+        return $user->role == 2;
     }
 
     /**

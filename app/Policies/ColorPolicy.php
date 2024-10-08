@@ -29,7 +29,7 @@ class ColorPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role === 2;
+        return $user->role == 2;
     }
 
     /**
@@ -37,7 +37,7 @@ class ColorPolicy
      */
     public function update(User $user, Color $color): bool
     {
-        return $user->role === 2;
+        return $user->role == 2;
     }
 
     /**
@@ -45,7 +45,7 @@ class ColorPolicy
      */
     public function delete(User $user, Color $color): bool
     {
-        return $user->role === 2;
+        return $user->role == 2;
     }
 
     /**

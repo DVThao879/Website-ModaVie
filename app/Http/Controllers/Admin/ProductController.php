@@ -24,7 +24,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::orderBy('id', 'desc')->get();
+        $this->authorize('viewAny', Product::class);
+        $data = Product::with('variants')->orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
@@ -33,6 +34,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Product::class);
         $categories = Category::where('is_active', 1)->get();
         $sizes = Size::all();
         $colors = Color::all();
@@ -108,6 +110,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $this->authorize('view', $product);
         $product->load(['galleries', 'variants.size', 'variants.color']);
         return view(self::PATH_VIEW . __FUNCTION__, compact('product'));
     }
@@ -117,6 +120,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $this->authorize('update', $product);
         $product->load(['variants', 'galleries']);
         $categories = Category::where('is_active', 1)
         ->orWhere('id', $product->category_id)
@@ -224,6 +228,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->authorize('delete', $product);
         try {
             DB::beginTransaction();
 
