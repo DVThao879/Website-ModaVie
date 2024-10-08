@@ -61,7 +61,7 @@
                 </div>
                 <div class="mt-2 text-center">
                     @if(!empty($user->image))
-                    <img src="{{ Storage::url($user->image) }}" alt="Banner Image" class="img-fluid rounded border" style="max-width: 100%; height: auto;">
+                    <img src="{{ Storage::url($user->image) }}" alt="User Image" class="img-fluid img-thumbnail rounded border" style="max-width: 100%; height: auto;">
                     @else
                     <div class="text-danger">Chưa cập nhật ảnh!</div>
                     @endif

@@ -4,18 +4,6 @@
 Sửa tài khoản
 @endsection
 
-@section('style-libs')
-<!-- Plugins css -->
-<link href="{{asset('theme/admin/libs/dropzone/dropzone.css')}}" rel="stylesheet" type="text/css" />
-@endsection
-
-@section('script-libs')
-<!-- dropzone js -->
-<script src="{{asset('theme/admin/libs/dropzone/dropzone-min.js')}}"></script>
-
-<script src="{{asset('theme/admin/js/create-product.init.js')}}"></script>
-@endsection
-
 @section('content')
 <a href="{{route('admin.users.index')}}" class="btn btn-primary mb-3">
     <i class="fa fa-arrow-left"></i> Quay lại
@@ -35,16 +23,16 @@ Sửa tài khoản
                 <div class="collapse show" id="collapseProductInfo">
                     <div class="card-body">
                         <div class="mb-3">
+                            <div class="font-weight-bold mb-2">Chức vụ của {{ $user->name }} ({{ $user->role == 0 ? 'Người dùng' : 'Nhân viên' }})</div>
                             <label for="role" class="form-label">Phân quyền</label>
                             <select name="role" id="role" class="form-control">
                                 <option value="1" {{ $user->role == 1 ? 'selected' : '' }}>Nhân Viên</option>
                                 <option value="0" {{ $user->role == 0 ? 'selected' : '' }}>Khách hàng</option>
                             </select>
+                            @error('role')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>                        
-                        <div class="mb-3">
-                            <label for="is_active" class="form-label">Trạng thái</label>
-                            <input class="form-check-input ml-2" value="1" type="checkbox" name="is_active" id="is_active" @checked($user->is_active)>
-                        </div>
                     </div>
                 </div>
             </div>

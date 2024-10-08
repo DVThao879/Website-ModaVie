@@ -77,7 +77,6 @@
         </div>
     </li>
     
-    @if (Auth::user()->role == 2)
     <li class="nav-item {{ Request::is('admin/users*') ? 'active' : '' }}">
         <a class="nav-link {{ Request::is('admin/users*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseAccounts"
            aria-expanded="true" aria-controls="collapseAccounts">
@@ -88,11 +87,11 @@
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Danh sách chức năng:</h6>
-                <a class="collapse-item {{ Request::routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">Danh sách</a>
+                <a class="collapse-item {{ Request::routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">Danh sách quản lí</a>
+                <a class="collapse-item {{ Request::routeIs('admin.users.listUser') ? 'active' : '' }}" href="{{ route('admin.users.listUser') }}">Danh sách khách hàng</a>
             </div>
         </div>
     </li>   
-    @endif 
 
     <!-- Divider -->
     <hr class="sidebar-divider">

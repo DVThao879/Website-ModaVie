@@ -16,6 +16,7 @@ class ColorController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Color::class);
         $data = Color::orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
     }
@@ -25,6 +26,7 @@ class ColorController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Color::class);
         return view(self::PATH_VIEW.__FUNCTION__);
     }
 
@@ -42,6 +44,7 @@ class ColorController extends Controller
      */
     public function show(Color $color)
     {
+        $this->authorize('view', $color);
         return view(self::PATH_VIEW.__FUNCTION__, compact('color'));
     }
 
@@ -50,6 +53,7 @@ class ColorController extends Controller
      */
     public function edit(Color $color)
     {
+        $this->authorize('update', $color);
         return view(self::PATH_VIEW.__FUNCTION__, compact('color'));
     }
 
@@ -67,6 +71,7 @@ class ColorController extends Controller
      */
     public function destroy(Color $color)
     {
+        $this->authorize('delete', $color);
         $color->delete();
         return back()->with('success', 'Xóa thành công');
     }

@@ -322,3 +322,12 @@ Dashboard
     </div>
 </div>
 @endsection
+
+@section('script-libs')
+<!-- Page level plugins -->
+<script src="{{asset('theme/admin/vendor/chart.js/Chart.min.js')}}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{{asset('theme/admin/js/demo/chart-area-demo.js')}}"></script>
+<script src="{{asset('theme/admin/js/demo/chart-pie-demo.js')}}"></script>
+@endsection

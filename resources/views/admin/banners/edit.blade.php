@@ -4,18 +4,6 @@
 Sửa banner
 @endsection
 
-@section('style-libs')
-<!-- Plugins css -->
-<link href="{{asset('theme/admin/libs/dropzone/dropzone.css')}}" rel="stylesheet" type="text/css" />
-@endsection
-
-@section('script-libs')
-<!-- dropzone js -->
-<script src="{{asset('theme/admin/libs/dropzone/dropzone-min.js')}}"></script>
-
-<script src="{{asset('theme/admin/js/create-product.init.js')}}"></script>
-@endsection
-
 @section('content')
 <a href="{{route('admin.banners.index')}}" class="btn btn-primary mb-3">
     <i class="fa fa-arrow-left"></i> Quay lại
@@ -38,36 +26,34 @@ Sửa banner
                             <label for="title" class="form-label">Tiêu đề</label>
                             <input type="text" class="form-control" id="title" placeholder="Nhập tiêu đề..." name="title" value="{{ old('title', $banner->title) }}">
                             @error('title')
-                                <div class="text-danger">{{ $message }}</div>
+                            <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Ảnh banner</label>
-                            <input type="file" class="form-control" id="image" name="image">
-                            @error('image')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
                             @if($banner->image)
-                            <img src="{{ Storage::url($banner->image) }}" alt="Banner Image" class="img-thumbnail mt-2" width="200">
+                            <img id="preview" src="{{ Storage::url($banner->image) }}" alt="Xem trước ảnh" style="max-width: 100%; height: auto; margin-top: 10px;" class="img-thumbnail">
+                            @else
+                            <img id="preview" src="#" alt="Xem trước ảnh" style="display:none; max-width: 100%; height: auto; margin-top: 10px;">
                             @endif
+                            @error('image')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="link" class="form-label">Đường dẫn</label>
                             <input type="url" class="form-control" id="link" placeholder="https://example.com" name="link" value="{{ old('link', $banner->link) }}">
                             @error('link')
-                                <div class="text-danger">{{ $message }}</div>
+                            <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Mô tả</label>
                             <textarea name="description" class="form-control" id="description" cols="30" rows="5">{{ old('description', $banner->description) }}</textarea>
                             @error('description')
-                                <div class="text-danger">{{ $message }}</div>
+                            <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="is_active" class="form-label">Trạng thái</label>
-                            <input class="form-check-input ml-2" value="1" type="checkbox" name="is_active" id="is_active" @checked($banner->is_active)>
                         </div>
                     </div>
                 </div>
@@ -79,4 +65,21 @@ Sửa banner
         </div>
     </div>
 </form>
+@endsection
+
+@section('script')
+<script>
+    jQuery(document).ready(function() {
+        jQuery('#image').on('change', function(e) {
+            var input = this;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    jQuery('#preview').attr('src', e.target.result).show();
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+    });
+</script>
 @endsection

@@ -16,6 +16,7 @@ class SizeController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Size::class);
         $data = Size::orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
     }
@@ -25,6 +26,7 @@ class SizeController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Size::class);
         return view(self::PATH_VIEW.__FUNCTION__);
     }
 
@@ -42,6 +44,7 @@ class SizeController extends Controller
      */
     public function show(Size $size)
     {
+        $this->authorize('view', $size);
         return view(self::PATH_VIEW.__FUNCTION__, compact('size'));
     }
 
@@ -50,6 +53,7 @@ class SizeController extends Controller
      */
     public function edit(Size $size)
     {
+        $this->authorize('update', $size);
         return view(self::PATH_VIEW.__FUNCTION__, compact('size'));
     }
 
@@ -67,6 +71,7 @@ class SizeController extends Controller
      */
     public function destroy(Size $size)
     {
+        $this->authorize('delete', $size);
         $size->delete();
         return back()->with('success', 'Xóa thành công');
     }

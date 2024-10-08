@@ -5,11 +5,13 @@
 @endsection
 
 @section('style-libs')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css">
     <!-- Custom styles for this page -->
     <link href="{{asset('theme/admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endsection
 
 @section('script-libs')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
     <!-- Page level plugins -->
     <script src="{{asset('theme/admin/vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('theme/admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
@@ -22,21 +24,41 @@
     <a href="{{route('admin.products.create')}}" class="mb-3">
         <button class="btn btn-primary">Tạo mới</button>
     </a>
+    <div id="alert-container" class="alert d-none mt-3" role="alert"></div>
     <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-3">
-        <div class="card-header py-3">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <div class="dropdown float-right">
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cogs"></i> Tùy chọn
+                </button>
+                <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item activeAll" data-is_active="0" href="#" @if(auth()->user()->role != 2) style="pointer-events: none; opacity: 0.6;" @endif>
+                        <i class="fa fa-toggle-on text-success"></i> Bật các mục đã chọn
+                    </a>
+                    <a class="dropdown-item activeAll" data-is_active="1" href="#" @if(auth()->user()->role != 2) style="pointer-events: none; opacity: 0.6;" @endif>
+                        <i class="fa fa-toggle-off text-danger"></i> Tắt các mục đã chọn
+                    </a>
+                    <a class="dropdown-item" href="#" @if(auth()->user()->role != 2) style="pointer-events: none; opacity: 0.6;" @endif>
+                        <i class="fa fa-trash text-danger"></i> Xóa các mục đã chọn
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
+                        <th>
+                            <input id="checkAllTable" type="checkbox">
+                        </th>
                         <th>STT</th>
                         <th>Tên</th>
                         <th>Ảnh</th>
-                        <th>Giá</th>
-                        <th>Giá sale</th>
+                        <th>Giá min</th>
+                        <th>Giá max</th>
                         <th>Danh mục</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
@@ -44,6 +66,7 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th></th>
                             <th>STT</th>
                             <th>Tên</th>
                             <th>Ảnh</th>
@@ -57,6 +80,9 @@
                     <tbody>
                         @foreach($data as $key => $item)
                             <tr>
+                                <td>
+                                    <input type="checkbox" class="checkBoxItem" data-id="{{ $item->id }}">
+                                </td>
                                 <td>{{$key+1}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>
@@ -66,16 +92,20 @@
                                 </td>
                                 <td>{{number_format($item->price_min, 0, ",", ".")}} VNĐ</td>
                                 <td>{{number_format($item->price_max, 0, ",", ".")}} VNĐ</td>
-                                <td>{{$item->category->name}}</td>
-                                <td>{!! $item->is_active ? '<span class="badge bg-success text-white">Hoạt động</span>' : '<span class="badge bg-danger text-white">Không hoạt động</span>' !!}</td>
-                                <td class="d-flex">
+                                <td>
+                                    {{$item->category->name}}
+                                    @if (!$item->category->is_active)
+                                        <span style="color: red;">(Bị khóa)</span>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" class="js-switch active" data-model="{{ $item->is_active }}"
+                                        {{ $item->is_active == 1 ? 'checked' : '' }} data-switchery="true"
+                                        data-modelId="{{ $item->id }}" data-title="{{ $item->name }}" @if(Auth::user()->role != 2) disabled @endif/>
+                                </td>
+                                <td>
                                     <a href="{{ route('admin.products.show', $item) }}" class="btn btn-primary mr-2" title="Xem chi tiết"><i class="fa fa-eye"></i></a>
                                     <a href="{{ route('admin.products.edit', $item) }}" class="btn btn-warning mr-2" title="Sửa"><i class="fa fa-edit"></i></a>
-                                    {{-- <form action="{{ route('admin.products.destroy', $item) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" title="Xóa"><i class="fa fa-trash"></i></button>
-                                    </form> --}}
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $item->id }}" title="Xóa">
                                         <i class="fa fa-trash"></i>
                                     </button>
@@ -116,3 +146,8 @@
     <!-- /.container-fluid -->
 @endsection
 
+@section('script')
+<script src="{{ asset('ajax/checkall.js') }}"></script>
+<script src="{{ asset('ajax/changeActive/Product/changeActiveProduct.js') }}"></script>
+<script src="{{ asset('ajax/changeActive/Product/changeAllActiveProduct.js') }}"></script>
+@endsection

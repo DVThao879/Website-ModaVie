@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Size;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSizeRequest extends FormRequest
@@ -11,7 +12,7 @@ class StoreSizeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('create', Size::class);
     }
 
     /**
@@ -30,7 +31,6 @@ class StoreSizeRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên size là bắt buộc',
-            'name.string' => 'Tên size phải là một chuỗi văn bản',
             'name.max' => 'Tên size không được dài quá 100 ký tự',
             'name.unique' => 'Tên size này đã tồn tại trong hệ thống',
         ];

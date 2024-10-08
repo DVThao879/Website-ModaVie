@@ -35,11 +35,12 @@ Chi tiết sản phẩm
                     </li>
                     <li class="mb-3 d-flex align-items-center">
                         <i class="bi bi-folder mr-2 text-primary"></i>
-                        <strong>Danh mục:</strong> <span class="ml-2">{{$product->category->name}}</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-center">
-                        <i class="bi bi-calendar3 mr-2 text-primary"></i>
-                        <strong>Ngày tạo:</strong> <span class="ml-2">{{$product->created_at->format('d/m/Y H:i')}}</span>
+                        <strong>Danh mục:</strong> <span class="ml-2">
+                            {{$product->category->name}}
+                            @if (!$product->category->is_active)
+                                <span style="color: red;">(Bị khóa)</span>
+                            @endif
+                        </span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
                         <i class="bi bi-pencil-square mr-2 text-primary"></i>
@@ -65,16 +66,27 @@ Chi tiết sản phẩm
                         <i class="bi bi-eye-fill mr-2 text-primary"></i>
                         <strong>Lượt xem:</strong> <span class="ml-2">{{$product->view}}</span>
                     </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="bi bi-file-text mr-2 text-primary"></i>
-                        <div>
-                            <strong>Mô tả:</strong>
-                            <div class="mt-2">
-                                {!! $product->description !!}
-                            </div>
-                        </div>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="bi bi-calendar3 mr-2 text-primary"></i>
+                        <strong>Ngày tạo:</strong> <span class="ml-2">{{$product->created_at->format('d/m/Y H:i')}}</span>
                     </li>
                 </ul>
+            </div>
+            <div class="col-md-12">
+                <li class="mb-3 d-flex align-items-start">
+                    <i class="bi bi-file-text mr-2 text-primary"></i>
+                    <div>
+                        <strong>Mô tả:</strong>
+                        <div class="mt-2" id="shortDescription">
+                            {!! substr($product->description, 0, 200) !!}...
+                            <a href="javascript:void(0);" onclick="showMore()">Xem thêm</a>
+                        </div>
+                        <div class="mt-2" id="fullDescription" style="display:none;">
+                            {!! $product->description !!}
+                            <a href="javascript:void(0);" onclick="showLess()">Ẩn bớt</a>
+                        </div>
+                    </div>
+                </li>
             </div>
         </div>
     </div>
@@ -82,7 +94,7 @@ Chi tiết sản phẩm
         <h4 class="mb-3">Ảnh sản phẩm</h4>
         <div class="row">
             <div class="col-12 col-md-6 mb-3">
-                <div class="img-thumbnail">
+                <div class="">
                     <img src="{{ Storage::url($product->img_thumb) }}" alt="Product Image" class="img-fluid" style="max-width: 100%;">
                 </div>
             </div>
@@ -90,7 +102,7 @@ Chi tiết sản phẩm
                 <div class="row">
                     @foreach ($product->galleries as $item)
                     <div class="col-6 col-md-4 col-lg-3 mb-2">
-                        <img src="{{ Storage::url($item->image) }}" alt="Gallery Image" class="img-thumbnail" style="max-width: 100%; max-height: 150px; object-fit: cover;">
+                        <img src="{{ Storage::url($item->image) }}" alt="Gallery Image" class="" style="max-width: 100%; max-height: 150px; object-fit: cover;">
                     </div>
                     @endforeach
                 </div>
@@ -118,9 +130,9 @@ Chi tiết sản phẩm
                     <td>{{ $product->name }}</td>
                     <td>{{ $item->size->name }}</td>
                     <td>
-                        <div class="d-flex align-items-center">
-                            <span class="mr-2" style="display: inline-block; width: 20px; height: 20px; background-color: {{ $item->color->hex_code }}; border: 1px solid #ccc;"></span>
-                            {{ $item->color->name }}
+                        <div class="d-flex">
+                            <div class="rounded-circle mr-2" style="width: 20px; height: 20px; background-color: {{ $item->color->hex_code }};"></div>
+                            <span>{{ $item->color->hex_code }}</span>
                         </div>
                     </td>
                     <td>{{ $item->quantity }}</td>
@@ -132,4 +144,18 @@ Chi tiết sản phẩm
         </table>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    function showMore() {
+        document.getElementById('shortDescription').style.display = 'none'; // Hide short description
+        document.getElementById('fullDescription').style.display = 'block'; // Show full description
+    }
+    
+    function showLess() {
+        document.getElementById('shortDescription').style.display = 'block'; // Show short description
+        document.getElementById('fullDescription').style.display = 'none'; // Hide full description
+    }
+</script>
 @endsection

@@ -33,7 +33,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('is_active', 1)->get();
         $sizes = Size::all();
         $colors = Color::all();
         return view(self::PATH_VIEW . __FUNCTION__, compact('categories', 'sizes', 'colors'));
@@ -44,7 +44,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
+        $data = $request->except(['variants', 'img_thumb', 'product_galleries']);
         $data['slug'] = Str::slug($data['name']);
         $uploadedFiles = [];
         if (!empty($request->hasFile('img_thumb'))) {
@@ -118,7 +118,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $product->load(['variants', 'galleries']);
-        $categories = Category::all();
+        $categories = Category::where('is_active', 1)
+        ->orWhere('id', $product->category_id)
+        ->get();
         $sizes = Size::all();
         $colors = Color::all();
         return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'categories', 'sizes', 'colors'));
@@ -129,7 +131,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
+        $data = $request->except(['variants', 'img_thumb', 'product_galleries']);
         $data['slug'] = Str::slug($data['name']);
         $uploadedFiles = [];
         if ($request->hasFile('img_thumb')) {
@@ -199,10 +201,6 @@ class ProductController extends Controller
                     $variant->delete();
                 }
             }
-            // else {
-            //     // Xóa tất cả các biến thể nếu không có dữ liệu gửi lên
-            //     ProductVariant::where('product_id', $product->id)->delete();
-            // }
 
             DB::commit();
             return redirect()->route('admin.products.index')->with('success', 'Sửa thành công');
@@ -226,33 +224,17 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $imagesToDelete = [];
-
         try {
             DB::beginTransaction();
 
-            // Lấy tất cả ảnh từ product galleries và product variants
-            foreach ($product->galleries as $gallery) {
-                if (!empty($gallery->image)) {
-                    $imagesToDelete[] = $gallery->image;
-                }
+            if ($product->img_thumb) {
+                Storage::delete($product->img_thumb);
             }
-
-            foreach ($product->variants as $variant) {
-                if (!empty($variant->image)) {
-                    $imagesToDelete[] = $variant->image;
-                }
-            }
-
-            // Lấy ảnh từ product
-            if (!empty($product->img_thumb)) {
-                $imagesToDelete[] = $product->img_thumb;
-            }
-
-            // Xóa tất cả ảnh khỏi storage
-            foreach ($imagesToDelete as $imagePath) {
-                if (Storage::exists($imagePath)) {
-                    Storage::delete($imagePath);
+    
+            $galleries = $product->galleries;
+            foreach ($galleries as $gallery) {
+                if ($gallery->image) {
+                    Storage::delete($gallery->image);
                 }
             }
 

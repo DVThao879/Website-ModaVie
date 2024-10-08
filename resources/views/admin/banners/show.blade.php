@@ -25,10 +25,22 @@
                 <strong>Tiêu đề:</strong>
                 <span class="ml-2">{{$banner->title}}</span>
             </div>
+            <div class="col-md-6 mb-3 d-flex align-items-center">
+                <i class="bi bi-person text-primary mr-2"></i>
+                <strong>Người thêm:</strong>
+                <span class="ml-2">{{$banner->user->name}}</span>
+            </div>
             <div class="col-md-12 mb-3 d-flex align-items-center">
                 <i class="bi bi-file-earmark-text text-primary mr-2"></i>
                 <strong>Mô tả:</strong>
-                <span class="ml-2">{{$banner->description}}</span>
+                <span id="shortDescription" class="ml-2">
+                    {!! substr($banner->description, 0, 50) !!}...
+                    <a href="javascript:void(0);" onclick="showMore()">Xem thêm</a>
+                </span>
+                <span id="fullDescription" style="display:none;" class="ml-2">
+                    {!! $banner->description !!}
+                    <a href="javascript:void(0);" onclick="showLess()">Ẩn bớt</a>
+                </span>
             </div>
             <div class="col-md-12 mb-3">
                 <div class="d-flex align-items-center">
@@ -36,7 +48,7 @@
                     <strong>Ảnh:</strong>
                 </div>
                 <div class="mt-2 text-center">
-                    <img src="{{ Storage::url($banner->image) }}" alt="Banner Image" class="img-fluid rounded border" style="max-width: 100%; height: auto;">
+                    <img src="{{ Storage::url($banner->image) }}" alt="Banner Image" class="img-fluid img-thumbnail rounded border" style="max-width: 100%; height: auto;">
                 </div>
             </div>
             <div class="col-md-12 mb-3 d-flex align-items-center">
@@ -55,4 +67,18 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    function showMore() {
+        document.getElementById('shortDescription').style.display = 'none'; // Hide short description
+        document.getElementById('fullDescription').style.display = 'block'; // Show full description
+    }
+    
+    function showLess() {
+        document.getElementById('shortDescription').style.display = 'block'; // Show short description
+        document.getElementById('fullDescription').style.display = 'none'; // Hide full description
+    }
+</script>
 @endsection

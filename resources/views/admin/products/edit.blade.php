@@ -3,18 +3,7 @@
 @section('title')
 Sửa sản phẩm
 @endsection
-@section('style-libs')
-<!-- Plugins css -->
-<link href="{{asset('theme/admin/libs/dropzone/dropzone.css')}}" rel="stylesheet" type="text/css" />
-@endsection
-@section('script-libs')
-<!-- ckeditor -->
-<script src="{{asset('theme/admin/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js')}}"></script>
-<!-- dropzone js -->
-<script src="{{asset('theme/admin/libs/dropzone/dropzone-min.js')}}"></script>
 
-<script src="{{asset('theme/admin/js/create-product.init.js')}}"></script>
-@endsection
 @section('content')
 <a href="{{route('admin.products.index')}}" class="btn btn-primary mb-3">
     <i class="fa fa-arrow-left"></i> Quay lại
@@ -56,35 +45,32 @@ Sửa sản phẩm
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Mô tả</label>
-                            <textarea id="ckeditor-classic" name="description">{{ old('description', $product->description) }}</textarea>
+                            <label for="editor" class="form-label">Mô tả</label>
+                            <textarea id="editor" name="description">{{ old('description', $product->description) }}</textarea>
                             @error('description')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="img_thumb" class="form-label">Ảnh đại diện</label>
-                            <input type="file" class="form-control" id="img_thumb" name="img_thumb">
-                            @error('img_thumb')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                            @if($product->img_thumb)
-                            <img src="{{ Storage::url($product->img_thumb) }}" alt="Product Thumbnail" class="img-thumbnail mt-2" width="150">
-                            @endif
-                        </div>
-                        <div class="mb-3">
                             <label for="gallery" class="form-label">Thư viện ảnh</label>
-                            <input type="file" class="form-control" id="gallery" name="product_galleries[]" multiple>
-                            @error('product_galleries.*')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                            @if($product->galleries->count())
-                            <div class="mt-2">
-                                @foreach($product->galleries as $gallery)
-                                <img src="{{ Storage::url($gallery->image) }}" alt="Product Gallery" class="img-thumbnail" width="100">
-                                @endforeach
-                            </div>
+                            <input type="file" class="form-control" id="gallery" name="product_galleries[]" multiple accept="image/*">
+                            <!-- Hiển thị lỗi cho từng ảnh -->
+                            @if ($errors->has('product_galleries.*'))
+                            @foreach ($errors->get('product_galleries.*') as $key => $messages)
+                            @foreach ($messages as $message)
+                            <small class="text-danger">{{ $message }}</small><br>
+                            @endforeach
+                            @endforeach
                             @endif
+                            <!-- Xem trước các ảnh đã có và ảnh mới được chọn -->
+                            <div id="image-preview" class="row mt-3">
+                                @foreach($product->galleries as $gallery)
+                                <div class="col-md-2 mb-3">
+                                    <img class="img-thumbnail" style="width:100%;" src="{{ Storage::url($gallery->image) }}" alt="Gallery Image">
+                                </div>
+                                @endforeach
+                                <!-- Ảnh được chọn sẽ hiển thị tại đây -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -107,9 +93,14 @@ Sửa sản phẩm
                             <label for="choices-category-input" class="form-label">Danh mục sản phẩm</label>
                             <select class="form-control" aria-label="Default select example"
                                 id="choices-category-input" name="category_id" required>
-                                <option value="">--Chọn danh mục--</option>
+                                <option value="">--Vui lòng chọn--</option>
                                 @foreach($categories as $item)
-                                <option value="{{$item->id}}" {{ old('category_id', $product->category_id) == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                                <option value="{{ $item->id }}"
+                                    {{ old('category_id', $product->category_id) == $item->id ? 'selected' : '' }}
+                                    @if(!$item->is_active) disabled @endif>
+                                    {{ $item->name }}
+                                    @if(!$item->is_active) (Danh mục bị vô hiệu hóa) @endif
+                                </option>
                                 @endforeach
                             </select>
                             @error('category_id')
@@ -117,21 +108,26 @@ Sửa sản phẩm
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="choices-publish-status-input" class="form-label">Trạng thái HĐ</label>
-                            <select class="form-control form-select-lg" id="choices-publish-status-input" aria-label="Default select example" name="is_active" required>
-                                <option value="">--Chọn trạng thái--</option>
-                                <option value="1" {{ old('is_active', $product->is_active) == '1' ? 'selected' : '' }}>Hoạt động</option>
-                                <option value="0" {{ old('is_active', $product->is_active) == '0' ? 'selected' : '' }}>Không hoạt động</option>
-                            </select>
-                            @error('is_active')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div>
                             <label for="sku" class="form-label">Mã sản phẩm</label>
                             <input type="text" class="form-control" id="sku" name="sku" value="{{ old('sku', $product->sku) }}" required>
                             @error('sku')
                             <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="img_thumb" class="form-label">Ảnh đại diện</label>
+                            <!-- Khung chứa hình ảnh -->
+                            <div style="width: 100%; height: auto;">
+                                <img id="img-preview"
+                                    src="{{ $product->img_thumb ? Storage::url($product->img_thumb) : 'https://tse4.mm.bing.net/th?id=OIP.EkljFHN5km7kZIZpr96-JwAAAA&pid=Api&P=0&h=220' }}"
+                                    alt="Ảnh đại diện"
+                                    class="img-thumbnail"
+                                    style="width: 100%; height: auto; object-fit: cover; cursor: pointer;">
+                            </div>
+                            <!-- Input file ẩn -->
+                            <input type="file" id="img_thumb" name="img_thumb" class="form-control d-none" accept="image/*">
+                            @error('img_thumb')
+                            <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
@@ -164,12 +160,12 @@ Sửa sản phẩm
                         <tbody id="variants-container">
                             @if(old('variants'))
                             @foreach(old('variants', []) as $index => $variant)
-                            <tr id="variant-{{ $index }}">
+                            <tr class="form-variant" id="variant-{{ $index }}" data-index={{ $index }}>
                                 <td>
                                     <select name="variants[{{ $index }}][size_id]" class="form-control" required>
                                         <option value="">Chọn size</option>
                                         @foreach($sizes as $size)
-                                        <option value="{{ $size->id }}" {{ $size->id == $variant['size_id'] ? 'selected' : '' }}>
+                                        <option value="{{ $size->id }}" {{ old("variants.{$index}.size_id") == $size->id ? 'selected' : '' }}>
                                             {{ $size->name }}
                                         </option>
                                         @endforeach
@@ -182,7 +178,7 @@ Sửa sản phẩm
                                     <select name="variants[{{ $index }}][color_id]" class="form-control" required>
                                         <option value="">Chọn màu</option>
                                         @foreach($colors as $color)
-                                        <option value="{{ $color->id }}" {{ $color->id == $variant['color_id'] ? 'selected' : '' }}>
+                                        <option value="{{ $color->id }}" {{ old("variants.{$index}.color_id") == $color->id ? 'selected' : '' }}>
                                             {{ $color->name }}
                                         </option>
                                         @endforeach
@@ -192,32 +188,32 @@ Sửa sản phẩm
                                     @enderror
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][quantity]" class="form-control" value="{{ $variant['quantity'] }}" required>
+                                    <input type="number" name="variants[{{ $index }}][quantity]" class="form-control" value="{{ old("variants.{$index}.quantity") }}" required>
                                     @error("variants.{$index}.quantity")
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][price]" class="form-control" value="{{ $variant['price'] }}" required>
+                                    <input type="number" name="variants[{{ $index }}][price]" class="form-control" value="{{ old("variants.{$index}.price") }}" required>
                                     @error("variants.{$index}.price")
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ $variant['price_sale'] }}" required>
+                                    <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ old("variants.{$index}.price_sale") }}" required>
                                     @error("variants.{$index}.price_sale")
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger remove-variant-btn" data-variant-id="{{ $index }}">Xóa</button>
+                                    <button type="button" class="btn btn-danger remove-variant-btn">Xóa</button>
                                 </td>
                             </tr>
                             @endforeach
                             @else
                             <!-- Đoạn mã xử lý trường hợp không có biến thể nào -->
                             @foreach ($product->variants as $index => $variant)
-                            <tr id="variant-{{ $index }}">
+                            <tr class="form-variant" id="variant-{{ $index }}" data-index="{{ $index }}">
                                 <td>
                                     <select name="variants[{{ $index }}][size_id]" class="form-control" required>
                                         <option value="">Chọn size</option>
@@ -227,9 +223,6 @@ Sửa sản phẩm
                                         </option>
                                         @endforeach
                                     </select>
-                                    @error("variants.{$index}.size_id")
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </td>
                                 <td>
                                     <select name="variants[{{ $index }}][color_id]" class="form-control" required>
@@ -240,30 +233,18 @@ Sửa sản phẩm
                                         </option>
                                         @endforeach
                                     </select>
-                                    @error("variants.{$index}.color_id")
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </td>
                                 <td>
                                     <input type="number" name="variants[{{ $index }}][quantity]" class="form-control" value="{{ old("variants.{$index}.quantity", $variant->quantity) }}" required>
-                                    @error("variants.{$index}.quantity")
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </td>
                                 <td>
                                     <input type="number" name="variants[{{ $index }}][price]" class="form-control" value="{{ old("variants.{$index}.price", $variant->price) }}" required>
-                                    @error("variants.{$index}.price")
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </td>
                                 <td>
                                     <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ old("variants.{$index}.price_sale", $variant->price_sale) }}" required>
-                                    @error("variants.{$index}.price_sale")
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger remove-variant-btn" data-variant-id="{{ $index }}">Xóa</button>
+                                    <button type="button" class="btn btn-danger remove-variant-btn">Xóa</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -283,76 +264,16 @@ Sửa sản phẩm
 @endsection
 
 @section('script')
+<script src="{{ asset('ajax/productVariant.js') }}"></script>
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        function attachDeleteEventListeners() {
-            const deleteButtons = document.querySelectorAll('.remove-variant-btn');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const variantId = this.getAttribute('data-variant-id');
-                    document.getElementById(`variant-${variantId}`).remove();
-                });
-            });
-        }
-
-        // Gọi hàm này ngay khi trang tải xong để gắn sự kiện cho các nút "Xóa"
-        attachDeleteEventListeners();
-
-        // Sự kiện khi nhấn nút "Thêm biến thể"
-        document.getElementById('add-variant-btn').addEventListener('click', function() {
-            const container = document.getElementById('variants-container');
-            const variantIndex = container.children.length;
-
-            const variantHtml = `
-        <tr id="variant-${variantIndex}">
-            <td>
-                <select name="variants[${variantIndex}][size_id]" class="form-control" required>
-                    <option value="">Chọn size</option>
-                    @foreach($sizes as $size)
-                        <option value="{{ $size->id }}">{{ $size->name }}</option>
-                    @endforeach
-                </select>
-            </td>
-            <td>
-                <select name="variants[${variantIndex}][color_id]" class="form-control" required>
-                    <option value="">Chọn màu</option>
-                    @foreach($colors as $color)
-                    <option value="{{ $color->id }}">{{ $color->name }}</option>
-                    @endforeach
-                </select>
-            </td>
-            <td>
-                <input type="number" name="variants[${variantIndex}][quantity]" class="form-control" required>
-            </td>
-            <td>
-                <input type="number" name="variants[${variantIndex}][price]" class="form-control" required>
-            </td>
-            <td>
-                <input type="number" name="variants[${variantIndex}][price_sale]" class="form-control" required>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger remove-variant-btn" data-variant-id="${variantIndex}">Xóa</button>
-            </td>
-        </tr>
-        `;
-
-            container.insertAdjacentHTML('beforeend', variantHtml);
-
-            // Gắn lại sự kiện cho nút "Xóa" sau khi thêm mới biến thể
-            attachDeleteEventListeners();
-        });
-
-        const form = document.getElementById('myForm');
-
-        form.addEventListener('submit', function(event) {
-            const container = document.getElementById('variants-container');
-            if (container.children.length === 0) {
-                alert('Vui lòng thêm biến thể sản phẩm trước khi lưu');
-                event.preventDefault();
-                return;
-            }
-        });
-        
+    CKEDITOR.replace('editor', {
+        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}',
+        removePlugins: 'exportpdf',
+        clipboard_handleImages: false,
     });
 </script>
 @endsection
