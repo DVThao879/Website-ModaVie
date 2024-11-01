@@ -58,11 +58,13 @@ Route::post('auth/forgot',[ForgotPasswordController::class, 'forgot'])->name('fo
 Route::get('verify-email/{token}', [ForgotPasswordController::class, 'verifyEmail'])->name('verify.email');
 
 //Xem thông tin
-Route::get('/my_aucount',[AcountController::class,'myAucount'])->name('my_acount');
+Route::get('/my_acount',[AcountController::class,'myAucount'])->name('my_acount');
 //Cập nhật tài khoản
-Route::post('/my_aucount/update/{id}',[AcountController::class,'updateMyAcount'])->name('updateMyAcount');
+Route::post('/my_acount/update/{id}',[AcountController::class,'updateMyAcount'])->name('updateMyAcount');
 //Cập nhật mật khẩu
 // Route::post('/my_aucount/password/update/{id}',[AcountController::class,'updatePassword'])->name('updatePassword');
+//Chi tiet bill
+Route::get('/my_acount/{id}/bill_detail',[AcountController::class,'orderBillDetail'])->name('viewBillDetail');
 //cua hang
  Route::get('shop',[ShopController::class,'index'])->name('shop');
  //chi tiet san pham
@@ -83,6 +85,25 @@ Route::post('cart/remove', [CartController::class, 'removeFromCart'])->name('car
 });
 Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
+
+//thanh toán
+Route::get('/checkout', [CartController::class, 'showCheckout'])->name('user.checkout');
+Route::post('/place-order', [CartController::class, 'placeOrder'])->name('user.placeOrder');
+
+Route::get('/momo/return', [CartController::class, 'momoReturn'])->name('momo.return');
+Route::post('/momo/notify', [CartController::class, 'momoNotify'])->name('momo.notify');
+
+// Route để xử lý callback từ Momo sau khi thanh toán thành công/thất bại
+// Route để xử lý callback từ Momo sau khi thanh toán thành công hoặc thất bại
+Route::post('/momo/callback', [CartController::class, 'callback'])->name('momo.callback');
+Route::get('/vnpay-return', [CartController::class, 'vnpayReturn'])->name('vnpay.return');
+
+
+
+
+//tim kiem don hang
+Route::get('/bills/search', [CartController::class, 'searchBill'])->name('user.bill.search');
+Route::get('/my_bill/{id}/bill_detail',[CartController::class,'orderTracking'])->name('user.bill.orderTracking');
 
 Route::prefix('admin')->as('admin.')->group(function(){
     Route::get('/', function () {

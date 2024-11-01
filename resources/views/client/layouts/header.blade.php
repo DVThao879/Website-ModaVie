@@ -174,6 +174,8 @@
                                             @else
                                                 <li><a href="{{ route('user.login')}}">Đăng nhập</a></li>
                                                 <li><a href="{{ route('user.register') }}">Đăng ký</a></li>
+                                                <li><a href="{{ route('user.bill.search')}}">Tra cứu đơn hàng</a></li>
+
                                             @endif
                                         </ul>
                                     </li>

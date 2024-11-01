@@ -1,5 +1,4 @@
 @extends('client.layouts.app')
-
 @section('content')
     <div class="breadcrumb-area pt-95 pb-100 bg-img" style="background-image:url(assets/images/bg/breadcrumb.jpg);">
         <div class="container">
@@ -67,15 +66,6 @@
                                     <div class="tab-pane fade " id="orders" role="tabpanel">
                                         <div class="myaccount-content">
                                             <h3>Sản phẩm đã mua</h3>
-                                            {{-- @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        @endif --}}
                                             <div class="myaccount-table table-responsive text-center">
                                                 <table class="table table-bordered">
                                                     <thead class="thead-light">
@@ -88,10 +78,23 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($bills as $key=>$item)
+                                                            <th>{{$key+1}}</th>
+                                                            <td>{{ \Carbon\Carbon::parse($item->date)->format('d-m-Y') }}
+                                                                <td>{{$item->status}}</td>
+                                                                <td>{{ number_format($item->total, 0, ',', '.') }} VND</td>
+                                                                <td><a href="{{route('user.viewBillDetail',$item->id)}}">Xem</a>
+                                                                
+                                                                </td>
+                                                                @endforeach
 
                                                     </tbody>
                                                 </table>
                                             </div>
+
+                                            
+
+                                            
                                         </div>
                                     </div>
 

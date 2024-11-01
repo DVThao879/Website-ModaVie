@@ -23,7 +23,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                   <form action="#">
                     <div class="table-content table-responsive cart-table-content">
-                        @if (count($cart) > 0)
+                        {{-- @if ($cart && count($cart) > 0) --}}
                             <table>
                                 <thead>
                                     <tr>
@@ -37,6 +37,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                   
                                     @foreach ($cart as $key => $item)
                                         <tr data-key="{{ $key }}">
                                             <td class="product-thumbnail">
@@ -74,9 +75,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        @else
+                        {{-- @else
                             <p>Giỏ hàng của bạn hiện tại trống.</p>
-                        @endif
+                        @endif --}}
                     </div>
                 
                     <div class="row">
@@ -86,8 +87,14 @@
                                     <a href="#">Tiếp Tục Mua Hàng</a>
                                 </div>
                                 <div class="cart-clear">
-                                    <a href="#">Thanh Toán</a>
+                                    @if ($cart && count($cart) > 0)
+                                        <a href="{{ route('user.checkout') }}">Thanh Toán</a>
+                                        @endif
+                                          
+                                       
+                                    
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
