@@ -8,9 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
 {
@@ -41,24 +39,24 @@ class ForgotPasswordController extends Controller
         $token = base64_encode($user->email);
         Mail::to($user->email)->send(new VerifyEmailPassword($user->name, $token));
 
-        return redirect()->route('user.forgot')->with('status', 'Link xác thực đã được gửi, vui lòng kiểm tra email của bạn.');
+        return redirect()->route('forgot')->with('status', 'Link xác thực đã được gửi, vui lòng kiểm tra email của bạn.');
     }
     public function verifyEmail($token) {
         $email = base64_decode($token);
         $user = User::where('email', $email)->first();
     
         if (!$user) {
-            return redirect()->route('user.login')->withErrors(['email' => 'Email không hợp lệ.']);
+            return redirect()->route('login')->withErrors(['email' => 'Email không hợp lệ.']);
         }
      // Kiểm tra xem thời gian xác thực có còn hợp lệ hay không
      if (Carbon::now()->greaterThan($user->email_verification_expires_at)) {
-        return redirect()->route('user.forgot')->withErrors(['email' => 'Link xác thực đã hết hạn. Vui lòng yêu cầu gửi lại link.']);
+        return redirect()->route('forgot')->withErrors(['email' => 'Link xác thực đã hết hạn. Vui lòng yêu cầu gửi lại link.']);
     }
         // Đánh dấu email đã được xác thực
         $user->email_verified_at = now();
         $user->save();
     
-        return redirect()->route('user.password.reset', ['token' => $token])->with('status', 'Email đã được xác thực. Bạn có thể đặt lại mật khẩu.');
+        return redirect()->route('password.reset', ['token' => $token])->with('status', 'Email đã được xác thực. Bạn có thể đặt lại mật khẩu.');
     }
 
 
@@ -99,7 +97,7 @@ class ForgotPasswordController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
     
-        return redirect()->route('user.login')->with('status', 'Mật khẩu đã được đổi thành công!');
+        return redirect()->route('login')->with('status', 'Mật khẩu đã được đổi thành công!');
     }
     
 

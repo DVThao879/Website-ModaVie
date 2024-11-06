@@ -4,8 +4,8 @@
             <div class="row align-items-center">
                 <div class="col-xl-2 col-lg-2">
                     <div class="logo">
-                        <a href="index.html">
-                            <img src="assets/images/logo/logo.png" alt="logo">
+                        <a href="index.html" class="fw-bold fs-3 text-info">
+                            {{-- <img src="assets/images/logo/logo.png" alt="logo"> --}}MODAVIE
                         </a>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
                             <ul>
                                 <li><a href="{{route('home')}}">Trang chủ </a>
                                 </li>
-                                <li><a href="{{route('user.shop')}}">Cửa hàng </a>
+                                <li><a href="{{route('shop')}}">Cửa hàng </a>
                                 </li>
                                 <li><a href="blog.html">Tin tức</a>
                                 </li>
@@ -29,12 +29,23 @@
                         <div class="same-style cart-wrap">
                             <a href="#" class="cart-active">
                                 <i class="la la-shopping-cart"></i>
-                                <span class="count-style">02</span>
+                                <span class="count-style">
+                                    @if(session('cart'))
+                                        {{-- Đếm số loại sản phẩm trong giỏ hàng --}}
+                                        {{ count(session('cart')) }}
+                                    @else
+                                        0
+                                    @endif
+                                </span>
+                                
+                                
                             </a>
                         </div>
+                        
                         <div class="same-style header-search ml-15">
-                            <a class="search-active" href="#"><i class="la la-search"></i></a>
+                            <a class="search-active" href="javascript:void(0);"><i class="la la-search"></i></a>
                         </div>
+                        
                         <div class="same-style setting-wrap ml-15">
                             @if(Auth::check())
                             <a class="setting-active" href="#"><a class="setting-active" href="#">
@@ -62,21 +73,18 @@
                                                 <li><a href="">Xin chào,
                                                     {{ Auth::user()->name }}</a>
                                                 </li>
-                                                    <li><a href="{{ route('user.my_acount') }}">Xem thông tin</a></li>
+                                                    <li><a href="{{ route('my_acount') }}">Xem thông tin</a></li>
                                                     @if(Auth::user()->role == 1 || Auth::user()->role == 2)
                                                      <li><a href="{{ route('admin.dashboard') }}">Quản trị viên</a></li>
                                                     @endif
                                                     <li>
-                                                        <form action="{{ route('user.logout') }}" method="post">
-                                                            @csrf
-                                                            <button type="submit" style="border: none; background: none; cursor: pointer;">Thoát</button>
-                                                        </form>
-                                                        
+                                                        <a href="{{ route('logout') }}">Đăng xuất</a>
                                                     </li>
                                                     
                                             @else
-                                                <li><a href="{{ route('user.login')}}">Đăng nhập</a></li>
-                                                <li><a href="{{ route('user.register') }}">Đăng ký</a></li>
+                                                <li><a href="{{ route('login')}}">Đăng nhập</a></li>
+                                                <li><a href="{{ route('register') }}">Đăng ký</a></li>
+                                                <li><a href="{{ route('bill.search')}}">Tra cứu đơn hàng</a></li>
                                             @endif
                                         </ul>
                                     </li>

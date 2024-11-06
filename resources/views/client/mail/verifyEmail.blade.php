@@ -13,7 +13,7 @@
             Cảm ơn bạn đã đăng ký tài khoản tại trang web của chúng tôi. Để hoàn tất quá trình đăng ký, vui lòng xác thực tài khoản của bạn bằng cách nhấn vào nút dưới đây:
         </p>
         <div style="margin-top: 30px;">
-            <a href="{{ route('user.verify', $token) }}" style="background-color: #28a745; color: #ffffff; padding: 12px 25px; border: none; border-radius: 5px; font-size: 16px; text-decoration: none; display: inline-block;">Xác Thực Tài Khoản</a>
+            <a href="{{ route('verify', $token) }}" style="background-color: #28a745; color: #ffffff; padding: 12px 25px; border: none; border-radius: 5px; font-size: 16px; text-decoration: none; display: inline-block;">Xác Thực Tài Khoản</a>
         </div>
         <p style="color: #555555; margin-top: 30px; font-size: 14px;">
             Nếu bạn không đăng ký tài khoản này, vui lòng bỏ qua email này.

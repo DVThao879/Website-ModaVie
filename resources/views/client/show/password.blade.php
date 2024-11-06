@@ -35,7 +35,7 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form method="POST" action="{{ route('user.password.update') }}"> 
+                                        <form method="POST" action="{{ route('password.update') }}"> 
                                             @csrf
                                             <input type="hidden" name="token" value="{{ $token }}">
                                                                     

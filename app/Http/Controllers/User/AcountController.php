@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bill;
+use App\Models\BillDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +14,35 @@ use Illuminate\Support\Facades\Hash;
 class AcountController extends Controller
 {
     function myAucount(){
-        return view('client.show.my_acount');
+        if (Auth::check()) {
+            $user = Auth::user();
+
+        $bills = Bill::query()->where('user_id',$user->id)->get();
+        // dd($bills);
+        // $billIds = $bills->pluck('id');
+        // $billDetails = DB::table('bill_details')->whereIn('bill_id', $billIds)->get();
+            //  dd($billDetails);
+        }else{
+            return view('client.show.cart');
+        }
+        return view('client.show.my_acount',compact('bills'));
+    }
+    function orderBillDetail($id){
+        if (Auth::check()) {
+            $user = Auth::user();
+            // dd($user);
+        }
+
+        $bills = Bill::query()->where('user_id',$user->id)->get();
+        
+      
+           $billIds = $bills->pluck('id');
+           $billDetails = BillDetail::whereIn('bill_id', $billIds)->with(['product','productVariant'])->get();
+       
+   
+    //   dd($billDetails);
+        return view('client.show.bill_detail',compact('bills','billDetails'));
+
     }
     public function updateMyAcount(Request $request, $id)
     {
@@ -28,13 +58,10 @@ class AcountController extends Controller
         } else {
             $url = $image;
         }
-    
-        // Update user details
         $user->address = $request->input('address');
         $user->phone = $request->input('phone');
         $user->image = $url;
-    
-        // Handle password update
+   
         if ($request->filled('current_password') || $request->filled('new_password')) {
             $request->validate([
                 'current_password' => 'required_with:new_password',

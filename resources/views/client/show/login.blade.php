@@ -50,7 +50,7 @@
                                                 </ul>
                                             </div>
                                         @endif --}}
-                                        <form action="{{route('user.login')}}" method="POST">
+                                        <form action="{{route('login')}}" method="POST">
                                             @csrf
                                             <div class="mb-4">
                                                 <input type="email" name="email" placeholder="Email">
@@ -72,8 +72,8 @@
                                                 <div class="login-toggle-btn">
                                                     <input type="checkbox">
                                                     <label>Remember me</label>
-                                                    <a href="{{route('user.forgot')}}">Forgot Password?</a>
-                                                    <a href="{{route('user.register')}}">Register?</a>
+                                                    <a href="{{route('forgot')}}">Forgot Password?</a>
+                                                    <a href="{{route('register')}}">Register?</a>
 
                                                 </div>
                                                 {{-- @if ($errors->any())
