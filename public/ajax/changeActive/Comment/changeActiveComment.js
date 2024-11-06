@@ -2,6 +2,7 @@
     "use strict";
     var HT = {};
     var token = $('meta[name="csrf-token"]').attr('content');
+    var alertTimeout;
 
     HT.changeStt = () => {
 
@@ -17,12 +18,14 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: 'category_blogs/ajax/changeActiveCategoryBlog',
+                    url: 'comments/ajax/changeActiveComment',
                     data: option,
                     dataType: 'json',
                     success: function (res) {
                         if (res.status) {
                             _this.attr('data-model', res.newStatus);
+                            alert('Cập nhật thành công!');
+                            showAlert('Thay đổi trạng thái thành công!', 'success');
                         } else {
                             console.error('Cập nhật thất bại: ' + res.message);
                         }
@@ -41,6 +44,22 @@
             });
         }
     };
+
+    function showAlert(message, type) {
+        let alertContainer = $('#alert-container');
+
+        if (alertTimeout) {
+            clearTimeout(alertTimeout);
+        }
+
+        alertContainer.removeClass('d-none alert-success alert-danger');
+        alertContainer.addClass('alert-' + type);
+        alertContainer.html(message);
+
+        alertTimeout = setTimeout(function () {
+            alertContainer.addClass('d-none');
+        }, 5000);
+    }
 
     $(document).ready(function () {
         HT.changeStt();

@@ -20,7 +20,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: 'blogs/ajax/changeActiveBlog',
+                    url: 'vouchers/ajax/changeActiveVoucher',
                     data: option,
                     dataType: 'json',
                     success: function (res) {

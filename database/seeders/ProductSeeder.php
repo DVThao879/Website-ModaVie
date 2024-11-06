@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
+use App\Models\ProductGallery;
+use App\Models\ProductVariant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +15,9 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\Product::factory(20)->create();
+        Product::factory(10)->create()->each(function ($product) {
+            ProductVariant::factory(5)->create(['product_id' => $product->id]);
+            ProductGallery::factory(3)->create(['product_id' => $product->id]);
+        });
     }
 }

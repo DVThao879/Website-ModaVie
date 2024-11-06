@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-// use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
@@ -26,18 +27,31 @@ class AccountController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    // public function create()
-    // {
-    //     //
-    // }
+    public function create()
+    {
+        $this->authorize('create', User::class);
+        return view(self::PATH_VIEW . __FUNCTION__);
+    }
 
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+    public function store(StoreUserRequest $request)
+    {
+        $data = $request->except('image');
+        $data['password'] = Hash::make($request->input('password'));
+        
+        if ($request->hasFile('image')) {
+            $data['image'] = Storage::put('users', $request->file('image'));
+        } else {
+            $data['image'] = '';
+        }
+
+        $data['email_verified_at'] = now();
+        $data['role'] = '1';
+        User::create($data);
+        return redirect()->route('admin.users.index')->with('success', 'Thêm mới thành công');
+    }
 
     /**
      * Display the specified resource.
@@ -63,6 +77,11 @@ class AccountController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     { 
         $data = $request->all();
+        if($user->email_verified_at == null){
+            $data['email_verified_at'] = now();
+        }else{
+            $data['email_verified_at'] = $user->email_verified_at;
+        }
         $user->update($data);
 
         return redirect()->route('admin.users.index')->with('success', 'Sửa thành công');

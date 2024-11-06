@@ -21,6 +21,9 @@ Danh sách tài khoản quản lí
 @endsection
 
 @section('content')
+<a href="{{route('admin.users.create')}}" class="mb-3">
+    <button class="btn btn-primary">Tạo mới</button>
+</a>
 <div id="alert-container" class="alert d-none mt-3" role="alert"></div>
 <!-- DataTales Example -->
 <div class="card shadow mb-4 mt-3">

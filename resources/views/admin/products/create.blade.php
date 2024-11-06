@@ -182,7 +182,7 @@ Thêm sản phẩm
                                 <td>
                                     <input type="number" name="variants[{{ $index }}][quantity]" class="form-control" value="{{ $variant['quantity'] ?? '' }}" required>
                                     @error("variants.{$index}.quantity")
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </td>
                                 <td>

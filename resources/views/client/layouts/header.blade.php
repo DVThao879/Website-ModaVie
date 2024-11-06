@@ -13,70 +13,13 @@
                     <div class="main-menu">
                         <nav>
                             <ul>
-                                <li class="angle-shape"><a href="{{route('home')}}">Trang chủ </a>
-                                    {{-- <ul class="submenu">
-                                        <li><a href="index.html">Home version 1 </a></li>
-                                        <li><a href="index-2.html">Home version 2 </a></li>
-                                    </ul> --}}
+                                <li><a href="{{route('home')}}">Trang chủ </a>
                                 </li>
-                                <li class="angle-shape"><a href="{{route('user.shop')}}">Cửa hàng </a>
-                                    {{-- <ul class="mega-menu">
-                                        <li><a class="menu-title" href="#">Shop Layout</a>
-                                            <ul>
-                                                <li><a href="shop.html">standard style</a></li>
-                                                <li><a href="shop-2col.html">grid 2 column</a></li>
-                                                <li><a href="shop-right-sidebar.html">grid right sidebar</a></li>
-                                                <li><a href="shop-grid-no-sidebar.html">grid no sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a class="menu-title" href="#">Shop Layout</a>
-                                            <ul>
-                                                <li><a href="shop-grid-fw.html">grid full wide</a></li>
-                                                <li><a href="shop-list.html">list 1 column</a></li>
-                                                <li><a href="shop-list-fw-2col.html">list 2 column</a></li>
-                                                <li><a href="shop-list-fw.html">list full wide</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a class="menu-title" href="#">Product Details</a>
-                                            <ul>
-                                                <li><a href="product-details.html">tab style 1</a></li>
-                                                <li><a href="product-details-tab-2.html">tab style 2</a></li>
-                                                <li><a href="product-details-tab-3.html">tab style 3</a></li>
-                                                <li><a href="product-details-gallery.html">gallery style </a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a class="menu-title" href="#">Product Details</a>
-                                            <ul>
-                                                <li><a href="product-details-sticky.html">sticky style</a></li>
-                                                <li><a href="product-details-sticky-right.html">sticky right</a></li>
-                                                <li><a href="product-details-slider-box.html">slider style</a></li>
-                                                <li><a href="product-details-affiliate.html">Affiliate style</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul> --}}
+                                <li><a href="{{route('user.shop')}}">Cửa hàng </a>
+                                </li>
+                                <li><a href="blog.html">Tin tức</a>
                                 </li>
                                 <li><a href="shop.html">Liên hệ </a></li>
-                                <li class="angle-shape"><a href="#">Trang </a>
-                                    <ul class="submenu">
-                                        <li><a href="about-us.html">Về chúng tôi </a></li>
-                                        <li><a href="cart.html">So sáng </a></li>
-                                        {{-- <li><a href="checkout.html">checkout </a></li>
-                                        <li><a href="compare.html">compare </a></li>
-                                        <li><a href="wishlist.html">wishlist </a></li>
-                                        <li><a href="my-account.html">my account </a></li>
-                                        <li><a href="contact.html">contact us </a></li>
-                                        <li><a href="login-register.html">login/register </a></li>
-                                        <li><a href="404.html">404 page </a></li> --}}
-                                    </ul>
-                                </li>
-                                <li class="angle-shape"><a href="blog.html"> Blog </a>
-                                    {{-- <ul class="submenu">
-                                        <li><a href="blog.html">standard style </a></li>
-                                        <li><a href="blog-no-sidebar.html"> blog no sidebar </a></li>
-                                        <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                        <li><a href="blog-details.html">blog details</a></li>
-                                    </ul> --}}
-                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -120,10 +63,8 @@
                                                     {{ Auth::user()->name }}</a>
                                                 </li>
                                                     <li><a href="{{ route('user.my_acount') }}">Xem thông tin</a></li>
-                                                    @if(Auth::user()->role == 1)
-                                                     <li><a href="">Quản trị viên</a></li>
-
-                                                    {{-- <li><a href="{{ route('admin.dashboard') }}">Quản trị viên</a></li> --}}
+                                                    @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                                                     <li><a href="{{ route('admin.dashboard') }}">Quản trị viên</a></li>
                                                     @endif
                                                     <li>
                                                         <form action="{{ route('user.logout') }}" method="post">

@@ -23,7 +23,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        Sản phẩm & khuyến mại
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -76,7 +76,30 @@
             </div>
         </div>
     </li>
-    
+
+    <li class="nav-item {{ Request::is('admin/vouchers*') ? 'active' : '' }}">
+        <a class="nav-link {{ Request::is('admin/vouchers*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseBanners"
+           aria-expanded="true" aria-controls="collapseBanners">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Quản lí khuyến mại</span>
+        </a>
+        <div id="collapseBanners" class="collapse {{ Request::is('admin/vouchers*') ? 'show' : '' }}" aria-labelledby="headingBanners" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Danh sách chức năng:</h6>
+                <a class="collapse-item {{ Request::routeIs('admin.vouchers.index') ? 'active' : '' }}" href="{{ route('admin.vouchers.index') }}">Danh sách</a>
+                <a class="collapse-item {{ Request::routeIs('admin.vouchers.create') ? 'active' : '' }}" href="{{ route('admin.vouchers.create') }}">Thêm</a>
+            </div>
+        </div>
+    </li>  
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Khách hàng và nội dung
+    </div>
+
     <li class="nav-item {{ Request::is('admin/users*') ? 'active' : '' }}">
         <a class="nav-link {{ Request::is('admin/users*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseAccounts"
            aria-expanded="true" aria-controls="collapseAccounts">
@@ -91,15 +114,38 @@
                 <a class="collapse-item {{ Request::routeIs('admin.users.listUser') ? 'active' : '' }}" href="{{ route('admin.users.listUser') }}">Danh sách khách hàng</a>
             </div>
         </div>
-    </li>   
+    </li> 
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Addons
-    </div>
+    <li class="nav-item {{ Request::is('admin/blogs*') ? 'active' : '' }}">
+        <a class="nav-link {{ Request::is('admin/blogs*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapsePosts"
+           aria-expanded="true" aria-controls="collapsePosts">
+            <i class="fas fa-fw fa-pen"></i>
+            <span>Quản lí bài viết</span>
+        </a>
+        <div id="collapsePosts" class="collapse {{ Request::is('admin/blogs*') ? 'show' : '' }}" aria-labelledby="headingPosts"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Danh sách chức năng:</h6>
+                <a class="collapse-item {{ Request::routeIs('admin.blogs.index') ? 'active' : '' }}" href="{{ route('admin.blogs.index') }}">Danh sách</a>
+                <a class="collapse-item {{ Request::routeIs('admin.blogs.create') ? 'active' : '' }}" href="{{ route('admin.blogs.create') }}">Thêm</a>
+            </div>
+        </div>
+    </li>
+    
+    <li class="nav-item {{ Request::is('admin/comments*') ? 'active' : '' }}">
+        <a class="nav-link {{ Request::is('admin/comments*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseComments"
+           aria-expanded="true" aria-controls="collapseComments">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Quản lí bình luận</span>
+        </a>
+        <div id="collapseComments" class="collapse {{ Request::is('admin/comments*') ? 'show' : '' }}" aria-labelledby="headingComments"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Danh sách chức năng:</h6>
+                <a class="collapse-item {{ Request::routeIs('admin.comments.index') ? 'active' : '' }}" href="{{ route('admin.comments.index') }}">Danh sách</a>
+            </div>
+        </div>
+    </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {{ Request::is('admin/banners*') ? 'active' : '' }}">
@@ -113,45 +159,29 @@
                 <h6 class="collapse-header">Danh sách chức năng:</h6>
                 <a class="collapse-item {{ Request::routeIs('admin.banners.index') ? 'active' : '' }}" href="{{ route('admin.banners.index') }}">Danh sách</a>
                 <a class="collapse-item {{ Request::routeIs('admin.banners.create') ? 'active' : '' }}" href="{{ route('admin.banners.create') }}">Thêm</a>
-                {{-- <a class="collapse-item" href="#">Forgot Password</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="#">404 Page</a>
-                <a class="collapse-item" href="#">Blank Page</a> --}}
             </div>
         </div>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBanners"
-           aria-expanded="true" aria-controls="collapseBanners">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Quản lí khuyến mại</span>
-        </a>
-        <div id="collapseBanners" class="collapse" aria-labelledby="headingBanners" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Danh sách chức năng:</h6>
-                <a class="collapse-item" href="">Danh sách</a>
-                <a class="collapse-item" href="">Thêm</a>
-                {{-- {{ route('admin.promotions.index') }}
-                {{ route('admin.promotions.create') }} --}}
-            </div>
-        </div>
-    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-    <!-- Nav Item - Charts -->
-    {{-- <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Quản lí khuyến mại</span></a>
-    </li> --}}
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Đơn hàng và thống kê
+    </div>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="">
             <i class="fas fa-fw fa-table"></i>
             <span>Đơn hàng</span></a>
-            {{-- {{ route('admin.orders.index') }} --}}
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="">
+            <i class="fas fa-chart-line"></i>
+            <span>Thống kê</span></a>
     </li>
 
     <!-- Divider -->

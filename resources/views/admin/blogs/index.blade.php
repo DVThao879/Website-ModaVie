@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Danh sách sản phẩm
+    Danh sách bài viết
 @endsection
 
 @section('style-libs')
@@ -21,7 +21,7 @@
 @endsection
 
 @section('content')
-    <a href="{{route('admin.products.create')}}" class="mb-3">
+    <a href="{{route('admin.blogs.create')}}" class="mb-3">
         <button class="btn btn-primary">Tạo mới</button>
     </a>
     <div id="alert-container" class="alert d-none mt-3" role="alert"></div>
@@ -55,66 +55,39 @@
                             <input id="checkAllTable" type="checkbox">
                         </th>
                         <th>STT</th>
-                        <th>Tên</th>
-                        <th>Ảnh</th>
-                        <th>Giá min</th>
-                        <th>Giá max</th>
-                        <th>Danh mục</th>
+                        <th>Tiêu đề</th>
+                        <th>Người tạo</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
                     </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th></th>
-                            <th>STT</th>
-                            <th>Tên</th>
-                            <th>Ảnh</th>
-                            <th>Giá min</th>
-                            <th>Giá max</th>
-                            <th>Danh mục</th>
-                            <th>Trạng thái</th>
-                            <th>Hành động</th>
+                        <th></th>
+                        <th>STT</th>
+                        <th>Tiêu đề</th>
+                        <th>Người tạo</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach($data as $key => $item)
                             <tr>
-                                @if(!$item->variants->isEmpty())
                                 <td>
                                     <input type="checkbox" class="checkBoxItem" data-id="{{ $item->id }}">
                                 </td>
-                                @else
-                                <td></td>
-                                @endif
                                 <td>{{$key+1}}</td>
-                                <td>
-                                    {{$item->name}}
-                                    @if($item->variants->isEmpty())
-                                        <p style="color: red;">(Không có biến thể)</p>
-                                    @endif
-                                </td>
-                                <td>
-                                    <div style="width: 100px; height: 130px;">
-                                        <img src="{{ Storage::url($item->img_thumb) }}" alt="Product Image" class="img-fluid" style=" width: 100%; height: 100%;">
-                                    </div>
-                                </td>
-                                <td>{{number_format($item->price_min, 0, ",", ".")}} VNĐ</td>
-                                <td>{{number_format($item->price_max, 0, ",", ".")}} VNĐ</td>
-                                <td>
-                                    {{$item->category->name}}
-                                    @if (!$item->category->is_active)
-                                        <span style="color: red;">(Bị khóa)</span>
-                                    @endif
-                                </td>
+                                <td>{{$item->title}}</td>
+                                <td>{{ $item->user->name }}</td>
                                 <td class="text-center">
                                     <input type="checkbox" class="js-switch active" data-model="{{ $item->is_active }}"
                                         {{ $item->is_active == 1 ? 'checked' : '' }} data-switchery="true"
-                                        data-modelId="{{ $item->id }}" data-title="{{ $item->name }}" @if($item->variants->isEmpty() || Auth::user()->role != 2) disabled @endif/>
+                                        data-modelId="{{ $item->id }}" data-title="{{ $item->title }}" @if(Auth::user()->role != 2) disabled @endif/>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.products.show', $item) }}" class="btn btn-primary mr-2" title="Xem chi tiết"><i class="fa fa-eye"></i></a>
-                                    <a href="{{ route('admin.products.edit', $item) }}" class="btn btn-warning mr-2" title="Sửa"><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-primary mr-2" href="{{route('admin.blogs.show', $item)}}" title="Xem chi tiết"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-warning mr-2" href="{{route('admin.blogs.edit', $item)}}" title="Sửa"><i class="fa fa-edit"></i></a>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $item->id }}" title="Xóa">
                                         <i class="fa fa-trash"></i>
                                     </button>
@@ -132,11 +105,11 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Bạn có muốn xóa sản phẩm "{{ $item->name }}" không?
+                                            Bạn có muốn xóa bài viết "{{ $item->title }}" không?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
-                                            <form action="{{ route('admin.products.destroy', $item) }}" method="POST">
+                                            <form action="{{ route('admin.blogs.destroy', $item) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
@@ -157,6 +130,6 @@
 
 @section('script')
 <script src="{{ asset('ajax/checkall.js') }}"></script>
-<script src="{{ asset('ajax/changeActive/Product/changeActiveProduct.js') }}"></script>
-<script src="{{ asset('ajax/changeActive/Product/changeAllActiveProduct.js') }}"></script>
+<script src="{{ asset('ajax/changeActive/Blog/changeActiveBlog.js') }}"></script>
+<script src="{{ asset('ajax/changeActive/Blog/changeAllActiveBlog.js') }}"></script>
 @endsection

@@ -27,28 +27,28 @@ Sửa sản phẩm
                             <label for="name" class="form-label">Tên</label>
                             <input type="text" class="form-control" id="name" placeholder="Tên sản phẩm" name="name" value="{{ old('name', $product->name) }}" required>
                             @error('name')
-                            <div class="text-danger">{{ $message }}</div>
+                            <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="price_min" class="form-label">Giá min</label>
-                            <input type="text" class="form-control" id="price_min" placeholder="Giá sản phẩm" name="price_min" value="{{ old('price_min', $product->price_min) }}" required>
+                            <input type="text" class="form-control" id="price_min" placeholder="Giá sản phẩm" name="price_min" value="{{ old('price_min', number_format($product->price_min, 0, '.', '')) }}" required>
                             @error('price_min')
-                            <div class="text-danger">{{ $message }}</div>
+                            <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="price_max" class="form-label">Giá max</label>
-                            <input type="text" class="form-control" id="price_max" placeholder="Giá sản phẩm" name="price_max" value="{{ old('price_max', $product->price_max) }}" required>
+                            <input type="text" class="form-control" id="price_max" placeholder="Giá sản phẩm" name="price_max" value="{{ old('price_max', number_format($product->price_max, 0, '.', '')) }}" required>
                             @error('price_max')
-                            <div class="text-danger">{{ $message }}</div>
+                            <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="editor" class="form-label">Mô tả</label>
                             <textarea id="editor" name="description">{{ old('description', $product->description) }}</textarea>
                             @error('description')
-                            <div class="text-danger">{{ $message }}</div>
+                            <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
@@ -104,14 +104,14 @@ Sửa sản phẩm
                                 @endforeach
                             </select>
                             @error('category_id')
-                            <div class="text-danger">{{ $message }}</div>
+                            <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="sku" class="form-label">Mã sản phẩm</label>
                             <input type="text" class="form-control" id="sku" name="sku" value="{{ old('sku', $product->sku) }}" required>
                             @error('sku')
-                            <div class="text-danger">{{ $message }}</div>
+                            <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div>
@@ -165,44 +165,44 @@ Sửa sản phẩm
                                     <select name="variants[{{ $index }}][size_id]" class="form-control" required>
                                         <option value="">Chọn size</option>
                                         @foreach($sizes as $size)
-                                        <option value="{{ $size->id }}" {{ old("variants.{$index}.size_id") == $size->id ? 'selected' : '' }}>
+                                        <option value="{{ $size->id }}" {{ ($size->id == ($variant['size_id'] ?? '')) ? 'selected' : '' }}>
                                             {{ $size->name }}
                                         </option>
                                         @endforeach
                                     </select>
                                     @error("variants.{$index}.size_id")
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </td>
                                 <td>
                                     <select name="variants[{{ $index }}][color_id]" class="form-control" required>
                                         <option value="">Chọn màu</option>
                                         @foreach($colors as $color)
-                                        <option value="{{ $color->id }}" {{ old("variants.{$index}.color_id") == $color->id ? 'selected' : '' }}>
+                                        <option value="{{ $color->id }}" {{ $color->id == ($variant['color_id'] ?? '') ? 'selected' : '' }}>
                                             {{ $color->name }}
                                         </option>
                                         @endforeach
                                     </select>
                                     @error("variants.{$index}.color_id")
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][quantity]" class="form-control" value="{{ old("variants.{$index}.quantity") }}" required>
+                                    <input type="number" name="variants[{{ $index }}][quantity]" class="form-control" value="{{ $variant['quantity'] ?? '' }}" required>
                                     @error("variants.{$index}.quantity")
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][price]" class="form-control" value="{{ old("variants.{$index}.price") }}" required>
+                                    <input type="number" name="variants[{{ $index }}][price]" class="form-control" value="{{ $variant['price'] ?? '' }}" required>
                                     @error("variants.{$index}.price")
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ old("variants.{$index}.price_sale") }}" required>
+                                    <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ $variant['price_sale'] ?? '' }}" required>
                                     @error("variants.{$index}.price_sale")
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </td>
                                 <td>
@@ -254,7 +254,7 @@ Sửa sản phẩm
                                     <select name="variants[{{ $index }}][size_id]" class="form-control" required>
                                         <option value="">Chọn size</option>
                                         @foreach($sizes as $size)
-                                        <option value="{{ $size->id }}" {{ $size->id == old("variants.{$index}.size_id", $variant->size_id) ? 'selected' : '' }}>
+                                        <option value="{{ $size->id }}" {{ $size->id == $variant->size_id ? 'selected' : '' }}>
                                             {{ $size->name }}
                                         </option>
                                         @endforeach
@@ -264,20 +264,20 @@ Sửa sản phẩm
                                     <select name="variants[{{ $index }}][color_id]" class="form-control" required>
                                         <option value="">Chọn màu</option>
                                         @foreach($colors as $color)
-                                        <option value="{{ $color->id }}" {{ $color->id == old("variants.{$index}.color_id", $variant->color_id) ? 'selected' : '' }}>
+                                        <option value="{{ $color->id }}" {{ $color->id == $variant->color_id ? 'selected' : '' }}>
                                             {{ $color->name }}
                                         </option>
                                         @endforeach
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][quantity]" class="form-control" value="{{ old("variants.{$index}.quantity", $variant->quantity) }}" required>
+                                    <input type="number" name="variants[{{ $index }}][quantity]" class="form-control" value="{{ $variant->quantity }}" required>
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][price]" class="form-control" value="{{ old("variants.{$index}.price", $variant->price) }}" required>
+                                    <input type="number" name="variants[{{ $index }}][price]" class="form-control" value="{{ number_format($variant->price, 0, '.', '') }}" required>
                                 </td>
                                 <td>
-                                    <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ old("variants.{$index}.price_sale", $variant->price_sale) }}" required>
+                                    <input type="number" name="variants[{{ $index }}][price_sale]" class="form-control" value="{{ number_format($variant->price_sale, 0, '.', '') }}" required>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-danger remove-variant-btn">Xóa</button>

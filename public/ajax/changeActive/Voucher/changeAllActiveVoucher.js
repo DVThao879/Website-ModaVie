@@ -32,7 +32,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: 'blogs/ajax/changeAllActiveBlog',
+                    url: 'vouchers/ajax/changeAllActiveVoucher',
                     data: option,
                     dataType: 'json',
                     success: function (res) {
@@ -47,9 +47,11 @@
                                     switchInput.prop('checked', false);
                                 }
 
+                                switchInput.attr('data-model', res.newStatus);
+
                                 switcheryElement.setPosition();
                             });
-                            showAlert('Cập nhật trạng thái '+res.updatedCount+' bài viết thành công!', 'success');
+                            showAlert('Cập nhật trạng thái '+res.updatedCount+' voucher thành công!', 'success');
                         } else {
                             alert('Cập nhật thất bại: ' + res.message);
                         }

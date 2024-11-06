@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\Ajax\ChangeActiveController;
 use App\Http\Controllers\User\ShopController;
 use Illuminate\Support\Facades\Route;
@@ -80,15 +83,14 @@ Route::prefix('admin')->as('admin.')->group(function () {
    Route::resource('colors', ColorController::class);
    Route::resource('sizes', SizeController::class);
    Route::resource('banners', BannerController::class);
+   Route::resource('vouchers', VoucherController::class);
+   Route::resource('blogs', BlogController::class);
+
+   Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
+   Route::get('/comments/{id}', [CommentController::class, 'show'])->name('comments.show');
 
    Route::get('/users/listUser', [AccountController::class, 'listUser'])->name('users.listUser');
-   Route::resource('users', AccountController::class)->only([
-      'index',
-      'edit',
-      'update',
-      'destroy',
-      'show'
-   ]);
+   Route::resource('users', AccountController::class);
 
    //ajax category
    Route::post('categories/ajax/changeActiveCategory', [ChangeActiveController::class, 'changeActiveCategory']);
@@ -104,14 +106,16 @@ Route::prefix('admin')->as('admin.')->group(function () {
    //ajax product
    Route::post('products/ajax/changeActiveProduct', [ChangeActiveController::class, 'changeActiveProduct']);
    Route::post('products/ajax/changeAllActiveProduct', [ChangeActiveController::class, 'changeActiveAllProduct']);
+   //ajax blog
+   Route::post('blogs/ajax/changeActiveBlog', [ChangeActiveController::class, 'changeActiveBlog']);
+   Route::post('blogs/ajax/changeAllActiveBlog', [ChangeActiveController::class, 'changeActiveAllBlog']);
+   //ajax blog
+   Route::post('vouchers/ajax/changeActiveVoucher', [ChangeActiveController::class, 'changeActiveVoucher']);
+   Route::post('vouchers/ajax/changeAllActiveVoucher', [ChangeActiveController::class, 'changeActiveAllVoucher']);
+   //ajax comment
+   Route::post('comments/comments/ajax/changeActiveComment', [ChangeActiveController::class, 'changeActiveComment']);
+   Route::post('comments/comments/ajax/changeAllActiveComment', [ChangeActiveController::class, 'changeActiveAllComment']);
 });
-
-//ajax category blog
-Route::post('category_blogs/ajax/changeActiveCategoryBlog', [ChangeActiveController::class, 'changeActiveCategoryBlog']);
-Route::post('category_blogs/ajax/changeAllActiveCategoryBlog', [ChangeActiveController::class, 'changeActiveAllCategoryBlog']);
-//ajax blog
-Route::post('blogs/ajax/changeActiveBlog', [ChangeActiveController::class, 'changeActiveBlog']);
-Route::post('blogs/ajax/changeAllActiveBlog', [ChangeActiveController::class, 'changeActiveAllBlog']);
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
    \UniSharp\LaravelFilemanager\Lfm::routes();
