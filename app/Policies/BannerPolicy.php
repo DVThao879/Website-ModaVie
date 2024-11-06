@@ -13,7 +13,7 @@ class BannerPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return in_array($user->role, [1, 2]);
     }
 
     /**
@@ -21,7 +21,7 @@ class BannerPolicy
      */
     public function view(User $user, Banner $banner): bool
     {
-        //
+        return in_array($user->role, [1, 2]);
     }
 
     /**
@@ -29,7 +29,7 @@ class BannerPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return in_array($user->role, [1, 2]);
     }
 
     /**
@@ -37,7 +37,7 @@ class BannerPolicy
      */
     public function update(User $user, Banner $banner): bool
     {
-        //
+        return in_array($user->role, [1, 2]);
     }
 
     /**
@@ -45,22 +45,22 @@ class BannerPolicy
      */
     public function delete(User $user, Banner $banner): bool
     {
-        //
+        return $user->role == 2;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Banner $banner): bool
-    {
-        //
-    }
+    // public function restore(User $user, Banner $banner): bool
+    // {
+    //     //
+    // }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Banner $banner): bool
-    {
-        //
-    }
+    // public function forceDelete(User $user, Banner $banner): bool
+    // {
+    //     //
+    // }
 }

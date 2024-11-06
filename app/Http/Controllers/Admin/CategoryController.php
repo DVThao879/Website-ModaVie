@@ -16,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::all();
+        $this->authorize('viewAny', Category::class);
+        $data = Category::orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
     }
 
@@ -25,6 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Category::class);
         return view(self::PATH_VIEW.__FUNCTION__);
     }
 
@@ -34,9 +36,8 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $data = $request->all();
-        $data['is_active'] ??= 0;
         Category::create($data);
-        return redirect()->route('admin.categories.index')->with('message', 'Thêm mới thành công');
+        return redirect()->route('admin.categories.index')->with('success', 'Thêm mới thành công');
     }
 
     /**
@@ -44,6 +45,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $this->authorize('view', $category);
         return view(self::PATH_VIEW.__FUNCTION__, compact('category'));
     }
 
@@ -52,6 +54,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $this->authorize('update', $category);
         return view(self::PATH_VIEW.__FUNCTION__, compact('category'));
     }
 
@@ -61,9 +64,8 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $data = $request->all();
-        $data['is_active'] ??= 0;
         $category->update($data);
-        return redirect()->route('admin.categories.index')->with('message', 'Sửa thành công');
+        return redirect()->route('admin.categories.index')->with('success', 'Sửa thành công');
     }
 
     /**
@@ -71,7 +73,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $this->authorize('delete', $category);
         $category->delete();
-        return back()->with('message', 'Xóa thành công');
+        return back()->with('success', 'Xóa thành công');
     }
 }

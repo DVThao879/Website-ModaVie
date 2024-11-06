@@ -14,10 +14,11 @@ class Product extends Model
         'slug',
         'sku',
         'img_thumb',
+        'description',
         'price_min',
         'price_max',
-        'description',
         'category_id',
+        'view',
         'is_active',
     ];
 
@@ -35,6 +36,11 @@ class Product extends Model
 
     public function variants() {
         return $this->hasMany(ProductVariant::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
     
 }

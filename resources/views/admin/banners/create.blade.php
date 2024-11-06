@@ -4,19 +4,10 @@
 Thêm banner
 @endsection
 
-@section('style-libs')
-<!-- Plugins css -->
-<link href="{{asset('theme/admin/libs/dropzone/dropzone.css')}}" rel="stylesheet" type="text/css" />
-@endsection
-
-@section('script-libs')
-<!-- dropzone js -->
-<script src="{{asset('theme/admin/libs/dropzone/dropzone-min.js')}}"></script>
-
-<script src="{{asset('theme/admin/js/create-product.init.js')}}"></script>
-@endsection
-
 @section('content')
+<a href="{{route('admin.banners.index')}}" class="btn btn-primary mb-3">
+    <i class="fa fa-arrow-left"></i> Quay lại
+</a>
 <form action="{{route('admin.banners.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="row">
@@ -34,42 +25,56 @@ Thêm banner
                             <label for="title" class="form-label">Tiêu đề</label>
                             <input type="text" class="form-control" id="title" placeholder="Nhập tiêu đề..." name="title" value="{{ old('title') }}" required>
                             @error('title')
-                                <div class="text-danger">{{ $message }}</div>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Ảnh banner</label>
-                            <input type="file" class="form-control" id="image" name="image" required>
+                            <input type="file" class="form-control" id="image" name="image" required accept="image/*">
+                            <img id="preview" src="#" alt="Xem trước ảnh" style="display:none; max-width: 100%; height: auto; margin-top: 10px;" class="img-thumbnail">
                             @error('image')
-                                <div class="text-danger">{{ $message }}</div>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="link" class="form-label">Đường dẫn</label>
                             <input type="url" class="form-control" id="link" placeholder="https://example.com" name="link" value="{{ old('link') }}">
                             @error('link')
-                                <div class="text-danger">{{ $message }}</div>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Mô tả</label>
                             <textarea name="description" class="form-control" id="description" cols="30" rows="5" required>{{ old('description') }}</textarea>
                             @error('description')
-                                <div class="text-danger">{{ $message }}</div>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="is_active" class="form-label">Trạng thái</label>
-                            <input class="form-check-input ml-2" value="1" type="checkbox" checked name="is_active" id="is_active">
                         </div>
                     </div>
                 </div>
             </div>
             <!--                        Button -->
             <div class="d-flex justify-content-center mb-3">
-                <button class="btn btn-success w-sm" type="submit">Thêm</button>
+                <button class="btn btn-success w-sm" type="submit">Thêm mới</button>
             </div>
         </div>
     </div>
 </form>
+@endsection
+
+@section('script')
+<script>
+    jQuery(document).ready(function(){
+    jQuery('#image').on('change', function(e) {
+        var input = this;
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                jQuery('#preview').attr('src', e.target.result).show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
+});
+</script>
 @endsection

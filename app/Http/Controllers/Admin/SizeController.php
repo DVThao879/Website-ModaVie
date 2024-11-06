@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Size;
 use App\Http\Requests\StoreSizeRequest;
 use App\Http\Requests\UpdateSizeRequest;
+use App\Models\Product;
+use App\Models\ProductVariant;
 
 class SizeController extends Controller
 {
@@ -16,8 +18,9 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $data = Size::all();
-        return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
+        $this->authorize('viewAny', Size::class);
+        $data = Size::orderBy('id', 'desc')->get();
+        return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
     /**
@@ -25,7 +28,8 @@ class SizeController extends Controller
      */
     public function create()
     {
-        return view(self::PATH_VIEW.__FUNCTION__);
+        $this->authorize('create', Size::class);
+        return view(self::PATH_VIEW . __FUNCTION__);
     }
 
     /**
@@ -34,7 +38,7 @@ class SizeController extends Controller
     public function store(StoreSizeRequest $request)
     {
         Size::create($request->all());
-        return redirect()->route('admin.sizes.index')->with('message', 'Thêm mới thành công');
+        return redirect()->route('admin.sizes.index')->with('success', 'Thêm mới thành công');
     }
 
     /**
@@ -42,7 +46,8 @@ class SizeController extends Controller
      */
     public function show(Size $size)
     {
-        return view(self::PATH_VIEW.__FUNCTION__, compact('size'));
+        $this->authorize('view', $size);
+        return view(self::PATH_VIEW . __FUNCTION__, compact('size'));
     }
 
     /**
@@ -50,7 +55,8 @@ class SizeController extends Controller
      */
     public function edit(Size $size)
     {
-        return view(self::PATH_VIEW.__FUNCTION__, compact('size'));
+        $this->authorize('update', $size);
+        return view(self::PATH_VIEW . __FUNCTION__, compact('size'));
     }
 
     /**
@@ -59,7 +65,7 @@ class SizeController extends Controller
     public function update(UpdateSizeRequest $request, Size $size)
     {
         $size->update($request->all());
-        return redirect()->route('admin.sizes.index')->with('message', 'Sửa thành công');
+        return redirect()->route('admin.sizes.index')->with('success', 'Sửa thành công');
     }
 
     /**
@@ -67,7 +73,29 @@ class SizeController extends Controller
      */
     public function destroy(Size $size)
     {
+        $this->authorize('delete', $size);
+
+        // Lấy tất cả các biến thể liên quan đến size này
+        $variants = ProductVariant::where('size_id', $size->id)->get();
+
+        // Xóa size
         $size->delete();
-        return back()->with('message', 'Xóa thành công');
+
+        // Kiểm tra và cập nhật lại trạng thái sản phẩm nếu cần
+        foreach ($variants as $variant) {
+            $productId = $variant->product_id;
+
+            // Đếm số lượng biến thể còn lại của sản phẩm sau khi xóa
+            $count = ProductVariant::where('product_id', $productId)->count();
+
+            // Nếu không còn biến thể, cập nhật is_active về 0
+            if ($count == 0) {
+                $product = Product::find($productId);
+                $product->is_active = 0;
+                $product->save();
+            }
+        }
+
+        return back()->with('success', 'Xóa size thành công');
     }
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Color;
 use App\Http\Requests\StoreColorRequest;
 use App\Http\Requests\UpdateColorRequest;
+use App\Models\Product;
+use App\Models\ProductVariant;
 
 class ColorController extends Controller
 {
@@ -16,8 +18,9 @@ class ColorController extends Controller
      */
     public function index()
     {
-        $data = Color::all();
-        return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
+        $this->authorize('viewAny', Color::class);
+        $data = Color::orderBy('id', 'desc')->get();
+        return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
     /**
@@ -25,7 +28,8 @@ class ColorController extends Controller
      */
     public function create()
     {
-        return view(self::PATH_VIEW.__FUNCTION__);
+        $this->authorize('create', Color::class);
+        return view(self::PATH_VIEW . __FUNCTION__);
     }
 
     /**
@@ -34,7 +38,7 @@ class ColorController extends Controller
     public function store(StoreColorRequest $request)
     {
         Color::create($request->all());
-        return redirect()->route('admin.colors.index')->with('message', 'Thêm mới thành công');
+        return redirect()->route('admin.colors.index')->with('success', 'Thêm mới thành công');
     }
 
     /**
@@ -42,7 +46,8 @@ class ColorController extends Controller
      */
     public function show(Color $color)
     {
-        return view(self::PATH_VIEW.__FUNCTION__, compact('color'));
+        $this->authorize('view', $color);
+        return view(self::PATH_VIEW . __FUNCTION__, compact('color'));
     }
 
     /**
@@ -50,7 +55,8 @@ class ColorController extends Controller
      */
     public function edit(Color $color)
     {
-        return view(self::PATH_VIEW.__FUNCTION__, compact('color'));
+        $this->authorize('update', $color);
+        return view(self::PATH_VIEW . __FUNCTION__, compact('color'));
     }
 
     /**
@@ -59,7 +65,7 @@ class ColorController extends Controller
     public function update(UpdateColorRequest $request, Color $color)
     {
         $color->update($request->all());
-        return redirect()->route('admin.colors.index')->with('message', 'Sửa thành công');
+        return redirect()->route('admin.colors.index')->with('success', 'Sửa thành công');
     }
 
     /**
@@ -67,7 +73,29 @@ class ColorController extends Controller
      */
     public function destroy(Color $color)
     {
+        $this->authorize('delete', $color);
+
+        // Lấy tất cả các biến thể liên quan đến màu này
+        $variants = ProductVariant::where('color_id', $color->id)->get();
+
+        // Xóa màu
         $color->delete();
-        return back()->with('message', 'Xóa thành công');
+
+        // Kiểm tra và cập nhật lại trạng thái sản phẩm nếu cần
+        foreach ($variants as $variant) {
+            $productId = $variant->product_id;
+
+            // Đếm số lượng biến thể còn lại của sản phẩm sau khi xóa
+            $remainingVariants = ProductVariant::where('product_id', $productId)->count();
+
+            // Nếu không còn biến thể, cập nhật is_active về 0
+            if ($remainingVariants == 0) {
+                $product = Product::find($productId);
+                $product->is_active = 0;
+                $product->save();
+            }
+        }
+
+        return back()->with('success', 'Xóa màu thành công');
     }
 }

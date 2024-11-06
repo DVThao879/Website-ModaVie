@@ -52,4 +52,8 @@ class User extends Authenticatable
         'is_active' => 'boolean'
     ];
     
+    public function banners()
+    {
+        return $this->hasMany(Banner::class);
+    }
 }

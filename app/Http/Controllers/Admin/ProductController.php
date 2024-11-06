@@ -24,7 +24,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::all();
+        $this->authorize('viewAny', Product::class);
+        $data = Product::with('variants')->orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
@@ -33,7 +34,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $this->authorize('create', Product::class);
+        $categories = Category::where('is_active', 1)->get();
         $sizes = Size::all();
         $colors = Color::all();
         return view(self::PATH_VIEW . __FUNCTION__, compact('categories', 'sizes', 'colors'));
@@ -44,7 +46,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
+        $data = $request->except(['variants', 'img_thumb', 'product_galleries']);
         $data['slug'] = Str::slug($data['name']);
         $uploadedFiles = [];
         if (!empty($request->hasFile('img_thumb'))) {
@@ -87,7 +89,7 @@ class ProductController extends Controller
                 }
             }
             DB::commit();
-            return redirect()->route('admin.products.index')->with('message', 'Thêm mới thành công');
+            return redirect()->route('admin.products.index')->with('success', 'Thêm mới thành công');
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -99,7 +101,7 @@ class ProductController extends Controller
                 Storage::delete($file);
             }
 
-            return redirect()->back()->with('message', 'Có lỗi xảy ra. Thêm mới thất bại');
+            return redirect()->back()->with('error', 'Có lỗi xảy ra. Thêm mới thất bại');
         }
     }
 
@@ -108,6 +110,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $this->authorize('view', $product);
         $product->load(['galleries', 'variants.size', 'variants.color']);
         return view(self::PATH_VIEW . __FUNCTION__, compact('product'));
     }
@@ -117,8 +120,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $this->authorize('update', $product);
         $product->load(['variants', 'galleries']);
-        $categories = Category::all();
+        $categories = Category::where('is_active', 1)
+        ->orWhere('id', $product->category_id)
+        ->get();
         $sizes = Size::all();
         $colors = Color::all();
         return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'categories', 'sizes', 'colors'));
@@ -129,7 +135,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $data = $request->except(['product_variants', 'img_thumb', 'product_galleries']);
+        $data = $request->except(['variants', 'img_thumb', 'product_galleries']);
         $data['slug'] = Str::slug($data['name']);
         $uploadedFiles = [];
         if ($request->hasFile('img_thumb')) {
@@ -199,13 +205,9 @@ class ProductController extends Controller
                     $variant->delete();
                 }
             }
-            // else {
-            //     // Xóa tất cả các biến thể nếu không có dữ liệu gửi lên
-            //     ProductVariant::where('product_id', $product->id)->delete();
-            // }
 
             DB::commit();
-            return redirect()->route('admin.products.index')->with('message', 'Sửa thành công');
+            return redirect()->route('admin.products.index')->with('success', 'Sửa thành công');
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -217,7 +219,7 @@ class ProductController extends Controller
                 Storage::delete($file);
             }
 
-            return redirect()->back()->with('message', 'Có lỗi xảy ra. Sửa thất bại');
+            return redirect()->back()->with('error', 'Có lỗi xảy ra. Sửa thất bại');
         }
     }
 
@@ -226,42 +228,27 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $imagesToDelete = [];
-
+        $this->authorize('delete', $product);
         try {
             DB::beginTransaction();
 
-            // Lấy tất cả ảnh từ product galleries và product variants
-            foreach ($product->galleries as $gallery) {
-                if (!empty($gallery->image)) {
-                    $imagesToDelete[] = $gallery->image;
-                }
+            if ($product->img_thumb) {
+                Storage::delete($product->img_thumb);
             }
-
-            foreach ($product->variants as $variant) {
-                if (!empty($variant->image)) {
-                    $imagesToDelete[] = $variant->image;
-                }
-            }
-
-            // Lấy ảnh từ product
-            if (!empty($product->img_thumb)) {
-                $imagesToDelete[] = $product->img_thumb;
-            }
-
-            // Xóa tất cả ảnh khỏi storage
-            foreach ($imagesToDelete as $imagePath) {
-                if (Storage::exists($imagePath)) {
-                    Storage::delete($imagePath);
+    
+            $galleries = $product->galleries;
+            foreach ($galleries as $gallery) {
+                if ($gallery->image) {
+                    Storage::delete($gallery->image);
                 }
             }
 
             $product->delete();
             DB::commit();
-            return redirect()->route('admin.products.index')->with('message', 'Xóa thành công');
+            return redirect()->route('admin.products.index')->with('success', 'Xóa thành công');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('message', 'Xóa thất bại');
+            return back()->with('error', 'Xóa thất bại');
         }
     }
 }

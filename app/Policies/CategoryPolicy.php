@@ -13,7 +13,7 @@ class CategoryPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return in_array($user->role, [1, 2]);
     }
 
     /**
@@ -21,7 +21,7 @@ class CategoryPolicy
      */
     public function view(User $user, Category $category): bool
     {
-        //
+        return in_array($user->role, [1, 2]);
     }
 
     /**
@@ -29,7 +29,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->role == 2;
     }
 
     /**
@@ -37,7 +37,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        //
+        return $user->role == 2;
     }
 
     /**
@@ -45,22 +45,22 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        //
+        return $user->role == 2;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Category $category): bool
-    {
-        //
-    }
+    // public function restore(User $user, Category $category): bool
+    // {
+    //     //
+    // }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Category $category): bool
-    {
-        //
-    }
+    // public function forceDelete(User $user, Category $category): bool
+    // {
+    //     //
+    // }
 }

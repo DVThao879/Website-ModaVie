@@ -13,7 +13,7 @@ class ColorPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return in_array($user->role, [1, 2]);
     }
 
     /**
@@ -21,7 +21,7 @@ class ColorPolicy
      */
     public function view(User $user, Color $color): bool
     {
-        //
+        return in_array($user->role, [1, 2]);
     }
 
     /**
@@ -29,7 +29,7 @@ class ColorPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->role == 2;
     }
 
     /**
@@ -37,7 +37,7 @@ class ColorPolicy
      */
     public function update(User $user, Color $color): bool
     {
-        //
+        return $user->role == 2;
     }
 
     /**
@@ -45,22 +45,22 @@ class ColorPolicy
      */
     public function delete(User $user, Color $color): bool
     {
-        //
+        return $user->role == 2;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Color $color): bool
-    {
-        //
-    }
+    // public function restore(User $user, Color $color): bool
+    // {
+    //     //
+    // }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Color $color): bool
-    {
-        //
-    }
+    // public function forceDelete(User $user, Color $color): bool
+    // {
+    //     //
+    // }
 }

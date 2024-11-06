@@ -5,10 +5,15 @@
 @endsection
 
 @section('content')
+<a href="{{route('admin.users.index')}}" class="btn btn-primary mb-3">
+    <i class="fa fa-arrow-left"></i> Quay lại
+</a>
 <div class="card shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Chi tiết banner</h4>
+        @if(Auth::user()->role != 2)
         <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-light btn-sm">Chỉnh sửa</a>
+        @endif
     </div>
     <div class="card-body">
         <div class="row">
@@ -56,7 +61,7 @@
                 </div>
                 <div class="mt-2 text-center">
                     @if(!empty($user->image))
-                    <img src="{{ Storage::url($user->image) }}" alt="Banner Image" class="img-fluid rounded border" style="max-width: 100%; height: auto;">
+                    <img src="{{ Storage::url($user->image) }}" alt="User Image" class="img-fluid img-thumbnail rounded border" style="max-width: 100%; height: auto;">
                     @else
                     <div class="text-danger">Chưa cập nhật ảnh!</div>
                     @endif

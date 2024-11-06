@@ -11,7 +11,7 @@ class UpdateColorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('update', $this->route('color'));
     }
 
     /**
@@ -34,12 +34,10 @@ class UpdateColorRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên màu là bắt buộc',
-            'name.string' => 'Tên màu phải là một chuỗi văn bản',
             'name.max' => 'Tên màu không được dài quá 100 ký tự',
             'name.unique' => 'Tên màu này đã tồn tại trong hệ thống',
 
             'hex_code.required' => 'Mã màu là bắt buộc',
-            'hex_code.string' => 'Mã màu phải là một chuỗi văn bản',
             'hex_code.regex' => 'Mã màu phải phù hợp với định dạng mã màu hex (ví dụ: #FF5733)',
             'hex_code.size' => 'Mã màu phải có độ dài chính xác là 7 ký tự',
             'hex_code.unique' => 'Mã màu này đã tồn tại trong hệ thống',

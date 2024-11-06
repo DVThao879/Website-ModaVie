@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+<a href="{{route('admin.colors.index')}}" class="btn btn-primary mb-3">
+    <i class="fa fa-arrow-left"></i> Quay lại
+</a>
 <div class="card shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Chi tiết màu sắc</h4>
@@ -22,7 +25,11 @@
             </li>
             <li class="mb-3 d-flex align-items-center">
                 <i class="bi bi-palette mr-2 text-primary"></i>
-                <strong>Mã màu:</strong> <span class="ml-2">{{$color->hex_code}}</span>
+                <strong>Mã màu:</strong> 
+                <div class="d-flex">
+                    <div class="rounded-circle mr-2 ml-2" style="width: 20px; height: 20px; background-color: {{ $color->hex_code }};"></div>
+                    <span>{{ $color->hex_code }}</span>
+                </div>
             </li>
             <li class="mb-3 d-flex align-items-center">
                 <i class="bi bi-calendar3 mr-2 text-primary"></i>

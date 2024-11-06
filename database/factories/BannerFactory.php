@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,10 +18,11 @@ class BannerFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(),
+            'title' => fake()->unique()->sentence(),
             'image' => fake()->imageUrl(),
             'link' => fake()->url(),
             'description' => fake()->paragraph(),
+            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
 }

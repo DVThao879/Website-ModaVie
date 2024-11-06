@@ -5,6 +5,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -23,6 +24,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
     @yield('style-libs')
+      
 </head>
 
 <body id="page-top">
@@ -108,13 +110,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('theme/admin/js/sb-admin-2.min.js')}}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{asset('theme/admin/vendor/chart.js/Chart.min.js')}}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{asset('theme/admin/js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{asset('theme/admin/js/demo/chart-pie-demo.js')}}"></script>
 
     <script src="https://kit.fontawesome.com/be9ed8669f.js" crossorigin="anonymous"></script>
 

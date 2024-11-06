@@ -4,19 +4,10 @@
 Thêm màu sắc
 @endsection
 
-@section('style-libs')
-<!-- Plugins css -->
-<link href="{{asset('theme/admin/libs/dropzone/dropzone.css')}}" rel="stylesheet" type="text/css" />
-@endsection
-
-@section('script-libs')
-<!-- dropzone js -->
-<script src="{{asset('theme/admin/libs/dropzone/dropzone-min.js')}}"></script>
-
-<script src="{{asset('theme/admin/js/create-product.init.js')}}"></script>
-@endsection
-
 @section('content')
+<a href="{{route('admin.colors.index')}}" class="btn btn-primary mb-3">
+    <i class="fa fa-arrow-left"></i> Quay lại
+</a>
 <form action="{{route('admin.colors.store')}}" method="post">
     @csrf
     <div class="row">
@@ -34,14 +25,14 @@ Thêm màu sắc
                             <label for="name" class="form-label">Tên màu</label>
                             <input type="text" class="form-control" id="name" placeholder="Nhập tên màu..." name="name" value="{{ old('name') }}" required>
                             @error('name')
-                                <div class="text-danger">{{ $message }}</div>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="hex_code" class="form-label">Mã màu:</label>
-                            <input type="text" class="form-control" id="hex_code" placeholder="#000000" name="hex_code" value="{{ old('hex_code') }}" required>
+                            <input type="color" id="hex_code" name="hex_code" value="{{ old('hex_code') }}" requied>
                             @error('hex_code')
-                                <div class="text-danger">{{ $message }}</div>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
@@ -49,7 +40,7 @@ Thêm màu sắc
             </div>
             <!--                        Button -->
             <div class="d-flex justify-content-center mb-3">
-                <button class="btn btn-success w-sm" type="submit">Thêm</button>
+                <button class="btn btn-success w-sm" type="submit">Thêm mới</button>
             </div>
         </div>
     </div>

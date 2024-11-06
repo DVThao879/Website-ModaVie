@@ -13,7 +13,7 @@ class SizePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return in_array($user->role, [1, 2]);
     }
 
     /**
@@ -21,7 +21,7 @@ class SizePolicy
      */
     public function view(User $user, Size $size): bool
     {
-        //
+        return in_array($user->role, [1, 2]);
     }
 
     /**
@@ -29,7 +29,7 @@ class SizePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->role == 2;
     }
 
     /**
@@ -37,7 +37,7 @@ class SizePolicy
      */
     public function update(User $user, Size $size): bool
     {
-        //
+        return $user->role == 2;
     }
 
     /**
@@ -45,22 +45,22 @@ class SizePolicy
      */
     public function delete(User $user, Size $size): bool
     {
-        //
+        return $user->role == 2;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Size $size): bool
-    {
-        //
-    }
+    // public function restore(User $user, Size $size): bool
+    // {
+    //     //
+    // }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Size $size): bool
-    {
-        //
-    }
+    // public function forceDelete(User $user, Size $size): bool
+    // {
+    //     //
+    // }
 }

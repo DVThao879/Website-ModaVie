@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Banner;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBannerRequest extends FormRequest
@@ -11,7 +12,7 @@ class StoreBannerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('create', Banner::class);
     }
 
     /**
@@ -25,7 +26,7 @@ class StoreBannerRequest extends FormRequest
             'title' => 'required|string|min:3|max:255|unique:banners,title',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'link' => 'nullable|url|max:255',
-            'description' => 'required|string|max:500',
+            'description' => 'required|string|max:255',
         ];
     }
 
@@ -33,7 +34,6 @@ class StoreBannerRequest extends FormRequest
     {
         return [
             'title.required' => 'Tiêu đề banner là bắt buộc',
-            'title.string' => 'Tiêu đề banner phải là một chuỗi văn bản',
             'title.min' => 'Tiêu đề banner không được ít hơn 3 ký tự',
             'title.max' => 'Tiêu đề banner không được dài quá 255 ký tự',
             'title.unique' => 'Tiêu đề banner này đã tồn tại trong hệ thống',
@@ -47,8 +47,7 @@ class StoreBannerRequest extends FormRequest
             'link.max' => 'Liên kết không được dài quá 255 ký tự',
 
             'description.required' => 'Mô tả là bắt buộc',
-            'description.string' => 'Mô tả phải là một chuỗi văn bản',
-            'description.max' => 'Mô tả không được dài quá 500 ký tự',
+            'description.max' => 'Mô tả không được dài quá 255 ký tự',
         ];
     }
 }
