@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Bill extends Model
 {
@@ -19,11 +18,23 @@ class Bill extends Model
         'total',
         'payment_method',
         'status',
-        'date',
         'note',
-        'discount',
+        'voucher_id',
         'order_code'
-    ];
- 
-   
+    ];  
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class);
+    }
+
+    public function billDetails()
+    {
+        return $this->hasMany(BillDetail::class);
+    }
 }

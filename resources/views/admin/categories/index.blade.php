@@ -28,7 +28,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-3">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Danh mục</h6>
             <div class="dropdown float-right">
                 <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cogs"></i> Tùy chọn
@@ -56,6 +56,7 @@
                         </th>
                         <th>STT</th>
                         <th>Tên</th>
+                        <th>Số lượng sản phẩm</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
                     </tr>
@@ -65,6 +66,7 @@
                         <th></th>
                         <th>STT</th>
                         <th>Tên</th>
+                        <th>Số lượng sản phẩm</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
                         </tr>
@@ -77,6 +79,7 @@
                                 </td>
                                 <td>{{$key+1}}</td>
                                 <td>{{$item->name}}</td>
+                                <td>{{ $item->products_count }}</td>
                                 <td class="text-center">
                                     <input type="checkbox" class="js-switch active" data-model="{{ $item->is_active }}"
                                         {{ $item->is_active == 1 ? 'checked' : '' }} data-switchery="true"

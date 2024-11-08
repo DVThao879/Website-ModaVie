@@ -13,6 +13,9 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\Admin\StatisticsController;
+use App\Http\Controllers\Admin\BillController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Ajax\ChangeActiveController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\ShopController;
@@ -94,9 +97,7 @@ Route::get('/my_bill/{id}/bill_detail', [CartController::class, 'orderTracking']
 
 //Phần Admin
 Route::prefix('admin')->as('admin.')->group(function () {
-   Route::get('/', function () {
-      return view('admin.dashboard');
-   })->name('dashboard');
+   Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
    Route::resource('categories', CategoryController::class);
    Route::resource('products', ProductController::class);
    Route::resource('colors', ColorController::class);
@@ -110,6 +111,21 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
    Route::get('/users/listUser', [AccountController::class, 'listUser'])->name('users.listUser');
    Route::resource('users', AccountController::class);
+
+   //Quản lý đơn hàng
+   Route::get('bill', [BillController::class, 'index'])->name('bill.index');
+   Route::get('bill/{bill_id}/bill-detail', [BillController::class, 'detail'])->name('bill.detail');
+   Route::get('bill/confirm/{bill_id}', [BillController::class, 'confirmBill'])->name('bill.confirmBill');
+   Route::get('bill/ship/{bill_id}', [BillController::class, 'shipBill'])->name('bill.shipBill');
+   Route::get('bill/confirm-shipping/{bill_id}', [BillController::class, 'confirmShipping'])->name('bill.confirmShipping');
+   Route::get('bill/cancel/{bill_id}', [BillController::class, 'cancelBill'])->name('bill.cancelBill');
+
+   // In hóa đơn
+   Route::get('gerenate/{order_code}', [BillController::class, 'gerenatePdf'])->name('gerenate');
+   
+   // Thống kê
+   Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+   Route::post('statistics/show', [StatisticsController::class, 'showStatistics'])->name('statistics.show');
 
    //ajax category
    Route::post('categories/ajax/changeActiveCategory', [ChangeActiveController::class, 'changeActiveCategory']);

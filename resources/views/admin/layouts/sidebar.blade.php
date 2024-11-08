@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Modavie <sup>2</sup></div>
     </a>
 
     <!-- Divider -->
@@ -15,7 +15,7 @@
     <li class="nav-item {{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('admin.dashboard')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Bảng quản trị</span></a>
     </li>
 
     <!-- Divider -->
@@ -173,13 +173,13 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('admin.bill.index') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>Đơn hàng</span></a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('admin.statistics.index') }}">
             <i class="fas fa-chart-line"></i>
             <span>Thống kê</span></a>
     </li>
@@ -195,8 +195,8 @@
     <!-- Sidebar Message -->
     <div class="sidebar-card d-none d-lg-flex">
         <img class="sidebar-card-illustration mb-2" src="{{ asset('theme/admin/img/undraw_rocket.svg') }}" alt="...">
-        <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-        <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+        <p class="text-center mb-2"><strong>SB Admin Pro</strong> được tích hợp với các tính năng cao cấp, thành phần và nhiều hơn nữa!</p>
+        <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Nâng cấp lên bản Pro!</a>
     </div>
 
 </ul>

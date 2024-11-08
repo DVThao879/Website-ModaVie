@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Chi tiết size
+    Chi tiết kích thước
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
 </a>
 <div class="card shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-        <h4 class="mb-0">Chi tiết size</h4>
+        <h4 class="mb-0">Chi tiết kích thước</h4>
         <a href="{{ route('admin.sizes.edit', $size) }}" class="btn btn-light btn-sm">Chỉnh sửa</a>
     </div>
     <div class="card-body">

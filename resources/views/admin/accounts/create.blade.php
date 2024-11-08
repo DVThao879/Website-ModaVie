@@ -16,7 +16,7 @@ Thêm tài khoản
                 <!-- Main product information -->
                 <a href="#collapseProductInfo" class="d-block card-header py-3" data-toggle="collapse"
                     role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                    <h6 class="m-0 font-weight-bold text-primary">Thông tin voucher</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Thông tin tài khoản</h6>
                 </a>
                 <!-- Card Content - Collapse -->
                 <div class="collapse show" id="collapseProductInfo">

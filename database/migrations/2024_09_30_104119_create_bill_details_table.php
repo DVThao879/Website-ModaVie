@@ -17,16 +17,12 @@ return new class extends Migration
         Schema::create('bill_details', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Bill::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(Product::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(ProductVariant::class)->constrained()->onDelete('cascade');
-
+            $table->foreignIdFor(ProductVariant::class)->nullable()->constrained()->onDelete('set null'); 
+            $table->string('product_name'); 
             $table->integer('quantity');
-            $table->decimal('price_sale', 10, 2); 
+            $table->decimal('price', 10, 2); 
             $table->string('size');
             $table->string('color');
-
-
-
             $table->timestamps();
         });
     }
