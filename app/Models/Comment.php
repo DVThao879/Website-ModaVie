@@ -13,6 +13,7 @@ class Comment extends Model
         'user_id',
         'product_id',
         'content',
+        'rating',
         'is_active'
     ];
 

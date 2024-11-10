@@ -1,16 +1,16 @@
 @extends('client.layouts.app')
 @section('content')
-    <div class="breadcrumb-area pt-95 pb-100 bg-img" style="background-image:url(assets/images/bg/breadcrumb.jpg);">
+    <div class="breadcrumb-area pt-95 pb-100 bg-img" style="background-image:url('/theme/client/assets/images/bg/breadcrumb.jpg');">
         <div class="container">
             <div class="breadcrumb-content text-center">
                 <div class="breadcrumb-title">
-                    <h2>My account page</h2>
+                    <h2>Tài khoản của tôi</h2>
                 </div>
                 <ul>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.html">Trang chủ</a>
                     </li>
-                    <li class="active">My account </li>
+                    <li class="active">Tài khoản của tôi</li>
                 </ul>
             </div>
         </div>
@@ -24,45 +24,17 @@
                         <!-- My Account Tab Menu Start -->
                         <div class="row">
                             <div class="col-lg-3 col-md-4">
-                                <div class="myaccount-tab-menu nav" role="tablist">
-                                    {{-- <a href="#dashboad" class="active" data-bs-toggle="tab"><i class="fa fa-dashboard"></i>
-                                    Dashboard</a> --}}
+                                <div class="myaccount-tab-menu nav" role="tablist">            
                                     <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i>Đơn Hàng</a>
-                                    {{-- <a href="#download" data-bs-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a> --}}
-                                    {{-- <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-credit-card"></i> Payment
-                                    Method</a> --}}
-                                    {{-- <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i> address</a> --}}
                                     <a href="#account-info" class="active" data-bs-toggle="tab"><i
                                             class="fa fa-user"></i>Thông Tin Cá
                                         Nhân</a>
                                     <a href="#orders" data-bs-toggle="tab"><i class="fa fa-user"></i>Sản Phẩm Yêu Thích</a>
-
-                                    {{-- <a href="#reset-password" data-bs-toggle="tab"><i class="fa fa-sign-out"></i>Đổi mật
-                                        khẩu</a> --}}
                                 </div>
                             </div>
-                            <!-- My Account Tab Menu End -->
-                            <!-- My Account Tab Content Start -->
+                        
                             <div class="col-lg-9 col-md-8">
                                 <div class="tab-content" id="myaccountContent">
-                                    <!-- Single Tab Content Start -->
-
-                                    {{-- <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
-                                    <div class="myaccount-content">
-                                        <h3>Dashboard</h3>
-                                       
-                                        <div class="welcome">
-                                           
-                                        
-                                           
-                                            <p>Hello, <strong>{{Auth::user()->name}}</strong></p>
-                                        </div>
-
-                                        <p class="mb-0">From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
-                                    </div>
-                                </div> --}}
-                                    <!-- Single Tab Content End -->
-                                    <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade " id="orders" role="tabpanel">
                                         <div class="myaccount-content">
                                             <h3>Sản phẩm đã mua</h3>
@@ -78,23 +50,43 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($bills as $key=>$item)
-                                                            <th>{{$key+1}}</th>
-                                                            <td>{{ \Carbon\Carbon::parse($item->date)->format('d-m-Y') }}
-                                                                <td>{{$item->status}}</td>
-                                                                <td>{{ number_format($item->total, 0, ',', '.') }} VND</td>
-                                                                <td><a href="{{route('viewBillDetail',$item->id)}}">Xem</a>
-                                                                
+                                                        @foreach ($bills as $key => $item)
+                                                            <tr> <!-- Add this opening <tr> tag to start each row -->
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ \Carbon\Carbon::parse($item->date)->format('d-m-Y') }}</td>
+                                                                <td>
+                                                                    @if($item->status == 1)
+                                                                        Chờ xác nhận
+                                                                    @elseif($item->status == 2)
+                                                                        Chờ lấy hàng
+                                                                    @elseif($item->status == 3)
+                                                                        Đang giao hàng
+                                                                    @elseif($item->status == 4)
+                                                                        Giao thành công
+                                                                    @elseif($item->status == 5)
+                                                                        Chờ hủy
+                                                                    @elseif($item->status == 6)
+                                                                        Đã hủy
+                                                                    @else
+                                                                        Không xác định
+                                                                    @endif
                                                                 </td>
-                                                                @endforeach
+                                                                <td>{{ number_format($item->total, 0, ',', '.') }} VND</td>
+                                                                <td><a href="{{ route('viewBillDetail', $item->id) }}">Xem</a>
+                                                                    @if($item->status == 1)
+                                                                    | <a href="{{ route('cancelOrder', $item->id) }}" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?')">Hủy</a>
+                                                                @endif</td>
 
+                                                            </tr> <!-- Add this closing </tr> tag to end each row -->
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
+                                                
                                             </div>
 
-                                            
 
-                                            
+
+
                                         </div>
                                     </div>
 
@@ -110,10 +102,10 @@
                                             @endif
                                             <div class="account-details-form">
                                                 @if (Auth::check())
-                                                    <form
-                                                        action="{{ route('updateMyAcount', ['id' => Auth::user()->id]) }}"
+                                                    <form action="{{ route('updateMyAcount', ['id' => Auth::user()->id]) }}"
                                                         method="post" enctype="multipart/form-data">
                                                         @csrf
+                                                        @method('PUT')
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
@@ -196,57 +188,7 @@
                                             </div>
                                         </div>
                                     </div> <!-- Single Tab Content End -->
-                                    {{-- <div class="tab-pane fade " id="reset-password" role="tabpanel">
-                                    <div class="myaccount-content">
-                                        <h3>Đổi mật khẩu</h3>
-                                        @if (session('status'))
-                                        <script>
-                                            window.onload = function() {
-                                                alert("{{ session('status') }}");
-                                            }
-                                        </script>
-                                            @endif
-                                            <div class="account-details-form">
-                                                @if (Auth::check())
-                                                    <form action="{{ route('user.updatePassword', ['id' => Auth::user()->id]) }}" method="post">
-                                                        @csrf
-                                                        <fieldset>
-                                                            <div class="single-input-item">
-                                                                <label for="current-pwd" class="required">Mật khẩu hiện tại</label>
-                                                                <input type="password" id="current-pwd" name="current_password" required />
-                                                                @if ($errors->has('current_password'))
-                                                                <span class="text-danger">{{ $errors->first('current_password') }}</span>
-                                                                @endif
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="single-input-item">
-                                                                        <label for="new-pwd" class="required">Mật khẩu mới</label>
-                                                                        <input type="password" id="new-pwd" name="new_password" required />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="single-input-item">
-                                                                        <label for="confirm-pwd" class="required">Nhập lại mật khẩu</label>
-                                                                        <input type="password" id="confirm-pwd" name="new_password_confirmation" required />
-                                                                    </div>
-                                                                </div>
-                                                                @error('new_password')
-                                                                <p class="text-danger">
-                                                                    {{$message}}
-                                                                </p>
-                                                                @enderror
-                                                            </div>
-                                                        </fieldset>
-                                                        <div class="single-input-item">
-                                                            <button class="check-btn sqr-btn">Save Changes</button>
-                                                        </div>
-                                                    </form>
-                                                @endif
-                                            </div>
-                                            
-                                    </div>
-                                </div> --}}
+                                  
                                 </div>
 
                             </div> <!-- My Account Tab Content End -->
@@ -256,4 +198,5 @@
             </div>
         </div>
     </div>
+    
 @endsection

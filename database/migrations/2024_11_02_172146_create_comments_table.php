@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->text('content');
+            $table->integer('rating');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

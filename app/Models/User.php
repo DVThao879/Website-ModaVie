@@ -17,6 +17,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    const ADMIN_ROLE = 2;
+    const STAFF_ROLE = 1;
     protected $fillable = [
         'name',
         'email',
@@ -28,6 +30,7 @@ class User extends Authenticatable
         'password',
         'role',
         'is_active'
+      
     ];
 
     /**
@@ -49,11 +52,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'email_verification_expires_at' => 'datetime', 
         'password' => 'hashed',
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
+        
     ];
-    
+    public function isAdminOrStaff()
+    {
+        return $this->role == self::ADMIN_ROLE || $this->role == self::STAFF_ROLE;
+    }
     public function banners()
     {
         return $this->hasMany(Banner::class);
+    }
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
     }
 }

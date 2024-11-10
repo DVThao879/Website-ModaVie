@@ -17,7 +17,7 @@
                                 </li>
                                 <li><a href="{{route('shop')}}">Cửa hàng </a>
                                 </li>
-                                <li><a href="blog.html">Tin tức</a>
+                                <li><a href="{{route('article')}}">Tin tức</a>
                                 </li>
                                 <li><a href="shop.html">Liên hệ </a></li>
                             </ul>

@@ -1,72 +1,18 @@
 @extends('client.layouts.app')
 
 @section('content')
-    <!-- search start -->
-    <div class="search-content-wrap main-search-active">
-        <a class="search-close"><i class="la la-close"></i></a>
-        <div class="search-content">
-            <p>Start typing and press Enter to search</p>
-            <form class="search-form" action="#">
-                <input type="text" placeholder="Search entire store…">
-                <button class="button-search"><i class="la la-search"></i></button>
-            </form>
-        </div>
-    </div>
-    <!-- mini cart start -->
-    <div class="sidebar-cart-active">
-        <div class="sidebar-cart-all">
-            <a class="cart-close" href="#"><i class="la la-close"></i></a>
-            <div class="cart-content">
-                <h3>Shopping Cart</h3>
-                <ul>
-                    <li class="single-product-cart">
-                        <div class="cart-img">
-                            <a href="#"><img src="{{ asset('theme/user/assets/images/cart/cart-1.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <div class="cart-title">
-                            <h4><a href="#"> Flower Dress </a></h4>
-                            <span>1 × £54.00</span>
-                        </div>
-                        <div class="cart-delete">
-                            <a href="#">×</a>
-                        </div>
-                    </li>
-                    <li class="single-product-cart">
-                        <div class="cart-img">
-                            <a href="#"><img src="{{ asset('theme/user/assets/images/cart/cart-2.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <div class="cart-title">
-                            <h4><a href="#">Ruffled cotton top</a></h4>
-                            <span>1 × £54.00</span>
-                        </div>
-                        <div class="cart-delete">
-                            <a href="#">×</a>
-                        </div>
-                    </li>
-                </ul>
-                <div class="cart-total">
-                    <h4>Subtotal: <span>£ 108.00</span></h4>
-                </div>
-                <div class="cart-checkout-btn btn-hover default-btn">
-                    <a class="btn-size-md btn-bg-black btn-color" href="cart.html">view cart</a>
-                    <a class="no-mrg btn-size-md btn-bg-black btn-color" href="checkout.html">checkout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="breadcrumb-area pt-95 pb-100 bg-img" style="background-image:url(assets/images/bg/breadcrumb.jpg);">
+    
+    <div class="breadcrumb-area pt-95 pb-100 bg-img" style="background-image:url('/theme/client/assets/images/bg/breadcrumb.jpg');">
         <div class="container">
             <div class="breadcrumb-content text-center">
                 <div class="breadcrumb-title">
-                    <h2>my account page</h2>
+                    <h2>Chi tiết</h2>
                 </div>
                 <ul>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.html">Trang chủ</a>
                     </li>
-                    <li class="active">my account </li>
+                    <li class="active">Chi tiết đơn hàng </li>
                 </ul>
             </div>
         </div>
@@ -81,14 +27,10 @@
                         <div class="row">
                             <div class="col-lg-3 col-md-4">
                                 <div class="myaccount-tab-menu nav" role="tablist">
-                                    {{-- <a href="#dashboad" class="active" data-bs-toggle="tab"><i class="fa fa-dashboard"></i>
-                                    Dashboard</a> --}}
+                                   
                                     <a href="#orders" class="active" data-bs-toggle="tab"><i
                                             class="fa fa-cart-arrow-down"></i>Đơn Hàng</a>
-                                    {{-- <a href="#download" data-bs-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a> --}}
-                                    {{-- <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-credit-card"></i> Payment
-                                    Method</a> --}}
-                                    {{-- <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i> address</a> --}}
+                                  
                                     <a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i>Thông Tin Cá
                                         Nhân</a>
                                     <a href="#orders" data-bs-toggle="tab"><i class="fa fa-user"></i>Sản Phẩm Yêu Thích</a>
@@ -124,21 +66,39 @@
                                                     <tbody>
                                                       
                                                         @foreach ($billDetails as $key=>$bill)
+                                                        @if($bill->productVariant)
                                                             <tr>
 
                                                                 <td>{{$key+1}}</td>
-                                                                <td>{{ $bill->product->name }}</td>
+                                                                <td>{{ $bill->productVariant->product->name }}</td>
                                                                 <td>
                                                                     <a href=""><img width="50"
-                                                                            src="{{ Storage::url($bill->product->img_thumb) }}"
+                                                                            src="{{ Storage::url($bill->productVariant->product->img_thumb) }}"
                                                                             alt=""></a>
                                                                 </td>
                                                                 <td>{{$bill->productVariant->size->name }},{{$bill->productVariant->color->name }}</td>
                                                                 <td>{{ $bill->quantity }}</td>
-                                                                <td>{{ $bill->price_sale }}</td>
+                                                                <td>{{ $bill->price}}</td>
                                                                
                                                                 </td>
                                                             </tr>
+                                                            @else
+                                                            <tr>
+
+                                                                <td>{{$key+1}}</td>
+                                                                <td>{{ $bill->product_name }}</td>
+                                                                <td>
+                                                                    <a href=""><img width="50"
+                                                                            src=""
+                                                                            alt="{{$bill->product_name }}"></a>
+                                                                </td>
+                                                                <td>{{$bill->size}},{{$bill->color}}</td>
+                                                                <td>{{ $bill->quantity }}</td>
+                                                                <td>{{ $bill->price }}</td>
+                                                               
+                                                                </td>
+                                                            </tr>
+                                                            @endif
                                                         @endforeach
                                                     </tbody>
                                                 </table>
@@ -191,27 +151,7 @@
 
                                                             </div>
                                                         </div>
-                                                        {{-- <fieldset>
-                                                    <legend>Password change</legend>
-                                                    <div class="single-input-item">
-                                                        <label for="current-pwd" class="required">Current Password</label>
-                                                        <input type="password" id="current-pwd" />
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="single-input-item">
-                                                                <label for="new-pwd" class="required">New Password</label>
-                                                                <input type="password" id="new-pwd" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="single-input-item">
-                                                                <label for="confirm-pwd" class="required">Confirm Password</label>
-                                                                <input type="password" id="confirm-pwd" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </fieldset> --}}
+                                                        
                                                         <div class="single-input-item">
                                                             <button class="check-btn sqr-btn ">Save Changes</button>
                                                         </div>

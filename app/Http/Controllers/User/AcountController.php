@@ -44,6 +44,8 @@ class AcountController extends Controller
         return view('client.show.bill_detail',compact('bills','billDetails'));
 
     }
+   
+
     public function updateMyAcount(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -54,7 +56,9 @@ class AcountController extends Controller
     
         if ($request->hasFile('image')) {
             $url = Storage::put('users', $request->file('image'));
-            Storage::delete($image); // Delete old image if exists
+           if($image){
+            Storage::delete($image); 
+           }
         } else {
             $url = $image;
         }
@@ -83,5 +87,5 @@ class AcountController extends Controller
     
         return redirect()->back()->with('success', 'Cập nhật thành công');
     }
-    
+   
 }

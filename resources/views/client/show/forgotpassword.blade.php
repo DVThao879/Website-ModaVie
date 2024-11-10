@@ -6,13 +6,13 @@
         <div class="container">
             <div class="breadcrumb-content text-center">
                 <div class="breadcrumb-title">
-                    <h2>login register page</h2>
+                    <h2>Quên mật khẩu</h2>
                 </div>
                 <ul>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.html">Trang chủ</a>
                     </li>
-                    <li class="active">login / register </li>
+                    <li class="active">Quên mật khẩu</li>
                 </ul>
             </div>
         </div>
@@ -24,11 +24,9 @@
                     <div class="login-register-wrapper">
                         <div class="login-register-tab-list nav">
                             <a class="active" data-bs-toggle="tab" href="#lg1">
-                                <h4> Forgot Password </h4>
+                                <h4> Quên mật khẩu </h4>
                             </a>
-                            {{-- <a class="active" data-bs-toggle="tab" href="#lg2">
-                                <h4> register </h4>
-                            </a> --}}
+                           
                         </div>
                         <div class="tab-content">
                             <div id="lg1" class="tab-pane active">
@@ -38,11 +36,6 @@
                                             @csrf
                                             <div class="mb-4">
                                                 <input type="email" name="email" placeholder="Email">
-                                                {{-- @if (session('status'))
-                                                <div class="status">
-                                                    <p>{{ session('status') }}</p>
-                                                </div>
-                                            @endif --}}
                                             @if (session('status'))
                                             <script>
                                                 window.onload = function() {
@@ -54,35 +47,19 @@
                                             <p class="text-danger">
                                                 {{$message}}
                                             </p>
-                                            @enderror
-                                                {{-- @if ($errors->any())
-                                                    <div>
-                                                        @foreach ($errors->all() as $error)
-                                                            <p>{{ $error }}</p>
-                                                        @endforeach
-                                                    </div>
-                                                @endif --}}
+                                            @enderror 
                                             </div>
 
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
                                                     {{-- <input type="checkbox"> --}}
                                                     {{-- <label>Login</label> --}}
-                                                    <a href="{{route('register')}}">Register?</a>
+                                                    <a href="{{route('register')}}">Đăng ký?</a>
 
-                                                    <a href="{{route('login')}}">Login, </a>
+                                                    <a href="{{route('login')}}">Bạn đã có tài khoản, </a>
 
                                                 </div>
-                                                {{-- @if ($errors->any())
-                                                <div class="alert alert-danger">
-                                                    <ul>
-                                                        @foreach ($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif --}}
-                                                <button type="submit">Submit</button>
+                                                <button type="submit">Gửi</button>
                                             </div>
                                         </form>
                                     </div>

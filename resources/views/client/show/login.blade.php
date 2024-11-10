@@ -6,13 +6,13 @@
         <div class="container">
             <div class="breadcrumb-content text-center">
                 <div class="breadcrumb-title">
-                    <h2>login register page</h2>
+                    <h2>Đăng nhập</h2>
                 </div>
                 <ul>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.html">Trang chủ</a>
                     </li>
-                    <li class="active">login / register </li>
+                    <li class="active">Đăng nhập</li>
                 </ul>
             </div>
         </div>
@@ -24,7 +24,7 @@
                     <div class="login-register-wrapper">
                         <div class="login-register-tab-list nav">
                             <a class="active" data-bs-toggle="tab" href="#lg1">
-                                <h4> login </h4>
+                                <h4> Đăng nhập </h4>
                             </a>
                             {{-- <a class="active" data-bs-toggle="tab" href="#lg2">
                                 <h4> register </h4>
@@ -41,15 +41,7 @@
                                             }
                                         </script>
                                             @endif
-                                            {{-- @if ($errors->any())
-                                            <div class="alert alert-secondary">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        @endif --}}
+                                           
                                         <form action="{{route('login')}}" method="POST">
                                             @csrf
                                             <div class="mb-4">
@@ -61,7 +53,7 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-4">
-                                                <input type="password" name="password" placeholder="Password">
+                                                <input type="password" name="password" placeholder="Mật khẩu">
                                                 @error('password')
                                                 <p class="text-danger">
                                                     {{$message}}
@@ -70,57 +62,20 @@
                                             </div>
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
-                                                    <input type="checkbox">
-                                                    <label>Remember me</label>
-                                                    <a href="{{route('forgot')}}">Forgot Password?</a>
-                                                    <a href="{{route('register')}}">Register?</a>
+                                                    <input type="checkbox" class="custom-control-input" id="rememberMe" name="remember">
+                                                    <label>Ghi nhớ tôi</label>
+                                                    <a href="{{route('forgot')}}">Quên mật khẩu?</a>
 
-                                                </div>
-                                                {{-- @if ($errors->any())
-                                                <div class="alert alert-danger">
-                                                    <ul>
-                                                        @foreach ($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif --}}
-                                                <button type="submit">Login</button>
+                                                    <a href="{{route('register')}}">Bạn chưa có tài khoản? | </a>
+
+                                                </div>  
+                                                <button type="submit">Đăng nhập</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div id="lg2" class="tab-pane active">
-                                <div class="login-form-container">
-                                    <div class="login-register-form">
-                                        <form action="{{ route('register') }}" method="POST">
-                                            @csrf
-                                            <input type="text" name="name" value="{{ old('name') }}" required
-                                                autofocus placeholder="Username">
-                                            <input name="email" placeholder="Email" type="email"
-                                                value="{{ old('email') }}" required>
-                                            <input type="password" name="password" placeholder="Password">
-                                            <input type="password" name="password_confirmation"
-                                                placeholder="Re-enter password" required>
-                                            @if ($errors->any())
-                                                <div class="alert alert-danger">
-                                                    <ul>
-                                                        @foreach ($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif
-                                            <div class="button-box">
-                                                <button type="submit">Register</button>
-                                            </div>
-
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div> --}}
+                            
                         </div>
                     </div>
                 </div>

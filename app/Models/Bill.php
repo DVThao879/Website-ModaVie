@@ -21,9 +21,14 @@ class Bill extends Model
         'status',
         'date',
         'note',
-        'discount',
-        'order_code'
+        'vourcher_id',
+        'order_code',
+        'is_guest'
     ];
- 
+    protected $casts = [
+       
+        'is_guest' => 'boolean',
+        
+    ];
    
 }

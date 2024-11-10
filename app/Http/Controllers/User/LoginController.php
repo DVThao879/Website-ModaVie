@@ -24,8 +24,8 @@ class LoginController extends Controller
             'email'=>'Email không được bỏ trống',
             'password'=>'Mật khẩu không được bỏ trống'
         ]);
-    
-        if (Auth::attempt($credentials)) {
+        $remember = $request->has('remember');
+        if (Auth::attempt($credentials,$remember)) {
             // Kiểm tra xem email đã được xác thực chưa
             if (Auth::user()->email_verified_at === null) {
                 // Đăng xuất ngay lập tức nếu chưa xác thực
