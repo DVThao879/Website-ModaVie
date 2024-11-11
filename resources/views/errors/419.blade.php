@@ -1,10 +1,7 @@
-@extends('admin.layouts.master')
+@extends('errors.layout')
 
-@section('content')
-<div class="text-center">
-    <div class="error mx-auto" data-text="419">419</div>
-    <p class="lead text-gray-800 mb-3">Phiên làm việc hết hạn</p>
-    <p class="text-gray-500 mb-0">Có vẻ như bạn đang gặp lỗi nhỏ...</p>
-    <a href="{{ route('admin.dashboard') }}">&larr; Trở về trang chủ</a>
-</div>
-@endsection
+@section('title', __('419 - Trang đã hết hạn'))
+@section('title_code', '419')
+@section('title_err', 'Trang đã hết hạn')
+@section('message', __('Phiên làm việc của bạn đã hết hạn. Vui lòng tải lại trang hoặc đăng nhập lại.'))
+

@@ -12,6 +12,8 @@ class StatisticsController extends Controller
 {
     public function index()
     {
+        $this->authorize('view-statistics');
+        
         // Khởi tạo biến
         $monthlyRevenue = session('monthlyRevenue', collect());
         $growthRates = session('growthRates', []);
@@ -23,6 +25,8 @@ class StatisticsController extends Controller
 
     public function showStatistics(Request $request)
     {
+        $this->authorize('show-statistics');
+
         $request->validate([
             'start-date' => 'required|date',
             'end-date' => 'required|date|after_or_equal:start-date',

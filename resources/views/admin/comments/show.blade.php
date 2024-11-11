@@ -40,15 +40,12 @@
                     <a class="dropdown-item activeAll" data-is_active="1" href="#" @if(auth()->user()->role != 2) style="pointer-events: none; opacity: 0.6;" @endif>
                         <i class="fa fa-toggle-off text-danger"></i> Tắt các mục đã chọn
                     </a>
-                    <a class="dropdown-item" href="#" @if(auth()->user()->role != 2) style="pointer-events: none; opacity: 0.6;" @endif>
-                        <i class="fa fa-trash text-danger"></i> Xóa các mục đã chọn
-                    </a>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-disable-sort="false">
                     <thead>
                     <tr>
                         <th>

@@ -1,10 +1,7 @@
-@extends('admin.layouts.master')
+@extends('errors.layout')
 
-@section('content')
-<div class="text-center">
-    <div class="error mx-auto" data-text="500">500</div>
-    <p class="lead text-gray-800 mb-3">Lỗi máy chủ</p>
-    <p class="text-gray-500 mb-0">Có vẻ như bạn đang gặp lỗi nhỏ...</p>
-    <a href="{{ route('admin.dashboard') }}">&larr; Trở về trang chủ</a>
-</div>
-@endsection
+@section('title', __('500 - Lỗi máy chủ'))
+@section('title_code', '500')
+@section('title_err', 'Lỗi máy chủ')
+@section('message', __('Đã xảy ra lỗi từ phía máy chủ. Vui lòng thử lại sau.'))
+

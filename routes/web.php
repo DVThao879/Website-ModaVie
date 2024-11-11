@@ -112,6 +112,15 @@ Route::prefix('admin')->as('admin.')->group(function () {
    Route::get('/users/listUser', [AccountController::class, 'listUser'])->name('users.listUser');
    Route::resource('users', AccountController::class);
 
+   // Cập nhật hồ sơ cá nhân
+   Route::get('/accounts/profile', [AccountController::class, 'profile'])->name('profile');
+   Route::put('/accounts/profile/update', [AccountController::class, 'updateProfile'])->name('profile.update');
+   Route::get('/accounts/profile/change-password', [AccountController::class, 'showChangePasswordForm'])->name('profile.showChangePasswordForm');
+   Route::put('/accounts/profile/change-password', [AccountController::class, 'changePassword'])->name('profile.changePassword');
+
+   // Đăng xuất admin
+   Route::get('logout', [AccountController::class, 'logout'])->name('logout');
+
    //Quản lý đơn hàng
    Route::get('bill', [BillController::class, 'index'])->name('bill.index');
    Route::get('bill/{bill_id}/bill-detail', [BillController::class, 'detail'])->name('bill.detail');

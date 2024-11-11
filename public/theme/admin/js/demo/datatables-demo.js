@@ -1,11 +1,10 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function () {
+  var disableSort = $('#dataTable').data('disable-sort');
   $('#dataTable').DataTable({
     lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
     stateSave: true,
-    columnDefs: [
-      { orderable: false, targets: 0 } // Vô hiệu hóa sắp xếp cho cột đầu tiên (checkbox)
-    ],
+    columnDefs: disableSort ? [] : [{ orderable: false, targets: 0 }],
     language: {
       "sProcessing": "Đang xử lý...",
       "sLengthMenu": "Hiển thị _MENU_ mục",

@@ -1,10 +1,6 @@
-@extends('admin.layouts.master')
+@extends('errors.layout')
 
-@section('content')
-<div class="text-center">
-    <div class="error mx-auto" data-text="401">401</div>
-    <p class="lead text-gray-800 mb-3">Không được phép</p>
-    <p class="text-gray-500 mb-0">Có vẻ như bạn đang gặp lỗi nhỏ...</p>
-    <a href="{{ route('admin.dashboard') }}">&larr; Trở về trang chủ</a>
-</div>
-@endsection
+@section('title', __('401 - Không được phép'))
+@section('title_code', '401')
+@section('title_err', 'Không được phép')
+@section('message', __('Bạn không có quyền truy cập vào tài nguyên này. Vui lòng kiểm tra quyền truy cập hoặc đăng nhập lại.'))
