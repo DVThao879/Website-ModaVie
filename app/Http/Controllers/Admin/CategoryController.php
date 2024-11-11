@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Category::class);
-        $data = Category::orderBy('id', 'desc')->get();
+        $data = Category::withCount('products')->orderBy('id', 'desc')->get();
         return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
     }
 

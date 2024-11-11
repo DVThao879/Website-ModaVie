@@ -4,8 +4,7 @@
             <div class="row align-items-center">
                 <div class="col-xl-2 col-lg-2">
                     <div class="logo">
-                        <a href="index.html" class="fw-bold fs-3 text-info">
-                            {{-- <img src="assets/images/logo/logo.png" alt="logo"> --}}MODAVIE
+                        <a href="{{ route('home') }}" class="fw-bold fs-3 text-info">MODAVIE
                         </a>
                     </div>
                 </div>
@@ -47,16 +46,9 @@
                         </div>
                         
                         <div class="same-style setting-wrap ml-15">
-                            @if(Auth::check())
-                            <a class="setting-active" href="#"><a class="setting-active" href="#">
-                                <img width="30" src="{{ Auth::check() ? Storage::url(Auth::user()->image ?? 'users/avata.jpg') : Storage::url('users/avata.jpg') }}" alt="" style="border-radius: 50%; border: 2px solid #ddd;">
+                            <a class="setting-active" href="#">
+                                <img class="profile-image" src="{{ Auth::check() ? Storage::url(Auth::user()->image ?? 'users/avata.jpg') : Storage::url('users/avata.jpg') }}" alt="">
                             </a>
-                            </a>
-
-                            @else
-                            <a class="setting-active" href="#"><i class="la la-cog"></i></a>
-
-                            @endif
                             <div class="setting-content">
                                 <ul>
 

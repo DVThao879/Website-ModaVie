@@ -28,7 +28,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-3">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Bình luận</h6>
             <div class="dropdown float-right">
                 <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cogs"></i> Tùy chọn
@@ -40,15 +40,12 @@
                     <a class="dropdown-item activeAll" data-is_active="1" href="#" @if(auth()->user()->role != 2) style="pointer-events: none; opacity: 0.6;" @endif>
                         <i class="fa fa-toggle-off text-danger"></i> Tắt các mục đã chọn
                     </a>
-                    <a class="dropdown-item" href="#" @if(auth()->user()->role != 2) style="pointer-events: none; opacity: 0.6;" @endif>
-                        <i class="fa fa-trash text-danger"></i> Xóa các mục đã chọn
-                    </a>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-disable-sort="false">
                     <thead>
                     <tr>
                         <th>
@@ -58,6 +55,7 @@
                         <th>Tên sản phẩm</th>
                         <th>Tên tài khoản</th>
                         <th>Nội dung</th>
+                        <th>Đánh giá</th>
                         <th>Ngày bình luận</th>
                         <th>Trạng thái</th>
                     </tr>
@@ -69,6 +67,7 @@
                             <th>Tên sản phẩm</th>
                             <th>Tên tài khoản</th>
                             <th>Nội dung</th>
+                            <th>Đánh giá</th>
                             <th>Ngày bình luận</th>
                             <th>Trạng thái</th>
                         </tr>
@@ -83,6 +82,7 @@
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $item->user->name ?? 'N/A' }}</td>
                                 <td>{{ $item->content }}</td>
+                                <td>{{ $item->rating }} sao</td>
                                 <td>{{ $item->created_at->format('d/m/Y H:i') }}</td>
                                 <td class="text-center">
                                     <input type="checkbox" class="js-switch active" data-model="{{ $item->is_active }}"

@@ -94,7 +94,7 @@
                                                                         @foreach ($billDetails as $detail)
                                                                             <li class="list-group-item">
                                                                                 <strong>Sản phẩm: </strong>
-                                                                                {{ $detail->productVariant->product->name }}<br>
+                                                                                {{ $detail->product_name }}<br>
                                                                                 <strong>Ảnh: </strong><img width="50px"
                                                                                     src="{{ Storage::url($detail->productVariant->product->img_thumb) }}"
                                                                                     alt=""><br>
@@ -104,9 +104,9 @@
                                                                                 {{ number_format($detail->price, 0, ',', '.') }}
                                                                                 VND<br>
                                                                                 <strong>Size: </strong>
-                                                                                {{ $detail->productVariant->size->name }}<br>
+                                                                                {{ $detail->size }}<br>
                                                                                 <strong>Màu: </strong>
-                                                                                {{ $detail->productVariant->color->name }}
+                                                                                {{ $detail->color }}
 
                                                                             </li>
                                                                         @endforeach

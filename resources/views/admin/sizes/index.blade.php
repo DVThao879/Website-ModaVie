@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Danh sách size
+    Danh sách kích thước
 @endsection
 
 @section('style-libs')
@@ -25,18 +25,12 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-3">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Kích thước</h6>
             <div class="dropdown float-right">
                 <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cogs"></i> Tùy chọn
                 </button>
                 <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item activeAll" data-is_active="0" href="#" @if(auth()->user()->role != 2) style="pointer-events: none; opacity: 0.6;" @endif>
-                        <i class="fa fa-toggle-on text-success"></i> Bật các mục đã chọn
-                    </a>
-                    <a class="dropdown-item activeAll" data-is_active="1" href="#" @if(auth()->user()->role != 2) style="pointer-events: none; opacity: 0.6;" @endif>
-                        <i class="fa fa-toggle-off text-danger"></i> Tắt các mục đã chọn
-                    </a>
                     <a class="dropdown-item" href="#" @if(auth()->user()->role != 2) style="pointer-events: none; opacity: 0.6;" @endif>
                         <i class="fa fa-trash text-danger"></i> Xóa các mục đã chọn
                     </a>
@@ -45,7 +39,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-disable-sort="false">
                     <thead>
                     <tr>
                         <th>

@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\Admin\StatisticsController;
+use App\Http\Controllers\Admin\BillController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Ajax\ChangeActiveController;
 use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\CartController;
@@ -37,19 +40,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
 // Route cho login và register 
- Route::middleware('guest')->group(function () {
-    Route::get('auth/login', [LoginController::class, 'index'])->name('login');
-    Route::post('auth/login', [LoginController::class, 'login']);
-    
-    Route::get('auth/register', [RegisterController::class, 'index'])->name('register');
-    Route::post('auth/register', [RegisterController::class, 'register']);
+Route::middleware('guest')->group(function () {
+   Route::get('auth/login', [LoginController::class, 'index'])->name('login');
+   Route::post('auth/login', [LoginController::class, 'login']);
 
-    Route::get('auth/forgot', [ForgotPasswordController::class, 'forgotForm'])->name('forgot');
-    Route::post('auth/forgot', [ForgotPasswordController::class, 'forgot'])->name('forgot.password');
-    Route::get('verify-email/{token}', [ForgotPasswordController::class, 'verifyEmail'])->name('verify.email');
-    
-    // Route xác thực email
-    Route::get('auth/verify/{token}', [LoginController::class, 'verify'])->name('verify');
+   Route::get('auth/register', [RegisterController::class, 'index'])->name('register');
+   Route::post('auth/register', [RegisterController::class, 'register']);
+
+   Route::get('auth/forgot', [ForgotPasswordController::class, 'forgotForm'])->name('forgot');
+   Route::post('auth/forgot', [ForgotPasswordController::class, 'forgot'])->name('forgot.password');
+   Route::get('verify-email/{token}', [ForgotPasswordController::class, 'verifyEmail'])->name('verify.email');
+
+   // Route xác thực email
+   Route::get('auth/verify/{token}', [LoginController::class, 'verify'])->name('verify');
 });
 
 // Route cho logout 
@@ -61,10 +64,10 @@ Route::post('password/reset', [ForgotPasswordController::class, 'reset'])->name(
 
 // Các route tài khoản 
 Route::middleware('auth')->group(function () {
-    Route::get('/my_acount', [AcountController::class, 'myAucount'])->name('my_acount');
-    Route::put('/my_acount/update/{id}', [AcountController::class, 'updateMyAcount'])->name('updateMyAcount');
-    Route::get('/my_acount/{id}/bill_detail', [AcountController::class, 'orderBillDetail'])->name('viewBillDetail');
-    Route::get('my_acount/orders/cancel/{id}', [HomeController::class, 'cancelOrder'])->name('cancelOrder');
+   Route::get('/my_acount', [AcountController::class, 'myAucount'])->name('my_acount');
+   Route::put('/my_acount/update/{id}', [AcountController::class, 'updateMyAcount'])->name('updateMyAcount');
+   Route::get('/my_acount/{id}/bill_detail', [AcountController::class, 'orderBillDetail'])->name('viewBillDetail');
+   Route::get('my_acount/orders/cancel/{id}', [HomeController::class, 'cancelOrder'])->name('cancelOrder');
 });
 // Cửa hàng
 Route::get('shop', [ShopController::class, 'index'])->name('shop');
@@ -85,10 +88,10 @@ Route::get('/cart/clear', [CartController::class, 'clearAllCart'])->name('cart.c
 Route::get('/checkout', [CartController::class, 'showCheckout'])->name('checkout');
 Route::post('/place-order', [CartController::class, 'placeOrder'])->name('placeOrder');
 // Tìm kiếm và theo dõi đơn hàng 
- Route::get('/bills/search', [CartController::class, 'searchBill'])->name('bill.search');
- Route::get('/my_bill/{id}/bill_detail', [CartController::class, 'orderTracking'])->name('bill.orderTracking');
- //Binh luan
- Route::post('/comments', [ReviewController::class, 'store'])->name('comments.store');
+Route::get('/bills/search', [CartController::class, 'searchBill'])->name('bill.search');
+Route::get('/my_bill/{id}/bill_detail', [CartController::class, 'orderTracking'])->name('bill.orderTracking');
+//Binh luan
+Route::post('/comments', [ReviewController::class, 'store'])->name('comments.store');
 
 
 // Blog 
@@ -99,19 +102,15 @@ Route::get('/article/{id}', [ArticleController::class, 'detail'])->name('article
 Route::post('/apply-voucher', [CartController::class, 'applyVoucher'])->name('apply.voucher');
 
 //Phần Admin
+
 Route::middleware('guest')->group(function () {
    Route::get('admin/login', [CheckLoginController::class, 'loginForm'])->name('admin.loginForm');
    Route::post('admin/checkLogin', [CheckLoginController::class, 'login'])->name('admin.checkLogin');
 });
+// ->middleware(['auth', 'isAdmin'])
+Route::prefix('admin')->as('admin.')->middleware('isAdmin')->group(function () {
 
-Route::middleware(['auth', 'isAdmin'])->group(function () {
-   Route::post('/logout', [CheckLoginController::class, 'logout'])->name('admin.logout');
-});
-
- Route::prefix('admin')->as('admin.')->middleware( 'isAdmin')->group(function () {
-   Route::get('/', function () {
-      return view('admin.dashboard');
-   })->name('dashboard');
+   Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
    Route::resource('categories', CategoryController::class);
    Route::resource('products', ProductController::class);
    Route::resource('colors', ColorController::class);
@@ -125,6 +124,30 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 
    Route::get('/users/listUser', [AccountController::class, 'listUser'])->name('users.listUser');
    Route::resource('users', AccountController::class);
+
+   // Cập nhật hồ sơ cá nhân
+   Route::get('/accounts/profile', [AccountController::class, 'profile'])->name('profile');
+   Route::put('/accounts/profile/update', [AccountController::class, 'updateProfile'])->name('profile.update');
+   Route::get('/accounts/profile/change-password', [AccountController::class, 'showChangePasswordForm'])->name('profile.showChangePasswordForm');
+   Route::put('/accounts/profile/change-password', [AccountController::class, 'changePassword'])->name('profile.changePassword');
+
+   // Đăng xuất admin
+   Route::get('logout', [AccountController::class, 'logout'])->name('logout');
+
+   //Quản lý đơn hàng
+   Route::get('bill', [BillController::class, 'index'])->name('bill.index');
+   Route::get('bill/{bill_id}/bill-detail', [BillController::class, 'detail'])->name('bill.detail');
+   Route::get('bill/confirm/{bill_id}', [BillController::class, 'confirmBill'])->name('bill.confirmBill');
+   Route::get('bill/ship/{bill_id}', [BillController::class, 'shipBill'])->name('bill.shipBill');
+   Route::get('bill/confirm-shipping/{bill_id}', [BillController::class, 'confirmShipping'])->name('bill.confirmShipping');
+   Route::get('bill/cancel/{bill_id}', [BillController::class, 'cancelBill'])->name('bill.cancelBill');
+
+   // In hóa đơn
+   Route::get('gerenate/{order_code}', [BillController::class, 'gerenatePdf'])->name('gerenate');
+
+   // Thống kê
+   Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+   Route::post('statistics/show', [StatisticsController::class, 'showStatistics'])->name('statistics.show');
 
    //ajax category
    Route::post('categories/ajax/changeActiveCategory', [ChangeActiveController::class, 'changeActiveCategory']);

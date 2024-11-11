@@ -10,7 +10,7 @@
 </a>
 <div class="card shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-        <h4 class="mb-0">Chi tiết danh mục</h4>
+        <h4 class="mb-0">Chi tiết voucher</h4>
         <a href="{{ route('admin.vouchers.edit', $voucher) }}" class="btn btn-light btn-sm">Chỉnh sửa</a>
     </div>
     <div class="card-body">

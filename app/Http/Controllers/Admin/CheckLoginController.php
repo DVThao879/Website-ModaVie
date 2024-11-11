@@ -11,12 +11,6 @@ use Illuminate\Support\Facades\RateLimiter;
 
 class CheckLoginController extends Controller
 {
-    public function logout(){
-        Auth::logout();
-        \request()->session()->invalidate();
-        
-        return redirect()->route('admin.loginForm');
-    }
     public function loginForm(){
         return view('admin.accounts.login');
     }
@@ -48,6 +42,19 @@ class CheckLoginController extends Controller
             $request->session()->regenerate();
             
             $user = Auth::user();
+
+            if($user->is_active == 0){
+                Auth::logout(); 
+                return back()->withErrors([
+                    'err' => 'Tài khoản của bạn hiện tại không hoạt động', 
+                ]);
+            }
+            if($user->email_verified_at == null){
+                Auth::logout(); 
+                return back()->withErrors([
+                    'err' => 'Tài khoản của bạn chưa xác thực! Vui lòng đăng nhập bên client để xác minh', 
+                ]);
+            }
            
             if ($user->role==2 || $user->role==1) { 
                 $request->session()->put('user_name', $user->name);
@@ -57,12 +64,6 @@ class CheckLoginController extends Controller
                 return back()->withErrors([
                     'err' => 'Bạn không có quyền truy cập vào trang admin',
                 ])->onlyInput('err');
-            }
-            if($user->is_active==0){
-                Auth::logout(); 
-                return back()->withErrors([
-                    'err' => 'Tài khoản của bạn hiện tại không hoạt động.', 
-                ]);
             }
 
         }

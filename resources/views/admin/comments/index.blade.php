@@ -5,13 +5,11 @@
 @endsection
 
 @section('style-libs')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css">
     <!-- Custom styles for this page -->
     <link href="{{asset('theme/admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endsection
 
 @section('script-libs')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
     <!-- Page level plugins -->
     <script src="{{asset('theme/admin/vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('theme/admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
@@ -24,16 +22,13 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-3">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Bình luận</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-disable-sort="true">
                     <thead>
                     <tr>
-                        <th>
-                            <input id="checkAllTable" type="checkbox">
-                        </th>
                         <th>STT</th>
                         <th>Tên sản phẩm</th>
                         <th>Hình ảnh</th>
@@ -43,7 +38,6 @@
                     </thead>
                     <tfoot>
                         <tr>
-                        <th></th>
                         <th>STT</th>
                         <th>Tên sản phẩm</th>
                         <th>Hình ảnh</th>
@@ -54,9 +48,6 @@
                     <tbody>
                         @foreach($data as $key => $item)
                             <tr>
-                                <td>
-                                    <input type="checkbox" class="checkBoxItem" data-id="{{ $item->id }}">
-                                </td>
                                 <td>{{$key+1}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>

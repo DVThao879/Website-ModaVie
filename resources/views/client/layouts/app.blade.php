@@ -30,6 +30,16 @@
     <link rel="stylesheet" href="{{asset('theme/client/assets/css/plugins/slick.css')}}">
     <link rel="stylesheet" href="{{asset('theme/client/assets/css/style.css')}}">
 
+    <style>
+    .profile-image {
+    width: 30px; /* hoặc bất kỳ kích thước nào bạn muốn */
+    height: 30px; /* chiều cao bằng chiều rộng để giữ hình vuông */
+    object-fit: cover; /* đảm bảo hình ảnh được cắt để vừa với khung tròn */
+    border-radius: 50%; /* tạo khung tròn */
+    border: 2px solid #ddd;
+    display: block; /* đảm bảo nó là block để áp dụng width và height chính xác */
+    }
+    </style>
 </head>
 
 <body>

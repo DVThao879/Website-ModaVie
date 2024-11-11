@@ -99,12 +99,7 @@
                             <div class="product-wrap product-border-1 mb-30">
                                 <div class="product-img">
                                     <a href="{{route('product.detail',$product->slug)}}"><img src="{{Storage::url($product->img_thumb)}}" alt="product"></a>
-                                    {{-- <span class="product-badge">-30%</span> --}}
-                                    {{-- <div class="product-action">
-                                        <a data-bs-toggle="modal" data-bs-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-                                        <a title="Add To Cart" href="#"><i class="la la-shopping-cart"></i></a>
-                                        <a title="Wishlist" href="wishlist.html"><i class="la la-heart-o"></i></a>
-                                    </div> --}}
+                                    <span class="product-badge">New</span>
                                 </div>
                                 <div class="product-content product-content-padding text-center">
                                     <div class="text-center">
@@ -151,11 +146,6 @@
                                 @if($productBest->discount_percentage)
                                     <span class="product-badge">-{{ $productBest->discount_percentage }}%</span>
                                 @endif
-                                <div class="product-action">
-                                    <a data-bs-toggle="modal" data-bs-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-                                    <a title="Add To Cart" href="#"><i class="la la-shopping-cart"></i></a>
-                                    <a title="Wishlist" href="wishlist.html"><i class="la la-heart-o"></i></a>
-                                </div>
                             </div>
                             <div class="product-content product-content-padding text-center">
                                 <div class="text-center">
@@ -167,15 +157,15 @@
                                 </div>
                                 <h4><a href="{{ route('product.detail', ['slug' => $productBest->product->slug]) }}">{{ $productBest->product->name }}</a></h4>
                                 <div class="product-rating">
-                                    @for($i = 0; $i < 5; $i++)
-                                        <i class="la la-star{{ $i < $productBest->product->rating ? '' : '-o' }}"></i>
-                                    @endfor
+                                    <i class="la la-star"></i>
+                                    <i class="la la-star"></i>
+                                    <i class="la la-star"></i>
+                                    <i class="la la-star"></i>
+                                    <i class="la la-star"></i>
                                 </div>
-                                <div class="product-price">
-                                    <span>{{ number_format($productBest->price_sale ?: $productBest->price, 0, ',', '.') }} đ</span>
-                                    @if($productBest->price_sale)
-                                        <span class="old">{{ number_format($productBest->price, 0, ',', '.') }} đ</span>
-                                    @endif
+                                <div class="">
+                                    <span style="font-size: 16px">{{ number_format($product->price_min, 0, ',', '.') }} -  </span>
+                                    <span style="font-size: 16px">{{ number_format($product->price_max, 0, ',', '.') }} VNĐ </span>
                                 </div>
                             </div>
                         </div>

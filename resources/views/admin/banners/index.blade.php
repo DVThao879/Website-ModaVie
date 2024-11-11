@@ -28,7 +28,7 @@ Danh sách banner
 <!-- DataTales Example -->
 <div class="card shadow mb-4 mt-3">
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Banner</h6>
         <div class="dropdown float-right">
             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-cogs"></i> Tùy chọn
@@ -48,7 +48,7 @@ Danh sách banner
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-disable-sort="false">
                 <thead>
                     <tr>
                         <th>
@@ -82,7 +82,7 @@ Danh sách banner
                         <td>{{$key+1}}</td>
                         <td>{{$item->title}}</td>
                         <td>
-                            <div style="width: 100px; height: 50px;">
+                            <div style="width: 100px; height: auto;">
                                 <img src="{{ Storage::url($item->image) }}" alt="Banner Image" class="img-fluid img-thumbnail" style=" width: 100%; height: 100%;">
                             </div>
                         </td>

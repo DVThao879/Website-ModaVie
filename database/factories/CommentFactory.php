@@ -23,6 +23,7 @@ class CommentFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id,
             'product_id' => Product::inRandomOrder()->first()->id,
             'content' => fake()->sentence(),
+            'rating' => rand(1,5)
         ];
     }
 }

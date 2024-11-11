@@ -44,6 +44,13 @@
 
                         </div>
                         <div id="gallery" class="mt-20 product-dec-slider">
+                            <a href="{{ Storage::url($product->img_thumb) }}"
+                                data-image="{{ Storage::url($product->img_thumb) }}"
+                                data-zoom-image="{{ Storage::url($product->img_thumb) }}"
+                                style="display: block; width: 100px; margin-right: 10px; margin-bottom: 10px; text-decoration: none;">
+                                <img src="{{ Storage::url($product->img_thumb) }}" alt="Gallery Image"
+                                    style="width: 100%; height: auto; display: block;" />
+                            </a>
                             @foreach ($product->galleries as $galleri)
                                 <a href="{{ Storage::url($galleri->image) }}"
                                     data-image="{{ Storage::url($galleri->image) }}"
@@ -55,10 +62,6 @@
                             @endforeach
                         </div>
                     </div>
-
-
-
-
                 </div>
 
                 <div class="col-lg-6 col-md-6">
@@ -331,113 +334,7 @@
             </div>
         </div>
     </div>
-    {{-- @if(Auth::check())
 
-    <div class="description-review-area pb-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-8">
-                    <div class="description-review-wrapper">
-                        <div class="description-review-topbar nav">
-
-                            <a class="active" data-bs-toggle="tab" href="#des-details2">Bình luận (3)</a>
-                        </div>
-                        <div class="tab-content description-review-bottom">
-
-                            <div id="des-details2" class="tab-pane active">
-                                <div class="review-wrapper">
-                                    @foreach ($comments as $comment)
-                                        <div class="single-review">
-                                            <div class="review-img">
-                                                <img src="{{ Storage::url($comment->user->image) }}" alt="User Image">
-                                            </div>
-                                            <div class="review-content">
-                                                <p>{{ $comment->content }}</p>
-                                                <div class="review-top-wrap">
-                                                    <div class="review-name">
-                                                        <h4>{{ $comment->user->name }}</h4>
-                                                    </div>
-                                                    <div class="review-rating">
-                                                        @for ($i = 1; $i <= $comment->rating; $i++)
-                                                            <i class="la la-star"></i>
-                                                        @endfor
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                
-                                    <div class="pagination-wrapper">
-                                        {{ $comments->links('pagination::bootstrap-5') }}
-                                      </div>
-                                </div>
-                                <div class="ratting-form-wrapper">
-
-
-                                    <div class="star-box-wrap">
-                                        <div class="single-ratting-star" data-rating="1">
-                                            <i class="la la-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star" data-rating="2">
-                                            <i class="la la-star"></i>
-                                            <i class="la la-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star" data-rating="3">
-                                            <i class="la la-star"></i>
-                                            <i class="la la-star"></i>
-                                            <i class="la la-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star" data-rating="4">
-                                            <i class="la la-star"></i>
-                                            <i class="la la-star"></i>
-                                            <i class="la la-star"></i>
-                                            <i class="la la-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star" data-rating="5">
-                                            <i class="la la-star"></i>
-                                            <i class="la la-star"></i>
-                                            <i class="la la-star"></i>
-                                            <i class="la la-star"></i>
-                                            <i class="la la-star"></i>
-                                        </div>
-                                    </div>
-
-
-
-
-                                    <div class="ratting-form">
-                                        <form action="{{ route('comments.store') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                            <input type="hidden" id="rating-value" name="rating" value="">
-
-                                            <div class="rating-form-style mb-20">
-                                                <label>Nội dung<span>*</span></label>
-                                                <textarea name="content" required></textarea>
-                                            </div>
-
-                                            <div class="form-submit">
-                                                <input type="submit" value="Gửi bình luận">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                               
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="pro-dec-banner">
-                        <a href="#"><img src="{{ asset('theme/client/assets/images/banner/banner-4.png') }}"
-                                alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif --}}
     <div class="product-area pb-100">
         <div class="container">
             <div class="section-title text-center mb-45">
@@ -474,10 +371,9 @@
                                     <i class="la la-star"></i>
                                     <i class="la la-star"></i>
                                 </div>
-                                <div class="product-price">
-                                    <span>{{ number_format($spcl->price_min, 0) }} VNĐ - </span>
-                                    <span style="margin-left: 15px">{{ number_format($spcl->price_max, 0) }} VNĐ</span>
-
+                                <div class="">
+                                    <span style="font-size: 16px">{{ number_format($product->price_min, 0, ',', '.') }} -  </span>
+                                    <span style="font-size: 16px">{{ number_format($product->price_max, 0, ',', '.') }} VNĐ </span>
                                 </div>
                             </div>
                         </div>

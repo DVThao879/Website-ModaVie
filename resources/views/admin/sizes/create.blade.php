@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-Thêm size
+Thêm kích thước
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@ Thêm size
                 <!-- Main product information -->
                 <a href="#collapseProductInfo" class="d-block card-header py-3" data-toggle="collapse"
                     role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                    <h6 class="m-0 font-weight-bold text-primary">Thông tin size</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Thông tin kích thước</h6>
                 </a>
                 <!-- Card Content - Collapse -->
                 <div class="collapse show" id="collapseProductInfo">

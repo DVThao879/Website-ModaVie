@@ -42,7 +42,9 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                                <img src="https://images.unsplash.com/photo-1728131751556-3694189db906?q=80&w=1922&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Background Image" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
@@ -76,7 +78,7 @@
                                             @enderror
                                         </div>
                                         @if ($errors->has('err'))
-                                        <span class="text-danger">{{ $errors->first('err') }}</span>
+                                        <small class="text-danger">{{ $errors->first('err') }}</small>
                                         @endif
 
                                         <div class="form-group d-flex justify-content-between align-items-center">
@@ -85,7 +87,7 @@
                                                 <label class="custom-control-label" for="customCheck">Ghi nhớ tôi</label>
                                             </div>
                                             <div>
-                                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                                <a class="small" href="{{ route('forgot') }}">Forgot Password?</a>
                                             </div>
                                         </div>
                                         

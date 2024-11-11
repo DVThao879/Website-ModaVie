@@ -1,10 +1,7 @@
-@extends('admin.layouts.master')
+@extends('errors.layout')
 
-@section('content')
-<div class="text-center">
-    <div class="error mx-auto" data-text="429">429</div>
-    <p class="lead text-gray-800 mb-3">Quá nhiều yêu cầu</p>
-    <p class="text-gray-500 mb-0">Có vẻ như bạn đang gặp lỗi nhỏ...</p>
-    <a href="{{ route('admin.dashboard') }}">&larr; Trở về trang chủ</a>
-</div>
-@endsection
+@section('title', __('429 - Quá nhiều yêu cầu'))
+@section('title_code', '429')
+@section('title_err', 'Quá nhiều yêu cầu')
+@section('message', __('Bạn đã gửi quá nhiều yêu cầu trong một thời gian ngắn. Vui lòng thử lại sau.'))
+
