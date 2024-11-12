@@ -348,20 +348,25 @@
                                 <a href="{{ route('product.detail', $spcl->slug) }}">
                                     <img src="{{ Storage::url($spcl->img_thumb) }}" alt="product">
                                 </a>
-                                <div class="product-action">
-                                    <a data-bs-toggle="modal" data-bs-target="#exampleModal" title="Quick View"
-                                        href="#">
-                                        <i class="la la-plus"></i>
-                                    </a>
-                                    <a title="Add To Cart" href="#">
-                                        <i class="la la-shopping-cart"></i>
-                                    </a>
-                                    <a title="Wishlist" href="wishlist.html">
-                                        <i class="la la-heart-o"></i>
-                                    </a>
-                                </div>
                             </div>
                             <div class="product-content product-content-padding text-center">
+                                <div class="text-center">
+
+
+                                    @if ($spcl->variants->isNotEmpty())
+                                        @php
+                                            $uniqueColors = $spcl->variants
+                                                ->pluck('color')
+                                                ->filter()
+                                                ->unique('hex_code');
+                                        @endphp
+
+                                        @foreach ($uniqueColors as $color)
+                                            <span
+                                                style="background-color: {{ $color->hex_code }}; width: 15px; height: 15px; display: inline-block; border: 1px solid #ccc;border-radius:50%"></span>
+                                        @endforeach
+                                    @endif
+                                </div>
                                 <h4><a href="{{ route('product.detail', $spcl->slug) }}">{{ $spcl->name }}</a>
                                 </h4>
                                 <div class="product-rating">
