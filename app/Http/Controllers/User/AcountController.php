@@ -37,7 +37,7 @@ class AcountController extends Controller
         
       
            $billIds = $bills->pluck('id');
-           $billDetails = BillDetail::whereIn('bill_id', $billIds)->with(['product','productVariant'])->get();
+           $billDetails = BillDetail::whereIn('bill_id', $billIds)->with('productVariant')->get();
        
    
     //   dd($billDetails);

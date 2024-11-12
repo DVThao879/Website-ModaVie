@@ -32,7 +32,7 @@
                                 <span><i class="la la-eye"></i> {{$blog->view}}</span>
                                 
                             </div>
-                            <p>{{$blog->content}}</p>
+                            <p>{!! $blog->content !!}</p>
                              @if($voucher)
                                <p>Mã giảm giá: <strong>{{$voucher->code }}</strong> ( còn {{ \Carbon\Carbon::parse($voucher->start_date)->diffInDays(\Carbon\Carbon::parse($voucher->end_date)) }} ngày) </p>
                                <p>Giảm <strong>{{$voucher->discount}} % </strong> cho đơn hàng từ <strong>{{ number_format($voucher->min_money, 0, ',', '.') }} VND</strong>  đến <strong>{{ number_format($voucher->max_money, 0, ',', '.') }} VND</strong>   </p>

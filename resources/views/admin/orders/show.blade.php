@@ -61,9 +61,9 @@ Chi tiết đơn hàng
                         <span class="ml-2">
                         @if($bill->user_id)
                             {{$bill->user->email}}
-                        @elseif($bill->user_id == '0')
+                        @elseif($bill->user_id == null && $bill->is_guest == 0)
                             Khách vãng lai nên không có email
-                        @elseif($bill->user_id == null)
+                        @elseif($bill->user_id == null && $bill->is_guest == 1)
                             Tài khoản bị xóa nên không có email
                         @endif
                         </span>

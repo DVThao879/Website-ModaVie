@@ -306,6 +306,7 @@ class CartController extends Controller
             'payment_method' => $paymentMethod,
             'order_code' => 'MODAVIE' . strtoupper(Str::random(10)),
             'voucher_id' => $voucherId, 
+            'updated_at' => now(),
         ]);
     
         foreach ($cart as $item) {
@@ -324,6 +325,8 @@ class CartController extends Controller
                 'price' => $item['price_sale'],
                 'size' => DB::table('sizes')->where('id', $variant->size_id)->value('name'),
                 'color' => DB::table('colors')->where('id', $variant->color_id)->value('name'),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
     
             DB::table('product_variants')->where('id', $variantId)->decrement('quantity', $item['quantity']);
@@ -338,7 +341,7 @@ class CartController extends Controller
     
         session()->forget(['cart', 'discount', 'total_after_discount', 'voucher_id']);
     
-        return redirect()->route('cart.show')->with('success', 'Đặt hàng thành công. Vui lòng thanh toán khi nhận hàng.');
+        return redirect()->route('cart.show')->with('success', 'Đặt hàng thành công. Vui lòng xem email để xem chi tiết đơn hàng.');
     }
     
     
@@ -356,7 +359,7 @@ class CartController extends Controller
             return view('client.show.order_tracking', ['message' => 'Không tìm thấy đơn hàng nào với mã đơn hàng này.']);
         }
         $billIds = $bills->pluck('id');
-        $billDetails = BillDetail::whereIn('bill_id', $billIds)->with(['product', 'productVariant'])->get();
+        $billDetails = BillDetail::whereIn('bill_id', $billIds)->with('productVariant')->get();
         // dd($billDetails);
         return view('client.show.order_tracking', compact('bills', 'billDetails'));
     }
